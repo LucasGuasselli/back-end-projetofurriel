@@ -15,8 +15,8 @@ public class PostoGraduacaoResource {
 
 	@RequestMapping(method=RequestMethod.GET)
 	public List<PostoGraduacao> listar() {
-		PostoGraduacao soldadoEV = new PostoGraduacao(1, "Soldado EV", 854.00, 37.576 );
-		PostoGraduacao soldadoEP = new PostoGraduacao(2, "Soldado EP", 1758.00, 65.032);
+		PostoGraduacao soldadoEV = new PostoGraduacao("Soldado EV", 854.00, 37.576 );
+		PostoGraduacao soldadoEP = new PostoGraduacao("Soldado EP", 1758.00, 65.032);
 		
 		List<PostoGraduacao> lista = new ArrayList<>();
 			lista.add(soldadoEV);

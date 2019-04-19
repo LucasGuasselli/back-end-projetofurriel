@@ -2,12 +2,19 @@ package com.lucasguasselli.projetofurriel.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
+@Entity
 public class PostoGraduacao implements Serializable{
 
 	// esta versao a baixo se faz necessaria por causa do Serializable (padrao java)
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private String nome;
 	private double soldo;
@@ -17,9 +24,9 @@ public class PostoGraduacao implements Serializable{
 		
 	}
 
-	public PostoGraduacao(int id, String nome, double soldo, double cotaParte) {
+	public PostoGraduacao(String nome, double soldo, double cotaParte) {
 		super();
-		this.id = id;
+		// this.id = id;
 		this.nome = nome;
 		this.soldo = soldo;
 		this.cotaParte = cotaParte;
