@@ -1,11 +1,14 @@
 package com.lucasguasselli.projetofurriel.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class PostoGraduacao implements Serializable{
@@ -20,6 +23,9 @@ public class PostoGraduacao implements Serializable{
 	private double soldo;
 	private double cotaParte;
 	
+	@OneToMany(mappedBy="postoGraduacao")
+	private List<Militar> militares = new ArrayList<>();
+	
 	public PostoGraduacao() {
 		
 	}
@@ -30,6 +36,14 @@ public class PostoGraduacao implements Serializable{
 		this.nome = nome;
 		this.soldo = soldo;
 		this.cotaParte = cotaParte;
+	}
+
+	public List<Militar> getMilitares() {
+		return militares;
+	}
+
+	public void setMilitares(List<Militar> militares) {
+		this.militares = militares;
 	}
 
 	public int getId() {

@@ -7,7 +7,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
+import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 
 @SpringBootApplication
@@ -15,6 +17,8 @@ public class ProjetofurrielApplication implements CommandLineRunner{
 
 	@Autowired
 	private PostoGraduacaoDAO postoGradDAO;
+	@Autowired
+	private MilitarDAO militarDAO;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetofurrielApplication.class, args);
@@ -36,8 +40,21 @@ public class ProjetofurrielApplication implements CommandLineRunner{
 		PostoGraduacao capitao = new PostoGraduacao("Capitão", 8517.00, 511.02);
 		PostoGraduacao major = new PostoGraduacao("Major", 10472.00, 628.32);
 
+		Militar lucas = new Militar(123456789, "Lucas");
+		Militar grillo = new Militar(2456, "Grillo");
+		
+		lucas.setPostoGraduacao(cabo);
+		grillo.setPostoGraduacao(segundoSargento);
+		
+		// cabo.getMilitares().addAll(Arrays.asList(lucas));
+		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));
+
+		
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
+		
+		militarDAO.saveAll(Arrays.asList(lucas, grillo));
+	
 	}
 
 }
