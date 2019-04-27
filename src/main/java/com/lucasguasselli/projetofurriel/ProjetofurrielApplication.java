@@ -8,9 +8,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
+import com.lucasguasselli.projetofurriel.dao.ConducaoDAO;
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
+import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 
@@ -23,6 +25,8 @@ public class ProjetofurrielApplication implements CommandLineRunner{
 	private MilitarDAO militarDAO;
 	@Autowired
 	private AuxilioTransporteDAO auxilioTransporteDAO;
+	@Autowired
+	private ConducaoDAO conducaoDAO;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ProjetofurrielApplication.class, args);
@@ -47,23 +51,24 @@ public class ProjetofurrielApplication implements CommandLineRunner{
 		Militar lucas = new Militar(123456789, "Lucas");
 		Militar grillo = new Militar(2456, "Grillo");
 		
-		AuxilioTransporte aux1 = new AuxilioTransporte(220,11,lucas);
-		AuxilioTransporte aux2 = new AuxilioTransporte(298,15,grillo);
-		
-		// 
 		lucas.setPostoGraduacao(cabo);
 		grillo.setPostoGraduacao(segundoSargento);
 		
+		AuxilioTransporte aux1 = new AuxilioTransporte(220,11,lucas);
+		AuxilioTransporte aux2 = new AuxilioTransporte(298,15,grillo);
+				
 		// cabo.getMilitares().addAll(Arrays.asList(lucas));
 		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));
 
+		Conducao cond1 = new Conducao("bairro-centro","Viva-Sul", "Onibus",4.70, aux1);
+		Conducao cond2 = new Conducao("centro-bairro", "Viva-Sul", "Onibus", 4.70, aux1);
 		
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
-		
 		militarDAO.saveAll(Arrays.asList(lucas, grillo));
-		
 		auxilioTransporteDAO.saveAll(Arrays.asList(aux1, aux2));
+		conducaoDAO.saveAll(Arrays.asList(cond1, cond2));
+				
 	
 	}
 
