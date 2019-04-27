@@ -5,6 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 public class Militar {
 
@@ -14,6 +16,7 @@ public class Militar {
 
 	//private int idPosto;
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="postoGraduacao_id")
 	private PostoGraduacao postoGraduacao = new PostoGraduacao();

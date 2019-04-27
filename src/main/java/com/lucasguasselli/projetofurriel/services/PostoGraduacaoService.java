@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
+import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PostoGraduacaoService {
@@ -17,6 +18,9 @@ public class PostoGraduacaoService {
 	
 	public PostoGraduacao buscar(Integer id) {
 		Optional<PostoGraduacao> obj = postoGradDAO.findById(id);
-			return obj.orElse(null);
+			return obj.orElseThrow(() -> new ObjectNotFoundException(
+					"Objeto nao encontrado! Id: " + id + ", Tipo: " + PostoGraduacao.class.getName()));
 	}
+	
+	
 }
