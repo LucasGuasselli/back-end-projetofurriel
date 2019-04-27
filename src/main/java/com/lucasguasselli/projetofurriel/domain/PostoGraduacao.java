@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Entity
 public class PostoGraduacao implements Serializable{
 
-	// esta versao a baixo se faz necessaria por causa do Serializable (padrao java)
+	// este serialVersion abaixo se faz necessaria por causa do Serializable (padrao java)
 	private static final long serialVersionUID = 1L;
 	
 	@Id

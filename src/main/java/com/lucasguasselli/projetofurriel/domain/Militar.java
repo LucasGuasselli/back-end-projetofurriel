@@ -4,8 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 public class Militar {
@@ -13,14 +15,19 @@ public class Militar {
 	@Id
 	private int precCP;
 	private String nome;
-
 	//private int idPosto;
 	
+	// conexao com postoGraduacao
 	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name="postoGraduacao_id")
 	private PostoGraduacao postoGraduacao = new PostoGraduacao();
 	
+	/*
+		@JsonManagedReference
+		@OneToOne(mappedBy="militar")	
+		private AuxilioTransporte auxilioTransporte = new AuxilioTransporte();
+	*/
 	public Militar(){
 		
 	}
@@ -33,6 +40,15 @@ public class Militar {
 		//this.postoGraduacao = postoGraduacao;
 	}
 
+/*
+	public AuxilioTransporte getAuxilioTransporte() {
+		return auxilioTransporte;
+	}
+
+	public void setAuxilioTransporte(AuxilioTransporte auxilioTransporte) {
+		this.auxilioTransporte = auxilioTransporte;
+	}
+*/
 	public int getPrecCP() {
 		return precCP;
 	}
