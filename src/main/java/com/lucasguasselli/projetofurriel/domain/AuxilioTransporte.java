@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class AuxilioTransporte implements Serializable{
@@ -21,12 +21,12 @@ public class AuxilioTransporte implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private double valorTotalAT;
-	private double valorDiarioAT;
+	private double valorDiarioAT;	
 	
-	@JsonBackReference
+	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="militar_precCP")
-	private Militar militar = new Militar();
+	private Militar militar;
 	
 	public AuxilioTransporte() {
 		

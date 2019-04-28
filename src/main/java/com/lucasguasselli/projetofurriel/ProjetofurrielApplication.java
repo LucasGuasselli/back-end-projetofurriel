@@ -50,9 +50,11 @@ public class ProjetofurrielApplication implements CommandLineRunner{
 
 		Militar lucas = new Militar(123456789, "Lucas");
 		Militar grillo = new Militar(2456, "Grillo");
+		Militar mauro = new Militar(258,"Mauro");
 		
 		lucas.setPostoGraduacao(cabo);
 		grillo.setPostoGraduacao(segundoSargento);
+		mauro.setPostoGraduacao(segundoSargento);
 		
 		AuxilioTransporte aux1 = new AuxilioTransporte(220,11,lucas);
 		AuxilioTransporte aux2 = new AuxilioTransporte(298,15,grillo);
@@ -65,7 +67,7 @@ public class ProjetofurrielApplication implements CommandLineRunner{
 		
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
-		militarDAO.saveAll(Arrays.asList(lucas, grillo));
+		militarDAO.saveAll(Arrays.asList(lucas, grillo,mauro));
 		auxilioTransporteDAO.saveAll(Arrays.asList(aux1, aux2));
 		conducaoDAO.saveAll(Arrays.asList(cond1, cond2));
 				

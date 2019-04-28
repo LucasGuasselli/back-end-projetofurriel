@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -23,11 +24,10 @@ public class Militar {
 	@JoinColumn(name="postoGraduacao_id")
 	private PostoGraduacao postoGraduacao = new PostoGraduacao();
 	
-	/*
-		@JsonManagedReference
-		@OneToOne(mappedBy="militar")	
-		private AuxilioTransporte auxilioTransporte = new AuxilioTransporte();
-	*/
+	
+	@OneToOne(cascade=CascadeType.ALL, mappedBy="militar")
+	private AuxilioTransporte auxilioTransporte;
+	
 	public Militar(){
 		
 	}
@@ -40,7 +40,6 @@ public class Militar {
 		//this.postoGraduacao = postoGraduacao;
 	}
 
-/*
 	public AuxilioTransporte getAuxilioTransporte() {
 		return auxilioTransporte;
 	}
@@ -48,7 +47,7 @@ public class Militar {
 	public void setAuxilioTransporte(AuxilioTransporte auxilioTransporte) {
 		this.auxilioTransporte = auxilioTransporte;
 	}
-*/
+
 	public int getPrecCP() {
 		return precCP;
 	}
@@ -101,6 +100,11 @@ public class Militar {
 		if (precCP != other.precCP)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Militar [precCP=" + precCP + ", nome=" + nome + ", postoGraduacao=" + postoGraduacao + "]";
 	}	
 	
 	
