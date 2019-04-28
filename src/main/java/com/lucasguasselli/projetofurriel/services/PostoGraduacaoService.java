@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
+import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -22,5 +23,7 @@ public class PostoGraduacaoService {
 					"Objeto nao encontrado! Id: " + id + ", Tipo: " + PostoGraduacao.class.getName()));
 	}
 	
-	
+	public PostoGraduacao insert(PostoGraduacao obj) {
+		return postoGraduacaoDAO.save(obj);
+	}
 }

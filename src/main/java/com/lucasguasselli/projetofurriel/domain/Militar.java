@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Militar {
@@ -19,11 +19,10 @@ public class Militar {
 	//private int idPosto;
 	
 	// conexao com postoGraduacao
-	@JsonBackReference
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="postoGraduacao_id")
-	private PostoGraduacao postoGraduacao = new PostoGraduacao();
-	
+	private PostoGraduacao postoGraduacao = new PostoGraduacao();	
 	
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="militar")
 	private AuxilioTransporte auxilioTransporte;
@@ -38,6 +37,14 @@ public class Militar {
 		// this.idPosto = idPosto;
 		this.nome = nome;
 		//this.postoGraduacao = postoGraduacao;
+	}
+	
+	
+	public Militar(int precCP, String nome, PostoGraduacao postoGraduacao) {
+		super();
+		this.precCP = precCP;
+		this.nome = nome;
+		this.postoGraduacao = postoGraduacao;
 	}
 
 	public AuxilioTransporte getAuxilioTransporte() {

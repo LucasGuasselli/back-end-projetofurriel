@@ -25,7 +25,6 @@ public class PostoGraduacao implements Serializable{
 	private double soldo;
 	private double cotaParte;
 	
-	@JsonManagedReference
 	@OneToMany(mappedBy="postoGraduacao")
 	private List<Militar> militares = new ArrayList<>();
 	

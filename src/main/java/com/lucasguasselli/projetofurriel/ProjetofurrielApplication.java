@@ -59,19 +59,17 @@ public class ProjetofurrielApplication implements CommandLineRunner{
 		AuxilioTransporte aux1 = new AuxilioTransporte(220,11,lucas);
 		AuxilioTransporte aux2 = new AuxilioTransporte(298,15,grillo);
 				
-		// cabo.getMilitares().addAll(Arrays.asList(lucas));
-		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));
-
 		Conducao cond1 = new Conducao("bairro-centro","Viva-Sul", "Onibus",4.70, aux1);
 		Conducao cond2 = new Conducao("centro-bairro", "Viva-Sul", "Onibus", 4.70, aux1);
-		
+	
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
 		militarDAO.saveAll(Arrays.asList(lucas, grillo,mauro));
 		auxilioTransporteDAO.saveAll(Arrays.asList(aux1, aux2));
 		conducaoDAO.saveAll(Arrays.asList(cond1, cond2));
 				
-	
+		// cabo.getMilitares().addAll(Arrays.asList(lucas));
+		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));
 	}
 
 }
