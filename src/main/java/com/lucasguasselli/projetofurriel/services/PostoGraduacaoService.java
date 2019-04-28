@@ -17,7 +17,7 @@ public class PostoGraduacaoService {
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private PostoGraduacaoDAO postoGraduacaoDAO;
 	
-	public PostoGraduacao buscar(Integer id) {
+	public PostoGraduacao find(Integer id) {
 		Optional<PostoGraduacao> obj = postoGraduacaoDAO.findById(id);
 			return obj.orElseThrow(() -> new ObjectNotFoundException(
 					"Objeto nao encontrado! Id: " + id + ", Tipo: " + PostoGraduacao.class.getName()));
@@ -25,5 +25,10 @@ public class PostoGraduacaoService {
 	
 	public PostoGraduacao insert(PostoGraduacao obj) {
 		return postoGraduacaoDAO.save(obj);
+	}
+	
+	public PostoGraduacao update(PostoGraduacao obj) {
+		find(obj.getId());
+			return postoGraduacaoDAO.save(obj);
 	}
 }

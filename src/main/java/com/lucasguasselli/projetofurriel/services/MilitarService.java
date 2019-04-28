@@ -16,7 +16,7 @@ public class MilitarService {
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private MilitarDAO militarDAO;
 	
-	public Militar buscar(Integer id) {
+	public Militar find(Integer id) {
 		Optional<Militar> obj = militarDAO.findById(id);
 			return obj.orElseThrow(() -> new ObjectNotFoundException(
 					"Objeto nao encontrado! Id: " + id + ", Tipo: " + Militar.class.getName()));

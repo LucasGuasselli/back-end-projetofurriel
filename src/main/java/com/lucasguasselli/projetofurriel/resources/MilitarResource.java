@@ -23,8 +23,8 @@ public class MilitarResource {
 	private MilitarService service;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
-			Militar obj = service.buscar(id);
+	public ResponseEntity<Militar> find(@PathVariable Integer id) {
+			Militar obj = service.find(id);
 				return ResponseEntity.ok().body(obj);	
 	}
 	
