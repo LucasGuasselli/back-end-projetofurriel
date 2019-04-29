@@ -27,6 +27,7 @@ public class PostoGraduacaoResource {
 				return ResponseEntity.ok().body(obj);	
 	}
 	
+	// @RequestBody faz o obj ser convertido para JSON automaticamente
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody PostoGraduacao obj){
 			obj = service.insert(obj);
@@ -36,10 +37,17 @@ public class PostoGraduacaoResource {
 				return ResponseEntity.created(uri).build();
 	}
 	
+	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@RequestBody PostoGraduacao obj, @PathVariable Integer id){
 		obj.setId(id);
 		obj = service.update(obj);
+			return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.delete(id);
 			return ResponseEntity.noContent().build();
 	}
 }
