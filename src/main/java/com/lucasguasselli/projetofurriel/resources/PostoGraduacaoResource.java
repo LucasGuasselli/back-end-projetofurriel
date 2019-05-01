@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -33,8 +35,11 @@ public class PostoGraduacaoResource {
 	}
 	
 	// @RequestBody faz o obj ser convertido para JSON automaticamente
+	// @Valid valida o Objeto
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody PostoGraduacao obj){
+	public ResponseEntity<Void> insert(@Valid @RequestBody PostoGraduacaoDTO objDTO){
+		// transformando um objeto DTO em um objeto Entity
+		PostoGraduacao obj = service.fromDTO(objDTO);	
 			obj = service.insert(obj);
 		// este metodo serve para enviar o precCP para rota
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -43,11 +48,14 @@ public class PostoGraduacaoResource {
 	}
 	
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
-	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@RequestBody PostoGraduacao obj, @PathVariable Integer id){
-		obj.setId(id);
-		obj = service.update(obj);
-			return ResponseEntity.noContent().build();
+	// @Valid valida o Objeto
+    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody PostoGraduacaoDTO objDTO, @PathVariable Integer id){
+		// transformando um objeto DTO em um objeto Entity
+		PostoGraduacao obj = service.fromDTO(objDTO);
+			obj.setId(id);
+			obj = service.update(obj);
+				return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)

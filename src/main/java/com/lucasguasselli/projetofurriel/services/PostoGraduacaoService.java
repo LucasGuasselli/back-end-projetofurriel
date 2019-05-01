@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
+import com.lucasguasselli.projetofurriel.dto.PostoGraduacaoDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -54,5 +55,10 @@ public class PostoGraduacaoService {
 	public Page<PostoGraduacao> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 			return postoGraduacaoDAO.findAll(pageRequest);
+	}
+	
+	// a partir de um DTO vai ser construido e retornado um objeto postoGraduacao
+	public PostoGraduacao fromDTO(PostoGraduacaoDTO objDTO) {
+		return new PostoGraduacao(objDTO.getId(),objDTO.getNome(), objDTO.getSoldo(), objDTO.getCotaParte());
 	}
 }
