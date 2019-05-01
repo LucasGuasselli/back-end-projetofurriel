@@ -5,6 +5,9 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
@@ -45,5 +48,11 @@ public class PostoGraduacaoService {
 	
 	public List<PostoGraduacao> findAll(){
 		return postoGraduacaoDAO.findAll();
+	}
+	
+	// retornando uma pagina de dados (limitar resultados)
+	public Page<PostoGraduacao> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+			return postoGraduacaoDAO.findAll(pageRequest);
 	}
 }
