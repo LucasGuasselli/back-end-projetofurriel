@@ -1,18 +1,24 @@
 package com.lucasguasselli.projetofurriel.resources;
 
-import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
+import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
+import com.lucasguasselli.projetofurriel.dto.PostoGraduacaoDTO;
 import com.lucasguasselli.projetofurriel.services.MilitarService;
 
 @RestController
@@ -39,4 +45,44 @@ public class MilitarResource {
 				return ResponseEntity.created(uri).build();
 	}
 	*/
+	
+	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
+		// @Valid valida o Objeto
+	    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
+		public ResponseEntity<Void> update(@Valid @RequestBody MilitarDTO objDTO, @PathVariable Integer id){
+			// transformando um objeto DTO em um objeto Entity
+			Militar obj = service.fromDTO(objDTO);
+				obj.setPrecCP(id);
+				obj = service.update(obj);
+					return ResponseEntity.noContent().build();
+		}
+		
+		@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+		public ResponseEntity<Void> delete(@PathVariable Integer id) {
+			service.delete(id);
+				return ResponseEntity.noContent().build();
+		}
+		
+		// retornando todos objetos
+		@RequestMapping(method=RequestMethod.GET)
+		public ResponseEntity<List<MilitarDTO>> findAll() {
+				List<Militar> list = service.findAll();
+				// percorrendo a lista para declarar o DTO correspondente
+				List<MilitarDTO> listDTO = list.stream().map(obj -> new MilitarDTO(obj)).collect(Collectors.toList());
+					return ResponseEntity.ok().body(listDTO);	
+		}
+		
+		// retornando um numero X de objetos (pages)
+		@RequestMapping(value="/page", method=RequestMethod.GET)
+		public ResponseEntity<Page<MilitarDTO>> findPage(
+			// @RequestParam serve para tornar os parametros opcionais	
+				@RequestParam(value="page", defaultValue="0") Integer page,
+				@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
+				@RequestParam(value="orderBy", defaultValue="nome")String orderBy, 
+				@RequestParam(value="direction", defaultValue="ASC")String direction) {
+					Page<Militar> list = service.findPage(page,linesPerPage,orderBy, direction);
+						// percorrendo a lista para declarar o DTO correspondente
+						Page<MilitarDTO> listDTO = list.map(obj -> new MilitarDTO(obj));
+							return ResponseEntity.ok().body(listDTO);	
+			}
 }
