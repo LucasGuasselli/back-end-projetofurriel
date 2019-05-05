@@ -30,6 +30,10 @@ public class PostoGraduacao implements Serializable{
 	public PostoGraduacao() {
 		
 	}
+	
+	public PostoGraduacao(Integer id) {
+		this.id = id;
+	}
 
 	public PostoGraduacao(String nome, double soldo, double cotaParte) {
 		super();
@@ -37,9 +41,9 @@ public class PostoGraduacao implements Serializable{
 		this.nome = nome;
 		this.soldo = soldo;
 		this.cotaParte = cotaParte;
-	}
+	}	
 	
-	public PostoGraduacao(int id, String nome, double soldo, double cotaParte) {
+	public PostoGraduacao(Integer id, String nome, double soldo, double cotaParte) {
 		super();
 		this.id = id;
 		this.nome = nome;

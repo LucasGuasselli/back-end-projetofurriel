@@ -34,8 +34,9 @@ public class PostoGraduacaoService {
 	}
 	
 	public PostoGraduacao update(PostoGraduacao obj) {
-		find(obj.getId());
-			return postoGraduacaoDAO.save(obj);
+		PostoGraduacao newObj = find(obj.getId());
+		updateData(newObj, obj);
+			return postoGraduacaoDAO.save(newObj);
 	}
 	
 	public void delete(Integer id) {
@@ -60,5 +61,12 @@ public class PostoGraduacaoService {
 	// a partir de um DTO vai ser construido e retornado um objeto postoGraduacao
 	public PostoGraduacao fromDTO(PostoGraduacaoDTO objDTO) {
 		return new PostoGraduacao(objDTO.getId(),objDTO.getNome(), objDTO.getSoldo(), objDTO.getCotaParte());
+	}
+	
+	private void updateData(PostoGraduacao newObj, PostoGraduacao obj) {
+		newObj.setId(obj.getId());
+		newObj.setNome(obj.getNome());
+		newObj.setSoldo(obj.getSoldo());
+		newObj.setCotaParte(obj.getCotaParte());
 	}
 }

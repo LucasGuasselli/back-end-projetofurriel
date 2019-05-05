@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
+import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.dto.PostoGraduacaoDTO;
 import com.lucasguasselli.projetofurriel.services.MilitarService;
 
@@ -34,17 +37,18 @@ public class MilitarResource {
 				return ResponseEntity.ok().body(obj);	
 	}
 	
-	/*
+	
 	// @RequestBody faz o obj ser convertido para JSON automaticamente
 	@RequestMapping(method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody Militar obj){
+	public ResponseEntity<Void> insert(@RequestBody MilitarNewDTO objNewDTO){
+			Militar obj = service.fromDTO(objNewDTO);
 			obj = service.insert(obj);
 		// este metodo serve para enviar o precCP para rota
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getPrecCP()).toUri();
 				// created gera o codigo 201 (cadastrado com sucesso)
 				return ResponseEntity.created(uri).build();
 	}
-	*/
+	
 	
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
 		// @Valid valida o Objeto

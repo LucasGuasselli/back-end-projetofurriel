@@ -3,6 +3,8 @@ package com.lucasguasselli.projetofurriel.services;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -11,9 +13,11 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
+import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.Militar;
-import com.lucasguasselli.projetofurriel.domain.Militar;
+import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
+import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -24,16 +28,19 @@ public class MilitarService {
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private MilitarDAO militarDAO;
 	
+	@Autowired
+	private PostoGraduacaoDAO postoGraduacaoDAO;
+	
 	public Militar find(Integer precCP) {
 		Optional<Militar> obj = militarDAO.findById(precCP);
 			return obj.orElseThrow(() -> new ObjectNotFoundException(
 					"Objeto nao encontrado! Id: " + precCP + ", Tipo: " + Militar.class.getName()));
 	}
-/*
+
+  	@Transactional
 	public Militar insert(Militar obj) {
-		return MilitarDAO.save(obj);
+		return militarDAO.save(obj);
 	}
-*/
 	
 	public Militar update(Militar obj) {
 		Militar newObj = find(obj.getPrecCP());
@@ -63,7 +70,14 @@ public class MilitarService {
 	// a partir de um DTO vai ser construido e retornado um objeto Militar
 	public Militar fromDTO(MilitarDTO objDTO) {
 			return new Militar(objDTO.getPrecCP(),objDTO.getNome());
-		}
+	}
+	
+	public Militar fromDTO(MilitarNewDTO objDTO) {
+		Militar militar = new Militar(objDTO.getPrecCP(),objDTO.getNome());
+		PostoGraduacao postoGraduacao = new PostoGraduacao(objDTO.getPostoGraduacaoId());
+		militar.setPostoGraduacao(postoGraduacao);
+			return militar;
+	}
 	
 	private void updateData(Militar newObj, Militar obj) {
 		newObj.setPrecCP(obj.getPrecCP());
