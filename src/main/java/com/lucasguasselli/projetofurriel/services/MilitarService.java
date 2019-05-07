@@ -67,6 +67,13 @@ public class MilitarService {
 			return militarDAO.findAll(pageRequest);
 	}
 	
+	// buscando por nome
+	public Page<Militar> search(String nome, Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		// List<PostoGraduacao> postosGraduacoes = postoGraduacaoDAO.findAllById(ids);
+			return militarDAO.search(nome,pageRequest);
+	}
+	
 	// a partir de um DTO vai ser construido e retornado um objeto Militar
 	public Militar fromDTO(MilitarDTO objDTO) {
 			return new Militar(objDTO.getPrecCP(),objDTO.getNome());

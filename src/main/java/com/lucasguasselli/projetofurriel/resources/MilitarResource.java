@@ -18,10 +18,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.Militar;
-import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
 import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
-import com.lucasguasselli.projetofurriel.dto.PostoGraduacaoDTO;
+import com.lucasguasselli.projetofurriel.resources.utils.URL;
 import com.lucasguasselli.projetofurriel.services.MilitarService;
 
 @RestController
@@ -85,6 +84,22 @@ public class MilitarResource {
 				@RequestParam(value="orderBy", defaultValue="nome")String orderBy, 
 				@RequestParam(value="direction", defaultValue="ASC")String direction) {
 					Page<Militar> list = service.findPage(page,linesPerPage,orderBy, direction);
+						// percorrendo a lista para declarar o DTO correspondente
+						Page<MilitarDTO> listDTO = list.map(obj -> new MilitarDTO(obj));
+							return ResponseEntity.ok().body(listDTO);	
+			}
+		
+		@RequestMapping(value="/buscarMilitaresPorNome", method=RequestMethod.GET)
+		public ResponseEntity<Page<MilitarDTO>> findPage(
+			// @RequestParam serve para tornar os parametros opcionais	
+				@RequestParam(value="nome", defaultValue="0") String nome,
+				@RequestParam(value="page", defaultValue="0") Integer page,
+				@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
+				@RequestParam(value="orderBy", defaultValue="nome")String orderBy, 
+				@RequestParam(value="direction", defaultValue="ASC")String direction) {
+					String nomeDecoded = URL.decodeParam(nome);
+					// List<Integer> ids = URL.decodeIntList(postosGraduacoes);
+					Page<Militar> list = service.search(nomeDecoded, page,linesPerPage,orderBy, direction);
 						// percorrendo a lista para declarar o DTO correspondente
 						Page<MilitarDTO> listDTO = list.map(obj -> new MilitarDTO(obj));
 							return ResponseEntity.ok().body(listDTO);	
