@@ -13,7 +13,6 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
-import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
@@ -27,9 +26,6 @@ public class MilitarService {
 	
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private MilitarDAO militarDAO;
-	
-	@Autowired
-	private PostoGraduacaoDAO postoGraduacaoDAO;
 	
 	public Militar find(Integer precCP) {
 		Optional<Militar> obj = militarDAO.findById(precCP);

@@ -1,9 +1,5 @@
 package com.lucasguasselli.projetofurriel.dto;
 
-import javax.validation.constraints.NotEmpty;
-
-import org.hibernate.validator.constraints.Length;
-
 import com.lucasguasselli.projetofurriel.domain.Militar;
 
 public class MilitarDTO{
