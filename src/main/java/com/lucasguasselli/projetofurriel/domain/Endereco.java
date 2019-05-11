@@ -6,6 +6,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Endereco implements Serializable{
@@ -24,13 +28,19 @@ public class Endereco implements Serializable{
 	
 	
 	// conexao com militar
-	//@JsonIgnore
-	//@OneToOne
-	//@JoinColumn(name="militar_precCP")
-	//private Militar militar;
+	@JsonIgnore
+	@OneToOne
+	@JoinColumn(name="militar_precCP")
+	private Militar militar;
+	
+	//a entidade que possui o join colunm que recebe o objeto ao ser instanciada
 	
 	public Endereco() {
 		
+	}
+	
+	public Endereco(int id) {
+		this.id = id;
 	}
 		
 	public Endereco(String rua, String bairro, String cidade, int numero, String complemento) {
@@ -49,10 +59,16 @@ public class Endereco implements Serializable{
 		this.cidade = cidade;
 		this.numero = numero;
 		this.complemento = complemento;
-		// this.militar = militar;
+	    this.militar = militar;
 	}
 
+	public Militar getMilitar() {
+		return militar;
+	}
 
+	public void setMilitar(Militar militar) {
+		this.militar = militar;
+	}
 
 	public int getId() {
 		return id;

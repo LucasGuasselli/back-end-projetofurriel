@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.resources;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.dto.EnderecoDTO;
+import com.lucasguasselli.projetofurriel.dto.EnderecoNewDTO;
 import com.lucasguasselli.projetofurriel.services.EnderecoService;
 
 @RestController
@@ -32,18 +35,18 @@ public class EnderecoResource {
 				return ResponseEntity.ok().body(obj);	
 	}
 	
-	/*
+	
 	// @RequestBody faz o obj ser convertido para JSON automaticamente
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody EnderecoNewDTO objNewDTO){
 			Endereco obj = service.fromDTO(objNewDTO);
 			obj = service.insert(obj);
 		// este metodo serve para enviar o precCP para rota
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getPrecCP()).toUri();
+			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 				// created gera o codigo 201 (cadastrado com sucesso)
 				return ResponseEntity.created(uri).build();
 	}
-	*/
+	
 	
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
 		// @Valid valida o Objeto

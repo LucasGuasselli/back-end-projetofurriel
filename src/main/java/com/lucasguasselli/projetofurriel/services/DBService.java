@@ -48,22 +48,20 @@ public class DBService {
 		Militar grillo = new Militar(2456, "Grillo");
 		Militar mauro = new Militar(258,"Mauro");
 		// Militar guilherme = new Militar(147,"Guilherme");
-
-		
-		lucas.setPostoGraduacao(cabo);
-		grillo.setPostoGraduacao(segundoSargento);
-		mauro.setPostoGraduacao(segundoSargento);
-		// guilherme.setPostoGraduacao(cabo);
-		
+			
 		AuxilioTransporte aux1 = new AuxilioTransporte(220,11,lucas);
 		AuxilioTransporte aux2 = new AuxilioTransporte(298,15,grillo);
 				
 		Conducao cond1 = new Conducao("bairro-centro","Viva-Sul", "Onibus",4.70, aux1);
 		Conducao cond2 = new Conducao("centro-bairro", "Viva-Sul", "Onibus", 4.70, aux1);
 		
-		Endereco end = new Endereco("Fronteira","Campo Novo","Porto Alegre",169,"fundos");
-		Endereco end2 = new Endereco("Fronteira","Campo Novo","Porto Alegre",169,"fundos");
+		Endereco end = new Endereco("Fronteira","Campo Novo","Porto Alegre",169,"fundos", lucas);
+		Endereco end2 = new Endereco("Fronteira","Campo Novo","Porto Alegre",169,"fundos", grillo);
 
+		lucas.setPostoGraduacao(cabo);
+		grillo.setPostoGraduacao(segundoSargento);
+		mauro.setPostoGraduacao(segundoSargento);
+		// guilherme.setPostoGraduacao(cabo);
 		
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));

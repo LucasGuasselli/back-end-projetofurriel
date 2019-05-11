@@ -14,7 +14,9 @@ import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.EnderecoDAO;
 import com.lucasguasselli.projetofurriel.domain.Endereco;
+import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.EnderecoDTO;
+import com.lucasguasselli.projetofurriel.dto.EnderecoNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -45,6 +47,7 @@ public class EnderecoService {
 	public void delete(Integer id) {
 		find(id);
 		try {
+			System.out.println(id);
 			enderecoDAO.deleteById(id);
 		}catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possivel excluir um Endereco ****");
@@ -61,7 +64,7 @@ public class EnderecoService {
 			return enderecoDAO.findAll(pageRequest);
 	}
 	
-	/*
+/*
 	// buscando por nome
 	public Page<Endereco> search(String nome, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
@@ -69,14 +72,16 @@ public class EnderecoService {
 			return EnderecoDAO.search(nome,pageRequest);
 	}
 		
+*/
+	
 	public Endereco fromDTO(EnderecoNewDTO objDTO) {
-		Endereco Endereco = new Endereco(objDTO.getPrecCP(),objDTO.getNome());
-		PostoGraduacao postoGraduacao = new PostoGraduacao(objDTO.getPostoGraduacaoId());
-		Endereco.setPostoGraduacao(postoGraduacao);
+		Endereco Endereco = new Endereco(objDTO.getRua(),objDTO.getBairro(),objDTO.getCidade(),objDTO.getNumero(),objDTO.getComplemento());
+		Militar militar = new Militar(objDTO.getMilitarPrecCP());
+		Endereco.setMilitar(militar);
 			return Endereco;
 	}
 	
-	*/
+	
 	
 	// a partir de um DTO vai ser construido e retornado um objeto Endereco
 	public Endereco fromDTO(EnderecoDTO objDTO) {

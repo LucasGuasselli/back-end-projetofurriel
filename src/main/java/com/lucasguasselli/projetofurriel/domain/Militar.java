@@ -25,8 +25,15 @@ public class Militar {
 	@OneToOne(cascade=CascadeType.ALL, mappedBy="militar")
 	private AuxilioTransporte auxilioTransporte;
 	
+	@OneToOne(mappedBy="militar")
+	private Endereco endereco;
+	
 	public Militar(){
 		
+	}
+	
+	public Militar(int precCP) {
+		this.precCP = precCP;
 	}
 
 	public Militar(int precCP, String nome) {
@@ -43,6 +50,15 @@ public class Militar {
 		this.precCP = precCP;
 		this.nome = nome;
 		this.postoGraduacao = postoGraduacao;
+	}
+
+	
+	public Endereco getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(Endereco endereco) {
+		this.endereco = endereco;
 	}
 
 	public AuxilioTransporte getAuxilioTransporte() {
@@ -109,8 +125,11 @@ public class Militar {
 
 	@Override
 	public String toString() {
-		return "Militar [precCP=" + precCP + ", nome=" + nome + ", postoGraduacao=" + postoGraduacao + "]";
-	}	
+		return "Militar [precCP=" + precCP + ", nome=" + nome + ", postoGraduacao=" + postoGraduacao
+				+ ", auxilioTransporte=" + auxilioTransporte + ", endereco=" + endereco + "]";
+	}
+
+	
 	
 	
 }
