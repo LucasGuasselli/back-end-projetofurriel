@@ -2,6 +2,7 @@ package com.lucasguasselli.projetofurriel.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -128,7 +129,11 @@ public class Endereco implements Serializable{
 			return false;
 		return true;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "Endereco [id=" + id + ", rua=" + rua + ", bairro=" + bairro + ", cidade=" + cidade + ", numero="
+				+ numero + ", complemento=" + complemento + ", militar=" + militar + "]";
+	}
 	
 }

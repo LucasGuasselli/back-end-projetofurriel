@@ -2,6 +2,7 @@ package com.lucasguasselli.projetofurriel.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,10 +32,19 @@ public class AuxilioTransporte implements Serializable{
 	public AuxilioTransporte() {
 		
 	}
+	
+	public AuxilioTransporte(int id) {
+		this.id = id;
+	}
+	
+	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT) {
+		super();
+		this.valorTotalAT = valorTotalAT;
+		this.valorDiarioAT = valorDiarioAT;
+	} 
 		
 	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, Militar militar) {
 		super();
-		// this.id = id;
 		this.valorTotalAT = valorTotalAT;
 		this.valorDiarioAT = valorDiarioAT;
 		this.militar = militar;

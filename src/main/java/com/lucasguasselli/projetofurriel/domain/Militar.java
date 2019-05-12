@@ -20,12 +20,12 @@ public class Militar {
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="postoGraduacao_id")
-	private PostoGraduacao postoGraduacao = new PostoGraduacao();	
+	private PostoGraduacao postoGraduacao;	
 	
-	@OneToOne(cascade=CascadeType.ALL, mappedBy="militar")
+	@OneToOne(mappedBy="militar",cascade=CascadeType.ALL)
 	private AuxilioTransporte auxilioTransporte;
 	
-	@OneToOne(mappedBy="militar")
+	@OneToOne(mappedBy="militar", cascade=CascadeType.ALL)
 	private Endereco endereco;
 	
 	public Militar(){
@@ -125,8 +125,7 @@ public class Militar {
 
 	@Override
 	public String toString() {
-		return "Militar [precCP=" + precCP + ", nome=" + nome + ", postoGraduacao=" + postoGraduacao
-				+ ", auxilioTransporte=" + auxilioTransporte + ", endereco=" + endereco + "]";
+		return "Militar [precCP=" + precCP + ", nome=" + nome + "]";
 	}
 
 	

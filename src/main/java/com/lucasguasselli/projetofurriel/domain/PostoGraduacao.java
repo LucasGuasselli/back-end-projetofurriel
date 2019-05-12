@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,7 +25,7 @@ public class PostoGraduacao implements Serializable{
 	private double soldo;
 	private double cotaParte;
 	
-	@OneToMany(mappedBy="postoGraduacao")
+	@OneToMany(mappedBy="postoGraduacao", cascade=CascadeType.ALL)
 	private List<Militar> militares = new ArrayList<>();
 	
 	public PostoGraduacao() {
@@ -113,7 +114,11 @@ public class PostoGraduacao implements Serializable{
 		if (id != other.id)
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "PostoGraduacao [id=" + id + ", nome=" + nome + ", soldo=" + soldo + ", cotaParte=" + cotaParte + "]";
 	}	
-	
 	
 }

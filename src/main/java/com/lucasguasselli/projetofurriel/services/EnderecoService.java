@@ -45,9 +45,13 @@ public class EnderecoService {
 	}
 	
 	public void delete(Integer id) {
-		find(id);
+		 find(id);
+		// Militar militar = militarService.find(obj.getMilitar().getPrecCP());
+			// militar.setEndereco(new Endereco());
+			 	// militarService.update(militar);
+		
+		// System.out.println(militar.getNome());
 		try {
-			System.out.println(id);
 			enderecoDAO.deleteById(id);
 		}catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possivel excluir um Endereco ****");
@@ -63,16 +67,6 @@ public class EnderecoService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 			return enderecoDAO.findAll(pageRequest);
 	}
-	
-/*
-	// buscando por nome
-	public Page<Endereco> search(String nome, Integer page, Integer linesPerPage, String orderBy, String direction) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		// List<PostoGraduacao> postosGraduacoes = postoGraduacaoDAO.findAllById(ids);
-			return EnderecoDAO.search(nome,pageRequest);
-	}
-		
-*/
 	
 	public Endereco fromDTO(EnderecoNewDTO objDTO) {
 		Endereco Endereco = new Endereco(objDTO.getRua(),objDTO.getBairro(),objDTO.getCidade(),objDTO.getNumero(),objDTO.getComplemento());
