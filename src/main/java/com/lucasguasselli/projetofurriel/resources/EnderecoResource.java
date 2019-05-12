@@ -86,24 +86,6 @@ public class EnderecoResource {
 						// percorrendo a lista para declarar o DTO correspondente
 						Page<EnderecoDTO> listDTO = list.map(obj -> new EnderecoDTO(obj));
 							return ResponseEntity.ok().body(listDTO);	
-			}
+			}	
 		
-		/*
-		@RequestMapping(value="/buscarEnderecoesPorNome", method=RequestMethod.GET)
-		public ResponseEntity<Page<EnderecoDTO>> findPage(
-			// @RequestParam serve para tornar os parametros opcionais	
-				@RequestParam(value="nome", defaultValue="0") String nome,
-				@RequestParam(value="page", defaultValue="0") Integer page,
-				@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
-				@RequestParam(value="orderBy", defaultValue="nome")String orderBy, 
-				@RequestParam(value="direction", defaultValue="ASC")String direction) {
-					String nomeDecoded = URL.decodeParam(nome);
-					// List<Integer> ids = URL.decodeIntList(postosGraduacoes);
-					Page<Endereco> list = service.search(nomeDecoded, page,linesPerPage,orderBy, direction);
-						// percorrendo a lista para declarar o DTO correspondente
-						Page<EnderecoDTO> listDTO = list.map(obj -> new EnderecoDTO(obj));
-							return ResponseEntity.ok().body(listDTO);	
-			}
-			
-			*/
 }
