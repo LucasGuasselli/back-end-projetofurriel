@@ -14,10 +14,12 @@ import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
+import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
+import com.lucasguasselli.projetofurriel.dto.ConducaoNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -45,6 +47,13 @@ public class AuxilioTransporteService {
 			return auxilioTransporteDAO.save(newObj);
 	}
 	
+	// atualizando valores do auxilio transporte ao adicionar uma conducao
+	public void update(Conducao conducao, ConducaoNewDTO conducaoNewDTO) {
+		AuxilioTransporte aux = find(conducaoNewDTO.getAuxilioTransporteId());
+		updateValueInsertConcucao(aux, conducao);
+				auxilioTransporteDAO.save(aux);		
+	}
+	
 	public void delete(Integer id) {
 		find(id);
 		try {
@@ -65,16 +74,6 @@ public class AuxilioTransporteService {
 			return auxilioTransporteDAO.findAll(pageRequest);
 	}
 	
-/*
-	// buscando por nome
-	public Page<Endereco> search(String nome, Integer page, Integer linesPerPage, String orderBy, String direction) {
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
-		// List<PostoGraduacao> postosGraduacoes = postoGraduacaoDAO.findAllById(ids);
-			return EnderecoDAO.search(nome,pageRequest);
-	}
-		
-*/
-	
 	public AuxilioTransporte fromDTO(AuxilioTransporteNewDTO objDTO) {
 		Militar militar = new Militar(objDTO.getMilitarPrecCP());
 		AuxilioTransporte auxilioTransporte = new AuxilioTransporte(objDTO.getValorTotalAT(),objDTO.getValorDiarioAT(), militar);
@@ -92,4 +91,17 @@ public class AuxilioTransporteService {
 		newObj.setValorDiarioAT(obj.getValorDiarioAT());		
 	}
 	
+	private void updateValueInsertConcucao(AuxilioTransporte newObj, Conducao obj) {
+		double valorTotalAT = newObj.getValorTotalAT() + (obj.getValor() * 22);
+		double valorDiarioAT = valorTotalAT / 22;
+			newObj.setValorTotalAT(valorTotalAT);
+			newObj.setValorDiarioAT(valorDiarioAT);
+	}
+	
+	private void updateValueDeleteConducao(AuxilioTransporte newObj, Conducao obj) {
+		double valorTotalAT = newObj.getValorTotalAT() - (obj.getValor() * 22);
+		double valorDiarioAT = valorTotalAT / 22;
+			newObj.setValorTotalAT(valorTotalAT);
+			newObj.setValorDiarioAT(valorDiarioAT);
+	}
 }

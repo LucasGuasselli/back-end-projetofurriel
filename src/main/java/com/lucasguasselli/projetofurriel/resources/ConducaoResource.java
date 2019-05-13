@@ -20,6 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.dto.ConducaoDTO;
 import com.lucasguasselli.projetofurriel.dto.ConducaoNewDTO;
+import com.lucasguasselli.projetofurriel.services.AuxilioTransporteService;
 import com.lucasguasselli.projetofurriel.services.ConducaoService;
 
 
@@ -29,6 +30,9 @@ public class ConducaoResource {
 
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private ConducaoService service;
+	
+	@Autowired
+	private AuxilioTransporteService auxilioTransporteService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Conducao> find(@PathVariable Integer id) {
@@ -80,6 +84,7 @@ public class ConducaoResource {
  	@RequestMapping(method=RequestMethod.POST)
  	public ResponseEntity<Void> insert(@RequestBody ConducaoNewDTO objNewDTO){
  			Conducao obj = service.fromDTO(objNewDTO);
+ 			auxilioTransporteService.update(obj, objNewDTO);
  			obj = service.insert(obj);
  		// este metodo serve para enviar o precCP para rota
  			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
