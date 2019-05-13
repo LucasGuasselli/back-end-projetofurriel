@@ -30,7 +30,7 @@ public class Endereco implements Serializable{
 	// conexao com militar
 	@JsonIgnore
 	@OneToOne
-	@JoinColumn(name="militar_precCP")
+	@JoinColumn(name="militar_id")
 	private Militar militar;
 	
 	//a entidade que possui o join colunm que recebe o objeto ao ser instanciada

@@ -14,7 +14,6 @@ public class Militar {
 	@Id
 	private int precCP;
 	private String nome;
-	//private int idPosto;
 	
 	// conexao com postoGraduacao
 	@JsonIgnore
@@ -39,11 +38,8 @@ public class Militar {
 	public Militar(int precCP, String nome) {
 		super();
 		this.precCP = precCP;
-		// this.idPosto = idPosto;
 		this.nome = nome;
-		//this.postoGraduacao = postoGraduacao;
-	}
-	
+	}	
 	
 	public Militar(int precCP, String nome, PostoGraduacao postoGraduacao) {
 		super();

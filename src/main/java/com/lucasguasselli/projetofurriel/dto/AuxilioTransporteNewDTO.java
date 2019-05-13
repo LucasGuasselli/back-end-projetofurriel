@@ -2,17 +2,11 @@ package com.lucasguasselli.projetofurriel.dto;
 
 import java.io.Serializable;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 public class AuxilioTransporteNewDTO implements Serializable{
 
 	// este serialVersion abaixo se faz necessaria por causa do Serializable (padrao java)
 	private static final long serialVersionUID = 1L;
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private int id;
 	private double valorTotalAT;
 	private double valorDiarioAT;

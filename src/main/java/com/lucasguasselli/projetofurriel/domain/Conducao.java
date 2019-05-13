@@ -29,8 +29,26 @@ public class Conducao implements Serializable{
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="auxilioTransporte_id")
-	private AuxilioTransporte auxilioTransporte = new AuxilioTransporte();
+	private AuxilioTransporte auxilioTransporte;
 		
+	public Conducao() {
+		
+	}	
+	
+	public Conducao(int id) {
+		this.id = id;
+	}
+	
+	public Conducao(String itinerario, String nomeEmpresa, String tipoDeTransporte, double valor) {
+		super();
+		this.itinerario = itinerario;
+		this.nomeEmpresa = nomeEmpresa;
+		this.tipoDeTransporte = tipoDeTransporte;
+		this.valor = valor;
+	}
+
+
+
 	public Conducao(String itinerario, String nomeEmpresa, String tipoDeTransporte, double valor,
 			AuxilioTransporte auxilioTransporte) {
 		super();
@@ -41,9 +59,7 @@ public class Conducao implements Serializable{
 		this.auxilioTransporte = auxilioTransporte;
 	}
 
-	public Conducao() {
-		
-	}
+	
 		
 	public AuxilioTransporte getAuxilioTransporte() {
 		return auxilioTransporte;
