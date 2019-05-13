@@ -1,15 +1,19 @@
 package com.lucasguasselli.projetofurriel.services;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.lucasguasselli.projetofurriel.dao.AditamentoDAO;
 import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.dao.ConducaoDAO;
 import com.lucasguasselli.projetofurriel.dao.EnderecoDAO;
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
+import com.lucasguasselli.projetofurriel.domain.Aditamento;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.domain.Endereco;
@@ -29,8 +33,10 @@ public class DBService {
 	private ConducaoDAO conducaoDAO;
 	@Autowired
 	private EnderecoDAO enderecoDAO;
+	@Autowired
+	private AditamentoDAO aditamentoDAO;
 	
-	public void instantiateTestDatabase() {
+	public void instantiateTestDatabase() throws ParseException {
 		PostoGraduacao soldadoEV = new PostoGraduacao("SoldadoEV", 854.00, 37.576);
 		PostoGraduacao soldadoEP = new PostoGraduacao("SoldadoEP", 1758.00, 65.032);
 		PostoGraduacao cabo = new PostoGraduacao("Cabo", 2449.00, 107.756);
@@ -57,7 +63,14 @@ public class DBService {
 		
 		Endereco end = new Endereco("Fronteira","Campo Novo","Porto Alegre",169,"fundos", lucas);
 		Endereco end2 = new Endereco("Fronteira","Campo Novo","Porto Alegre",169,"fundos", grillo);
+		
+		// formatando a data
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		
+		Aditamento adt = new Aditamento("Aditamento_nr_01", sdf.parse("25/12/1994"));
+		Aditamento adt1 = new Aditamento("Aditamento_nr_02", sdf.parse("06/02/1994"));
 
+		
 		lucas.setPostoGraduacao(cabo);
 		grillo.setPostoGraduacao(segundoSargento);
 		mauro.setPostoGraduacao(segundoSargento);
@@ -69,6 +82,7 @@ public class DBService {
 		auxilioTransporteDAO.saveAll(Arrays.asList(aux1, aux2));
 		conducaoDAO.saveAll(Arrays.asList(cond1, cond2));
 		enderecoDAO.saveAll(Arrays.asList(end, end2));
+		aditamentoDAO.saveAll(Arrays.asList(adt, adt1));
 				
 		// cabo.getMilitares().addAll(Arrays.asList(lucas));
 		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));
