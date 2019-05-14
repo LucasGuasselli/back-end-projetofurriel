@@ -1,12 +1,16 @@
 package com.lucasguasselli.projetofurriel.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -24,6 +28,9 @@ public class Aditamento implements Serializable{
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date data;
+	
+	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
+	private List<DespesaAAnular> descontos = new ArrayList<>();
 	
 	public Aditamento() {
 		
@@ -69,6 +76,14 @@ public class Aditamento implements Serializable{
 
 	public void setAssinatura(Boolean assinatura) {
 		this.assinatura = assinatura;
+	}
+	
+	public List<DespesaAAnular> getDescontos() {
+		return descontos;
+	}
+
+	public void setDescontos(List<DespesaAAnular> descontos) {
+		this.descontos = descontos;
 	}
 
 	@Override

@@ -10,12 +10,14 @@ import org.springframework.stereotype.Service;
 import com.lucasguasselli.projetofurriel.dao.AditamentoDAO;
 import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.dao.ConducaoDAO;
+import com.lucasguasselli.projetofurriel.dao.DespesaDAO;
 import com.lucasguasselli.projetofurriel.dao.EnderecoDAO;
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
+import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
@@ -35,6 +37,8 @@ public class DBService {
 	private EnderecoDAO enderecoDAO;
 	@Autowired
 	private AditamentoDAO aditamentoDAO;
+	@Autowired
+	private DespesaDAO despesaDAO;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		PostoGraduacao soldadoEV = new PostoGraduacao("SoldadoEV", 854.00, 37.576);
@@ -54,6 +58,10 @@ public class DBService {
 		Militar grillo = new Militar(2456, "Grillo");
 		Militar mauro = new Militar(258,"Mauro");
 		// Militar guilherme = new Militar(147,"Guilherme");
+		
+		lucas.setPostoGraduacao(cabo);
+		grillo.setPostoGraduacao(segundoSargento);
+		mauro.setPostoGraduacao(segundoSargento);
 			
 		AuxilioTransporte aux1 = new AuxilioTransporte(220,11,lucas);
 		AuxilioTransporte aux2 = new AuxilioTransporte(298,15,grillo);
@@ -70,12 +78,11 @@ public class DBService {
 		Aditamento adt = new Aditamento("Aditamento_nr_01", sdf.parse("25/12/1994"));
 		Aditamento adt1 = new Aditamento("Aditamento_nr_02", sdf.parse("06/02/1994"));
 
+		DespesaAAnular desp = new DespesaAAnular(sdf.parse("05/02/1994"),sdf.parse("06/02/1994"), 3,"viagem", adt,lucas);
+		DespesaAAnular desp1 = new DespesaAAnular(sdf.parse("05/02/2000"),sdf.parse("06/02/2000"), 1,"servico", adt,lucas);
+
 		
-		lucas.setPostoGraduacao(cabo);
-		grillo.setPostoGraduacao(segundoSargento);
-		mauro.setPostoGraduacao(segundoSargento);
 		// guilherme.setPostoGraduacao(cabo);
-		
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
 		militarDAO.saveAll(Arrays.asList(lucas, grillo, mauro));
@@ -83,6 +90,7 @@ public class DBService {
 		conducaoDAO.saveAll(Arrays.asList(cond1, cond2));
 		enderecoDAO.saveAll(Arrays.asList(end, end2));
 		aditamentoDAO.saveAll(Arrays.asList(adt, adt1));
+		despesaDAO.saveAll(Arrays.asList(desp, desp1));
 				
 		// cabo.getMilitares().addAll(Arrays.asList(lucas));
 		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));

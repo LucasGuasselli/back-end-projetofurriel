@@ -1,11 +1,16 @@
 package com.lucasguasselli.projetofurriel.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -26,6 +31,9 @@ public class Militar {
 	
 	@OneToOne(mappedBy="militar", cascade=CascadeType.ALL)
 	private Endereco endereco;
+	
+	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
+	private List<DespesaAAnular> despesas = new ArrayList<>();
 	
 	public Militar(){
 		
@@ -72,15 +80,15 @@ public class Militar {
 	public void setPrecCP(int precCP) {
 		this.precCP = precCP;
 	}
-/*
-	public int getIdPosto() {
-		return idPosto;
+
+	public List<DespesaAAnular> getdespesas() {
+		return despesas;
 	}
 
-	public void setIdPosto(int idPosto) {
-		this.idPosto = idPosto;
+	public void setdespesas(List<DespesaAAnular> despesas) {
+		this.despesas = despesas;
 	}
-*/
+
 	public String getNome() {
 		return nome;
 	}

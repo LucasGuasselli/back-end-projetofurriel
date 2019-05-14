@@ -80,7 +80,7 @@ public class AuxilioTransporteService {
 			return auxilioTransporte;
 	}	
 	
-	// a partir de um DTO vai ser construido e retornado um objeto Endereco
+	// a partir de um DTO vai ser construido e retornado um objeto AuxilioTransporte
 	public AuxilioTransporte fromDTO(AuxilioTransporteDTO objDTO) {
 		return new AuxilioTransporte(objDTO.getValorTotalAT(),objDTO.getValorDiarioAT());
 	}

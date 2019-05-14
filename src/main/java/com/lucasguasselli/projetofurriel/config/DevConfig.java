@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.lucasguasselli.projetofurriel.services.DBService;
 
 @Configuration
-@Profile("dev")
+@Profile("dev-postgre")
 public class DevConfig {
 	
 	@Autowired
@@ -29,6 +29,6 @@ public class DevConfig {
 		
 		
 		dbService.instantiateTestDatabase();
-		return true;
+			return true;
 	}
 }

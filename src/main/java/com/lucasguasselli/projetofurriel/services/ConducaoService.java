@@ -72,7 +72,7 @@ public class ConducaoService {
 			return conducao;
 	}	
 	
-	// a partir de um DTO vai ser construido e retornado um objeto Endereco
+	// a partir de um DTO vai ser construido e retornado um objeto Conducao
 	public Conducao fromDTO(ConducaoDTO objDTO) {
 		return new Conducao(objDTO.getItinerario(),objDTO.getNomeEmpresa(),objDTO.getTipoDeTransporte(), objDTO.getValor());
 	}
