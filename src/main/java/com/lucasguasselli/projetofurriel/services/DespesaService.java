@@ -13,9 +13,12 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.DespesaDAO;
+import com.lucasguasselli.projetofurriel.domain.Aditamento;
 import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.Endereco;
+import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.DespesaAAnularDTO;
+import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -67,16 +70,17 @@ public class DespesaService {
 	public DespesaAAnular fromDTO(DespesaAAnularDTO objDTO) {
 		return new DespesaAAnular(objDTO.getDataInicio(),objDTO.getDataFim(),objDTO.getQuantidadeDias(), objDTO.getMotivo());
 	}
-/*	
-	public DespesaAAnular fromDTO(DespesaNewDTO objDTO) {
-		DespesaAAnular Despesa = new Despesa(objDTO.getItinerario(),objDTO.getNomeEmpresa(),objDTO.getTipoDeTransporte(), objDTO.getValor());
-		AuxilioTransporte aux = new AuxilioTransporte(objDTO.getAuxilioTransporteId());
-		Despesa.setAuxilioTransporte(aux);
-			return Despesa;
+	
+	public DespesaAAnular fromDTO(DespesaAAnularNewDTO objNewDTO) {
+		DespesaAAnular despesa = new DespesaAAnular(objNewDTO.getDataInicio(),objNewDTO.getDataFim(), objNewDTO.getQuantidadeDias(), objNewDTO.getMotivo());
+		Militar militar = new Militar(objNewDTO.getMilitarPrecCP());
+		Aditamento aditamento = new Aditamento(objNewDTO.getAditamentoId());
+		despesa.setMilitar(militar);
+		despesa.setAditamento(aditamento);
+			return despesa;
 	}	
 	
-	
-*/		
+			
 	private void updateData(DespesaAAnular newObj, DespesaAAnular obj) {
 		newObj.setId(obj.getId());
 		newObj.setDataInicio(obj.getDataInicio());
