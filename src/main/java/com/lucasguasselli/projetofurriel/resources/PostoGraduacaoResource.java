@@ -34,6 +34,7 @@ public class PostoGraduacaoResource {
 				return ResponseEntity.ok().body(obj);	
 	}
 	
+	// A Entidade PostoGraduacao nao precisa possui um NewDTo pois ela pode ser inserida sem ter relacao com outra entidade
 	// @RequestBody faz o obj ser convertido para JSON automaticamente
 	// @Valid valida o Objeto
 	@RequestMapping(method=RequestMethod.POST)
