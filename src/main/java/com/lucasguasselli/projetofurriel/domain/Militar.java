@@ -35,6 +35,9 @@ public class Militar {
 	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
 	private List<DespesaAAnular> despesas = new ArrayList<>();
 	
+	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
+	private List<InclusaoAuxilioTransporte> inclusoes = new ArrayList<>();
+	
 	public Militar(){
 		
 	}
@@ -79,15 +82,7 @@ public class Militar {
 
 	public void setPrecCP(int precCP) {
 		this.precCP = precCP;
-	}
-
-	public List<DespesaAAnular> getdespesas() {
-		return despesas;
-	}
-
-	public void setdespesas(List<DespesaAAnular> despesas) {
-		this.despesas = despesas;
-	}
+	}	
 
 	public String getNome() {
 		return nome;
@@ -103,6 +98,22 @@ public class Militar {
 
 	public void setPostoGraduacao(PostoGraduacao postoGraduacao) {
 		this.postoGraduacao = postoGraduacao;
+	}
+
+	public List<DespesaAAnular> getDespesas() {
+		return despesas;
+	}
+
+	public void setDespesas(List<DespesaAAnular> despesas) {
+		this.despesas = despesas;
+	}
+
+	public List<InclusaoAuxilioTransporte> getInclusoes() {
+		return inclusoes;
+	}
+
+	public void setInclusoes(List<InclusaoAuxilioTransporte> inclusoes) {
+		this.inclusoes = inclusoes;
 	}
 
 	@Override

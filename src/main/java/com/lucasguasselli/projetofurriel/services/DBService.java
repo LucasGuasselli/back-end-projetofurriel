@@ -12,6 +12,7 @@ import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.dao.ConducaoDAO;
 import com.lucasguasselli.projetofurriel.dao.DespesaDAO;
 import com.lucasguasselli.projetofurriel.dao.EnderecoDAO;
+import com.lucasguasselli.projetofurriel.dao.InclusaoDAO;
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
@@ -19,6 +20,7 @@ import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.Endereco;
+import com.lucasguasselli.projetofurriel.domain.InclusaoAuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 
@@ -39,6 +41,8 @@ public class DBService {
 	private AditamentoDAO aditamentoDAO;
 	@Autowired
 	private DespesaDAO despesaDAO;
+	@Autowired
+	private InclusaoDAO inclusaoDAO;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		PostoGraduacao soldadoEV = new PostoGraduacao("SoldadoEV", 854.00, 37.576);
@@ -81,7 +85,9 @@ public class DBService {
 		DespesaAAnular desp = new DespesaAAnular(sdf.parse("05/02/1994"),sdf.parse("06/02/1994"), 3,"viagem", adt,lucas);
 		DespesaAAnular desp1 = new DespesaAAnular(sdf.parse("05/02/2000"),sdf.parse("06/02/2000"), 1,"servico", adt,lucas);
 
-		
+		InclusaoAuxilioTransporte incAux = new InclusaoAuxilioTransporte(sdf.parse("05/02/2000"), 20, adt, lucas); 
+		InclusaoAuxilioTransporte incAux1 = new InclusaoAuxilioTransporte(sdf.parse("18/12/2010"), 10, adt1, grillo); 
+
 		// guilherme.setPostoGraduacao(cabo);
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
@@ -91,6 +97,7 @@ public class DBService {
 		enderecoDAO.saveAll(Arrays.asList(end, end2));
 		aditamentoDAO.saveAll(Arrays.asList(adt, adt1));
 		despesaDAO.saveAll(Arrays.asList(desp, desp1));
+		inclusaoDAO.saveAll(Arrays.asList(incAux, incAux1));
 				
 		// cabo.getMilitares().addAll(Arrays.asList(lucas));
 		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));

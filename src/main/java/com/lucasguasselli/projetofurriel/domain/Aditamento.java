@@ -32,6 +32,9 @@ public class Aditamento implements Serializable{
 	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
 	private List<DespesaAAnular> descontos = new ArrayList<>();
 	
+	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
+	private List<InclusaoAuxilioTransporte> inclusoes = new ArrayList<>();
+	
 	public Aditamento() {
 		
 	}
@@ -84,6 +87,14 @@ public class Aditamento implements Serializable{
 
 	public void setDescontos(List<DespesaAAnular> descontos) {
 		this.descontos = descontos;
+	}
+
+	public List<InclusaoAuxilioTransporte> getInclusoes() {
+		return inclusoes;
+	}
+
+	public void setInclusoes(List<InclusaoAuxilioTransporte> inclusoes) {
+		this.inclusoes = inclusoes;
 	}
 
 	@Override
