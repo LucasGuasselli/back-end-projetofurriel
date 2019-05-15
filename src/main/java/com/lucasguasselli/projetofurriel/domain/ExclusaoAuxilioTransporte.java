@@ -14,7 +14,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class InclusaoAuxilioTransporte implements Serializable{
+public class ExclusaoAuxilioTransporte implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 		
@@ -23,9 +23,10 @@ public class InclusaoAuxilioTransporte implements Serializable{
 	private int id;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
-	private Date dataInicio;
+	private Date data;
 	
 	private double valor;
+	private String motivo;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -36,24 +37,28 @@ public class InclusaoAuxilioTransporte implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="militar_precCP")
 	private Militar militar;
-	
-	public InclusaoAuxilioTransporte() {
+
+	public ExclusaoAuxilioTransporte() {
 		
 	}
 	
-	public InclusaoAuxilioTransporte(Integer id) {
+	public ExclusaoAuxilioTransporte(int id) {
+		super();
 		this.id = id;
 	}
-	
-	public InclusaoAuxilioTransporte(Date dataInicio, double valor) {
-		this.dataInicio = dataInicio;
-		this.valor = valor;
-	}	
 
-	public InclusaoAuxilioTransporte(Date dataInicio, double valor, Aditamento aditamento, Militar militar) {
+	public ExclusaoAuxilioTransporte(Date data, double valor, String motivo) {
 		super();
-		this.dataInicio = dataInicio;
+		this.data = data;
 		this.valor = valor;
+		this.motivo = motivo;
+	}
+
+	public ExclusaoAuxilioTransporte(Date data, double valor, String motivo, Aditamento aditamento, Militar militar) {
+		super();
+		this.data = data;
+		this.valor = valor;
+		this.motivo = motivo;
 		this.aditamento = aditamento;
 		this.militar = militar;
 	}
@@ -66,12 +71,12 @@ public class InclusaoAuxilioTransporte implements Serializable{
 		this.id = id;
 	}
 
-	public Date getDataInicio() {
-		return dataInicio;
+	public Date getData() {
+		return data;
 	}
 
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setData(Date data) {
+		this.data = data;
 	}
 
 	public double getValor() {
@@ -80,6 +85,14 @@ public class InclusaoAuxilioTransporte implements Serializable{
 
 	public void setValor(double valor) {
 		this.valor = valor;
+	}
+
+	public String getMotivo() {
+		return motivo;
+	}
+
+	public void setMotivo(String motivo) {
+		this.motivo = motivo;
 	}
 
 	public Aditamento getAditamento() {
@@ -114,10 +127,11 @@ public class InclusaoAuxilioTransporte implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		InclusaoAuxilioTransporte other = (InclusaoAuxilioTransporte) obj;
+		ExclusaoAuxilioTransporte other = (ExclusaoAuxilioTransporte) obj;
 		if (id != other.id)
 			return false;
 		return true;
-	}	
-		
+	}
+
+	
 }

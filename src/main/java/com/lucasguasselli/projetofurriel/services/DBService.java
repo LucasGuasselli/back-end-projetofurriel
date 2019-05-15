@@ -12,6 +12,7 @@ import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.dao.ConducaoDAO;
 import com.lucasguasselli.projetofurriel.dao.DespesaDAO;
 import com.lucasguasselli.projetofurriel.dao.EnderecoDAO;
+import com.lucasguasselli.projetofurriel.dao.ExclusaoDAO;
 import com.lucasguasselli.projetofurriel.dao.InclusaoDAO;
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
@@ -20,6 +21,7 @@ import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.Endereco;
+import com.lucasguasselli.projetofurriel.domain.ExclusaoAuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.InclusaoAuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
@@ -43,6 +45,8 @@ public class DBService {
 	private DespesaDAO despesaDAO;
 	@Autowired
 	private InclusaoDAO inclusaoDAO;
+	@Autowired
+	private ExclusaoDAO exclusaoDAO;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		PostoGraduacao soldadoEV = new PostoGraduacao("SoldadoEV", 854.00, 37.576);
@@ -88,6 +92,10 @@ public class DBService {
 		InclusaoAuxilioTransporte incAux = new InclusaoAuxilioTransporte(sdf.parse("05/02/2000"), 20, adt, lucas); 
 		InclusaoAuxilioTransporte incAux1 = new InclusaoAuxilioTransporte(sdf.parse("18/12/2010"), 10, adt1, grillo); 
 
+		ExclusaoAuxilioTransporte excAux = new ExclusaoAuxilioTransporte(sdf.parse("05/02/2000"), 20,"", adt, lucas);
+		ExclusaoAuxilioTransporte excAux1 = new ExclusaoAuxilioTransporte(sdf.parse("05/02/2000"), 20,"", adt, lucas);
+
+		
 		// guilherme.setPostoGraduacao(cabo);
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
@@ -98,6 +106,7 @@ public class DBService {
 		aditamentoDAO.saveAll(Arrays.asList(adt, adt1));
 		despesaDAO.saveAll(Arrays.asList(desp, desp1));
 		inclusaoDAO.saveAll(Arrays.asList(incAux, incAux1));
+		exclusaoDAO.saveAll(Arrays.asList(excAux, excAux1));
 				
 		// cabo.getMilitares().addAll(Arrays.asList(lucas));
 		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));

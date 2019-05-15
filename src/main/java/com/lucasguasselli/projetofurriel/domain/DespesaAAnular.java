@@ -34,7 +34,7 @@ public class DespesaAAnular implements Serializable{
 	private String motivo;
 	
 	@JsonIgnore
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name="aditamento_id")
 	private Aditamento aditamento;
 	
