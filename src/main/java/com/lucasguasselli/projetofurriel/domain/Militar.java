@@ -38,6 +38,12 @@ public class Militar {
 	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
 	private List<InclusaoAuxilioTransporte> inclusoes = new ArrayList<>();
 	
+	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
+	private List<ExclusaoAuxilioTransporte> exclusoes = new ArrayList<>();
+	
+	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
+	private List<PagamentoAtrasado> pagamentosAtrasados = new ArrayList<>();
+	
 	public Militar(){
 		
 	}
@@ -114,6 +120,22 @@ public class Militar {
 
 	public void setInclusoes(List<InclusaoAuxilioTransporte> inclusoes) {
 		this.inclusoes = inclusoes;
+	}
+
+	public List<ExclusaoAuxilioTransporte> getExclusoes() {
+		return exclusoes;
+	}
+
+	public void setExclusoes(List<ExclusaoAuxilioTransporte> exclusoes) {
+		this.exclusoes = exclusoes;
+	}
+
+	public List<PagamentoAtrasado> getPagamentosAtrasados() {
+		return pagamentosAtrasados;
+	}
+
+	public void setPagamentosAtrasados(List<PagamentoAtrasado> pagamentosAtrasados) {
+		this.pagamentosAtrasados = pagamentosAtrasados;
 	}
 
 	@Override

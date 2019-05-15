@@ -35,6 +35,12 @@ public class Aditamento implements Serializable{
 	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
 	private List<InclusaoAuxilioTransporte> inclusoes = new ArrayList<>();
 	
+	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
+	private List<ExclusaoAuxilioTransporte> exclusoes = new ArrayList<>();
+	
+	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
+	private List<PagamentoAtrasado> pagamentosAtrasados = new ArrayList<>();
+	
 	public Aditamento() {
 		
 	}
@@ -95,6 +101,22 @@ public class Aditamento implements Serializable{
 
 	public void setInclusoes(List<InclusaoAuxilioTransporte> inclusoes) {
 		this.inclusoes = inclusoes;
+	}
+
+	public List<ExclusaoAuxilioTransporte> getExclusoes() {
+		return exclusoes;
+	}
+
+	public void setExclusoes(List<ExclusaoAuxilioTransporte> exclusoes) {
+		this.exclusoes = exclusoes;
+	}
+
+	public List<PagamentoAtrasado> getPagamentosAtrasados() {
+		return pagamentosAtrasados;
+	}
+
+	public void setPagamentosAtrasados(List<PagamentoAtrasado> pagamentosAtrasados) {
+		this.pagamentosAtrasados = pagamentosAtrasados;
 	}
 
 	@Override

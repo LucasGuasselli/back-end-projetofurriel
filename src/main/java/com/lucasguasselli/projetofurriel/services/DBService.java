@@ -15,6 +15,7 @@ import com.lucasguasselli.projetofurriel.dao.EnderecoDAO;
 import com.lucasguasselli.projetofurriel.dao.ExclusaoDAO;
 import com.lucasguasselli.projetofurriel.dao.InclusaoDAO;
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
+import com.lucasguasselli.projetofurriel.dao.PagamentoAtrasadoDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
@@ -24,6 +25,7 @@ import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.domain.ExclusaoAuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.InclusaoAuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
+import com.lucasguasselli.projetofurriel.domain.PagamentoAtrasado;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 
 @Service
@@ -47,6 +49,8 @@ public class DBService {
 	private InclusaoDAO inclusaoDAO;
 	@Autowired
 	private ExclusaoDAO exclusaoDAO;
+	@Autowired
+	private PagamentoAtrasadoDAO pagamentoAtrasadoDAO;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		PostoGraduacao soldadoEV = new PostoGraduacao("SoldadoEV", 854.00, 37.576);
@@ -95,6 +99,9 @@ public class DBService {
 		ExclusaoAuxilioTransporte excAux = new ExclusaoAuxilioTransporte(sdf.parse("05/02/2000"), 20,"", adt, lucas);
 		ExclusaoAuxilioTransporte excAux1 = new ExclusaoAuxilioTransporte(sdf.parse("05/02/2000"), 20,"", adt, lucas);
 
+		PagamentoAtrasado pgmto = new PagamentoAtrasado("Janeiro", 3, "diferenca de aumento da passagem", 20, sdf.parse("05/02/2000"));
+		PagamentoAtrasado pgmto1 = new PagamentoAtrasado("Abril", 2, "diferenca de aumento da passagem", 10, sdf.parse("05/04/2019"));
+
 		
 		// guilherme.setPostoGraduacao(cabo);
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
@@ -107,7 +114,8 @@ public class DBService {
 		despesaDAO.saveAll(Arrays.asList(desp, desp1));
 		inclusaoDAO.saveAll(Arrays.asList(incAux, incAux1));
 		exclusaoDAO.saveAll(Arrays.asList(excAux, excAux1));
-				
+		pagamentoAtrasadoDAO.saveAll(Arrays.asList(pgmto, pgmto1));		
+		
 		// cabo.getMilitares().addAll(Arrays.asList(lucas));
 		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));
 	
