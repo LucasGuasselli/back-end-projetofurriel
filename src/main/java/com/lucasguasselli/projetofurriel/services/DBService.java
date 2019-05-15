@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.AditamentoDAO;
+import com.lucasguasselli.projetofurriel.dao.AlteracaoValorPassagemDAO;
 import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.dao.ConducaoDAO;
 import com.lucasguasselli.projetofurriel.dao.DespesaDAO;
@@ -18,6 +19,7 @@ import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
 import com.lucasguasselli.projetofurriel.dao.PagamentoAtrasadoDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
+import com.lucasguasselli.projetofurriel.domain.AlteracaoValorPassagem;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
@@ -51,6 +53,8 @@ public class DBService {
 	private ExclusaoDAO exclusaoDAO;
 	@Autowired
 	private PagamentoAtrasadoDAO pagamentoAtrasadoDAO;
+	@Autowired
+	private AlteracaoValorPassagemDAO alteracaoValorPassagemDAO;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		PostoGraduacao soldadoEV = new PostoGraduacao("SoldadoEV", 854.00, 37.576);
@@ -102,7 +106,9 @@ public class DBService {
 		PagamentoAtrasado pgmto = new PagamentoAtrasado("Janeiro", 3, "diferenca de aumento da passagem", 20, sdf.parse("05/02/2000"));
 		PagamentoAtrasado pgmto1 = new PagamentoAtrasado("Abril", 2, "diferenca de aumento da passagem", 10, sdf.parse("05/04/2019"));
 
-		
+		AlteracaoValorPassagem altValPass = new AlteracaoValorPassagem(sdf.parse("05/02/2000"),"motivo", 20, adt, lucas);
+		AlteracaoValorPassagem altValPass1 = new AlteracaoValorPassagem(sdf.parse("05/12/2019"),"motivo", 5, adt1, grillo);
+	
 		// guilherme.setPostoGraduacao(cabo);
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
@@ -115,6 +121,7 @@ public class DBService {
 		inclusaoDAO.saveAll(Arrays.asList(incAux, incAux1));
 		exclusaoDAO.saveAll(Arrays.asList(excAux, excAux1));
 		pagamentoAtrasadoDAO.saveAll(Arrays.asList(pgmto, pgmto1));		
+		alteracaoValorPassagemDAO.saveAll(Arrays.asList(altValPass, altValPass1));
 		
 		// cabo.getMilitares().addAll(Arrays.asList(lucas));
 		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));

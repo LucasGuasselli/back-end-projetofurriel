@@ -44,6 +44,9 @@ public class Militar {
 	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
 	private List<PagamentoAtrasado> pagamentosAtrasados = new ArrayList<>();
 	
+	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
+	private List<AlteracaoValorPassagem> alteracoesValoresPassagens = new ArrayList<>();
+	
 	public Militar(){
 		
 	}
@@ -138,6 +141,14 @@ public class Militar {
 		this.pagamentosAtrasados = pagamentosAtrasados;
 	}
 
+	public List<AlteracaoValorPassagem> getAlteracoesValoresPassagens() {
+		return alteracoesValoresPassagens;
+	}
+
+	public void setAlteracoesValoresPassagens(List<AlteracaoValorPassagem> alteracoesValoresPassagens) {
+		this.alteracoesValoresPassagens = alteracoesValoresPassagens;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -163,9 +174,6 @@ public class Militar {
 	@Override
 	public String toString() {
 		return "Militar [precCP=" + precCP + ", nome=" + nome + "]";
-	}
-
-	
-	
+	}	
 	
 }

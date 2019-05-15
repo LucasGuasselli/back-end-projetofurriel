@@ -41,6 +41,9 @@ public class Aditamento implements Serializable{
 	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
 	private List<PagamentoAtrasado> pagamentosAtrasados = new ArrayList<>();
 	
+	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
+	private List<AlteracaoValorPassagem> alteracoesValoresPassagens = new ArrayList<>();
+	
 	public Aditamento() {
 		
 	}
