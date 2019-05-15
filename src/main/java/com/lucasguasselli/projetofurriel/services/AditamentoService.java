@@ -29,7 +29,7 @@ public class AditamentoService {
 	public Aditamento find(Integer id) {
 		Optional<Aditamento> obj = aditamentoDAO.findById(id);
 			return obj.orElseThrow(() -> new ObjectNotFoundException(
-					"Objeto nao encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()));
+					"Objeto nao encontrado! Id: " + id + ", Tipo: " + Aditamento.class.getName()));
 	}
 
   	@Transactional
@@ -48,7 +48,7 @@ public class AditamentoService {
 		try {
 			aditamentoDAO.deleteById(id);
 		}catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possivel excluir um Auxilio Transporte ****");
+			throw new DataIntegrityException("Não é possivel excluir um Aditamento que possui eventos relacionados");
 		}
 	}
 	

@@ -33,7 +33,7 @@ public class AuxilioTransporteService {
 	public AuxilioTransporte find(Integer id) {
 		Optional<AuxilioTransporte> obj = auxilioTransporteDAO.findById(id);
 			return obj.orElseThrow(() -> new ObjectNotFoundException(
-					"Objeto nao encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()));
+					"Objeto nao encontrado! Id: " + id + ", Tipo: " + AuxilioTransporte.class.getName()));
 	}
 
   	@Transactional

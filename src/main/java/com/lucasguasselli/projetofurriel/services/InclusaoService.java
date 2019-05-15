@@ -32,7 +32,7 @@ public class InclusaoService {
 	public InclusaoAuxilioTransporte find(Integer id) {
 		Optional<InclusaoAuxilioTransporte> obj = inclusaoDAO.findById(id);
 			return obj.orElseThrow(() -> new ObjectNotFoundException(
-					"Objeto nao encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()));
+					"Objeto nao encontrado! Id: " + id + ", Tipo: " + InclusaoAuxilioTransporte.class.getName()));
 	}
 
   	@Transactional
@@ -52,7 +52,7 @@ public class InclusaoService {
 			System.out.println(id);
 			inclusaoDAO.deleteById(id);
 		}catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possivel excluir um Auxilio Transporte ****");
+			throw new DataIntegrityException("Não é possivel excluir uma Inclusão de Auxilio Transporte ****");
 		}
 	}
 	

@@ -32,7 +32,7 @@ public class DespesaService {
 	public DespesaAAnular find(Integer id) {
 		Optional<DespesaAAnular> obj = despesaDAO.findById(id);
 			return obj.orElseThrow(() -> new ObjectNotFoundException(
-					"Objeto nao encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()));
+					"Objeto nao encontrado! Id: " + id + ", Tipo: " + DespesaAAnular.class.getName()));
 	}
 
   	@Transactional
@@ -52,7 +52,7 @@ public class DespesaService {
 			System.out.println(id);
 			despesaDAO.deleteById(id);
 		}catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possivel excluir um Auxilio Transporte ****");
+			throw new DataIntegrityException("Não é possivel excluir uma Despesa a anular ****");
 		}
 	}
 	
