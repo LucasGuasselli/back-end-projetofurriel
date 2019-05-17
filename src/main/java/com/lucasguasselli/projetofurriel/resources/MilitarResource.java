@@ -24,6 +24,7 @@ import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.resources.utils.URL;
 import com.lucasguasselli.projetofurriel.services.MilitarService;
 
+@CrossOrigin
 @RestController
 @RequestMapping(value="/militares")
 public class MilitarResource {
@@ -38,7 +39,7 @@ public class MilitarResource {
 	}
 	
 	// retornando todos objetos
-	@CrossOrigin
+	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<MilitarDTO>> findAll() {
 			List<Militar> list = service.findAll();
