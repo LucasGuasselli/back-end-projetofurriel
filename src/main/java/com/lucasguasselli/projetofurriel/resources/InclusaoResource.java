@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +23,7 @@ import com.lucasguasselli.projetofurriel.dto.InclusaoAuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.InclusaoAuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.services.InclusaoService;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping(value="/inclusoesAuxiliosTransporte")
 public class InclusaoResource {
