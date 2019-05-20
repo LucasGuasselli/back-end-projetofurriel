@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.Endereco;
+import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.EnderecoDTO;
 import com.lucasguasselli.projetofurriel.dto.EnderecoNewDTO;
+import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
+import com.lucasguasselli.projetofurriel.resources.utils.URL;
 import com.lucasguasselli.projetofurriel.services.EnderecoService;
 
 @CrossOrigin
@@ -38,6 +41,38 @@ public class EnderecoResource {
 	}
 	
 	
+	@RequestMapping(value="/searchEnderecoByPrecCP", method=RequestMethod.GET)
+	public ResponseEntity<EnderecoDTO> findPage(
+		// @RequestParam serve para tornar os parametros opcionais	
+		@RequestParam(value="precCP", defaultValue="0") int precCP ){
+			Endereco endereco = service.search(precCP);
+				EnderecoDTO EnderecoDTO = new EnderecoDTO(endereco);
+					return ResponseEntity.ok().body(EnderecoDTO);	
+	}
+	
+	// retornando todos objetos
+			@RequestMapping(method=RequestMethod.GET)
+			public ResponseEntity<List<EnderecoDTO>> findAll() {
+					List<Endereco> list = service.findAll();
+					// percorrendo a lista para declarar o DTO correspondente
+					List<EnderecoDTO> listDTO = list.stream().map(obj -> new EnderecoDTO(obj)).collect(Collectors.toList());
+						return ResponseEntity.ok().body(listDTO);	
+			}
+			
+	// retornando um numero X de objetos (pages)
+	@RequestMapping(value="/page", method=RequestMethod.GET)
+	public ResponseEntity<Page<EnderecoDTO>> findPage(
+		// @RequestParam serve para tornar os parametros opcionais	
+		@RequestParam(value="page", defaultValue="0") Integer page,
+		@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
+		@RequestParam(value="orderBy", defaultValue="cidade")String orderBy, 
+		@RequestParam(value="direction", defaultValue="ASC")String direction) {
+			Page<Endereco> list = service.findPage(page,linesPerPage,orderBy, direction);
+				// percorrendo a lista para declarar o DTO correspondente
+				Page<EnderecoDTO> listDTO = list.map(obj -> new EnderecoDTO(obj));
+					return ResponseEntity.ok().body(listDTO);	
+	}	
+			
 	// @RequestBody faz o obj ser convertido para JSON automaticamente
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody EnderecoNewDTO objNewDTO){
@@ -51,43 +86,20 @@ public class EnderecoResource {
 	
 	
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
-		// @Valid valida o Objeto
-	    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-		public ResponseEntity<Void> update(@Valid @RequestBody EnderecoDTO objDTO, @PathVariable Integer id){
-			// transformando um objeto DTO em um objeto Entity
-			Endereco obj = service.fromDTO(objDTO);
-				obj.setId(id);
-				obj = service.update(obj);
-					return ResponseEntity.noContent().build();
-		}
-		
-		@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
-		public ResponseEntity<Void> delete(@PathVariable Integer id) {
-			service.delete(id);
+	// @Valid valida o Objeto
+	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody EnderecoDTO objDTO, @PathVariable Integer id){
+		// transformando um objeto DTO em um objeto Entity
+		Endereco obj = service.fromDTO(objDTO);
+			obj.setId(id);
+			obj = service.update(obj);
 				return ResponseEntity.noContent().build();
-		}
+	}
 		
-		// retornando todos objetos
-		@RequestMapping(method=RequestMethod.GET)
-		public ResponseEntity<List<EnderecoDTO>> findAll() {
-				List<Endereco> list = service.findAll();
-				// percorrendo a lista para declarar o DTO correspondente
-				List<EnderecoDTO> listDTO = list.stream().map(obj -> new EnderecoDTO(obj)).collect(Collectors.toList());
-					return ResponseEntity.ok().body(listDTO);	
-		}
-		
-		// retornando um numero X de objetos (pages)
-		@RequestMapping(value="/page", method=RequestMethod.GET)
-		public ResponseEntity<Page<EnderecoDTO>> findPage(
-			// @RequestParam serve para tornar os parametros opcionais	
-				@RequestParam(value="page", defaultValue="0") Integer page,
-				@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
-				@RequestParam(value="orderBy", defaultValue="nome")String orderBy, 
-				@RequestParam(value="direction", defaultValue="ASC")String direction) {
-					Page<Endereco> list = service.findPage(page,linesPerPage,orderBy, direction);
-						// percorrendo a lista para declarar o DTO correspondente
-						Page<EnderecoDTO> listDTO = list.map(obj -> new EnderecoDTO(obj));
-							return ResponseEntity.ok().body(listDTO);	
-			}	
+	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
+	public ResponseEntity<Void> delete(@PathVariable Integer id) {
+		service.delete(id);
+			return ResponseEntity.noContent().build();
+	}		
 		
 }

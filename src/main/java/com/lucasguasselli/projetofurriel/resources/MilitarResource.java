@@ -32,6 +32,7 @@ public class MilitarResource {
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private MilitarService service;
 
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Militar> find(@PathVariable Integer id) {
 			Militar obj = service.find(id);
@@ -39,7 +40,6 @@ public class MilitarResource {
 	}
 	
 	// retornando todos objetos
-	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<List<MilitarDTO>> findAll() {
 			List<Militar> list = service.findAll();
@@ -61,8 +61,9 @@ public class MilitarResource {
 				Page<MilitarDTO> listDTO = list.map(obj -> new MilitarDTO(obj));
 					return ResponseEntity.ok().body(listDTO);	
 	}
-			
-	@RequestMapping(value="/buscarMilitaresPorNome", method=RequestMethod.GET)
+	
+	
+	@RequestMapping(value="/searchMilitaresByName", method=RequestMethod.GET)
 	public ResponseEntity<Page<MilitarDTO>> findPage(
 		// @RequestParam serve para tornar os parametros opcionais	
 		@RequestParam(value="nome", defaultValue="0") String nome,
@@ -100,7 +101,8 @@ public class MilitarResource {
 			obj = service.update(obj);
 				return ResponseEntity.noContent().build();
 	}
-		
+	
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);

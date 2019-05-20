@@ -33,6 +33,11 @@ public class EnderecoService {
 					"Objeto nao encontrado! Id: " + id + ", Tipo: " + Endereco.class.getName()));
 	}
 
+	
+	public Endereco search(Integer precCP) {
+			return enderecoDAO.search(precCP);
+	}
+
   	@Transactional
 	public Endereco insert(Endereco obj) {
 		return enderecoDAO.save(obj);
