@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
+import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.dto.DespesaAAnularDTO;
 import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
+import com.lucasguasselli.projetofurriel.dto.EnderecoDTO;
 import com.lucasguasselli.projetofurriel.services.DespesaService;
 
 @CrossOrigin
@@ -64,6 +66,14 @@ public class DespesaResource {
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 			return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/searchPrecCPById", method=RequestMethod.GET)
+	public ResponseEntity<DespesaAAnularNewDTO> findPrecCPById(
+		@RequestParam(value="id", defaultValue="0") int id ){
+			DespesaAAnular despesa = service.searchPrecCPById(id);
+			DespesaAAnularNewDTO despesaNewDTO = service.toNewDTO(despesa);
+				return ResponseEntity.ok().body(despesaNewDTO);	
 	}
 	
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.

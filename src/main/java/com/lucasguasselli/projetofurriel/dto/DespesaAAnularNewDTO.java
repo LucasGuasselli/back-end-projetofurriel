@@ -28,6 +28,19 @@ public class DespesaAAnularNewDTO implements Serializable{
 	public DespesaAAnularNewDTO() {
 		
 	}
+	
+	public DespesaAAnularNewDTO(int id, Date dataInicio, Date dataFim, double valor, int quantidadeDias, String motivo,
+			int militarPrecCP, int aditamentoId) {
+		super();
+		this.id = id;
+		this.dataInicio = dataInicio;
+		this.dataFim = dataFim;
+		this.valor = valor;
+		this.quantidadeDias = quantidadeDias;
+		this.motivo = motivo;
+		this.militarPrecCP = militarPrecCP;
+		this.aditamentoId = aditamentoId;
+	}
 
 	public int getId() {
 		return id;

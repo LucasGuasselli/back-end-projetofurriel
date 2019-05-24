@@ -35,6 +35,10 @@ public class DespesaService {
 					"Objeto nao encontrado! Id: " + id + ", Tipo: " + DespesaAAnular.class.getName()));
 	}
 
+	public DespesaAAnular searchPrecCPById(Integer id) {
+		return despesaDAO.searchPrecCPById(id);
+	}
+	
   	@Transactional
 	public DespesaAAnular insert(DespesaAAnular obj) {
 		return despesaDAO.save(obj);
@@ -71,6 +75,7 @@ public class DespesaService {
 		return new DespesaAAnular(objDTO.getDataInicio(),objDTO.getDataFim(),objDTO.getQuantidadeDias(), objDTO.getMotivo());
 	}
 	
+	// transformando um obj DespesaAAnularNewDTO em obj DespesaAAnular
 	public DespesaAAnular fromDTO(DespesaAAnularNewDTO objNewDTO) {
 		DespesaAAnular despesa = new DespesaAAnular(objNewDTO.getDataInicio(),objNewDTO.getDataFim(), objNewDTO.getQuantidadeDias(), objNewDTO.getMotivo());
 		Militar militar = new Militar(objNewDTO.getMilitarPrecCP());
@@ -78,7 +83,17 @@ public class DespesaService {
 		despesa.setMilitar(militar);
 		despesa.setAditamento(aditamento);
 			return despesa;
-	}	
+	}
+	
+	// transformando um obj DespesaAAnular em obj DespesaAAnularNewDTO
+	public DespesaAAnularNewDTO toNewDTO(DespesaAAnular obj) {
+		DespesaAAnularNewDTO despesaNewDTO = new DespesaAAnularNewDTO(
+				obj.getId(), obj.getDataInicio(), obj.getDataFim(), 
+				obj.getValor(),	obj.getQuantidadeDias(), obj.getMotivo(),
+				obj.getMilitar().getPrecCP(), obj.getAditamento().getId());
+		
+			return despesaNewDTO;
+	}
 	
 			
 	private void updateData(DespesaAAnular newObj, DespesaAAnular obj) {
