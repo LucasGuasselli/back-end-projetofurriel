@@ -13,8 +13,10 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
+import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
+import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
 import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
@@ -63,13 +65,24 @@ public class MilitarService {
 			return militarDAO.findAll(pageRequest);
 	}
 	
-	// buscando por nome
+	// buscando militar por nome
 	public Page<Militar> search(String nome, Integer page, Integer linesPerPage, String orderBy, String direction) {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		// List<PostoGraduacao> postosGraduacoes = postoGraduacaoDAO.findAllById(ids);
 			return militarDAO.search(nome,pageRequest);
 	}
 	
+	// buscando militar por precCP
+		public Militar searchMilitarByPrecCP(int precCP) {
+				return militarDAO.searchMilitarByPrecCP(precCP);
+	}
+		
+	// transformando um obj DespesaAAnular em obj DespesaAAnularNewDTO
+	public MilitarNewDTO toNewDTO(Militar obj) {
+		MilitarNewDTO militarNewDTO = new MilitarNewDTO(obj.getPrecCP(), obj.getNome(), obj.getPostoGraduacao().getId());
+			return militarNewDTO;
+	}
+		
 	// a partir de um DTO vai ser construido e retornado um objeto Militar
 	public Militar fromDTO(MilitarDTO objDTO) {
 			return new Militar(objDTO.getPrecCP(),objDTO.getNome());

@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.lucasguasselli.projetofurriel.dao.DespesaDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
 import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
-import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.DespesaAAnularDTO;
 import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
@@ -75,6 +75,7 @@ public class DespesaService {
 		return new DespesaAAnular(objDTO.getDataInicio(),objDTO.getDataFim(),objDTO.getQuantidadeDias(), objDTO.getMotivo());
 	}
 	
+	
 	// transformando um obj DespesaAAnularNewDTO em obj DespesaAAnular
 	public DespesaAAnular fromDTO(DespesaAAnularNewDTO objNewDTO) {
 		DespesaAAnular despesa = new DespesaAAnular(objNewDTO.getDataInicio(),objNewDTO.getDataFim(), objNewDTO.getQuantidadeDias(), objNewDTO.getMotivo());
@@ -95,7 +96,19 @@ public class DespesaService {
 			return despesaNewDTO;
 	}
 	
-			
+	// transformando um obj DespesaAAnular em obj DespesaAAnularNewDTO
+	public List<DespesaAAnularNewDTO> listToNewDTO(List<DespesaAAnular> lista) {
+		List<DespesaAAnularNewDTO> despesasNewDTO = new ArrayList<DespesaAAnularNewDTO>();
+		
+		for(int i = 0; i < lista.size(); i++) {
+			despesasNewDTO.add(new DespesaAAnularNewDTO(
+					lista.get(i).getId(), lista.get(i).getDataInicio(), lista.get(i).getDataFim(), 
+					lista.get(i).getValor(), lista.get(i).getQuantidadeDias(), lista.get(i).getMotivo(),
+					lista.get(i).getMilitar().getPrecCP(), lista.get(i).getAditamento().getId()));
+		}				
+			return despesasNewDTO;
+	}
+		
 	private void updateData(DespesaAAnular newObj, DespesaAAnular obj) {
 		newObj.setId(obj.getId());
 		newObj.setDataInicio(obj.getDataInicio());

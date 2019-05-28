@@ -10,11 +10,14 @@ public class MilitarNewDTO {
 	public MilitarNewDTO() {
 		
 	}
-	/*
-	public MilitarNewDTO(Integer precCP, String nome, Integer postoGraduacaoId) {
-		
+	
+	public MilitarNewDTO(int precCP, String nome, int postoGraduacaoId) {
+		super();
+		this.precCP = precCP;
+		this.nome = nome;
+		this.postoGraduacaoId = postoGraduacaoId;
 	}
-	*/
+
 	public int getPrecCP() {
 		return precCP;
 	}

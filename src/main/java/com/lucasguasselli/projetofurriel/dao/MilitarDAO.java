@@ -16,4 +16,7 @@ public interface MilitarDAO extends JpaRepository<Militar, Integer> {
 	
 	@Query("SELECT DISTINCT obj FROM Militar obj WHERE obj.nome LIKE %:nome%")
 	Page<Militar> search(@Param("nome") String nome, Pageable PageRequest);
+	
+	@Query("SELECT DISTINCT obj FROM Militar obj WHERE obj.precCP = :precCP")
+	Militar searchMilitarByPrecCP(@Param("precCP") int precCP);
 }

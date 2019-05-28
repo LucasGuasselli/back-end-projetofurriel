@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.Militar;
+import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
 import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.resources.utils.URL;
@@ -64,7 +65,7 @@ public class MilitarResource {
 	
 	
 	@RequestMapping(value="/searchMilitaresByName", method=RequestMethod.GET)
-	public ResponseEntity<Page<MilitarDTO>> findPage(
+	public ResponseEntity<Page<MilitarDTO>> findMilitarByName(
 		// @RequestParam serve para tornar os parametros opcionais	
 		@RequestParam(value="nome", defaultValue="0") String nome,
 		@RequestParam(value="page", defaultValue="0") Integer page,
@@ -76,7 +77,18 @@ public class MilitarResource {
 			Page<Militar> list = service.search(nomeDecoded, page,linesPerPage,orderBy, direction);
 				// percorrendo a lista para declarar o DTO correspondente
 				Page<MilitarDTO> listDTO = list.map(obj -> new MilitarDTO(obj));
-					return ResponseEntity.ok().body(listDTO);	
+					return ResponseEntity.ok().body(listDTO);
+			
+			
+	}
+	
+	@RequestMapping(value="/searchMilitarByPrecCP", method=RequestMethod.GET)
+	public ResponseEntity<MilitarNewDTO> findMilitarByPrecCP(
+		// @RequestParam serve para tornar os parametros opcionais	
+		@RequestParam(value="precCP", defaultValue="0") int precCP) {
+			Militar militar = service.searchMilitarByPrecCP(precCP);
+			MilitarNewDTO militarNewDTO = service.toNewDTO(militar);
+				return ResponseEntity.ok().body(militarNewDTO);	
 	}
 			
 	// @RequestBody faz o obj ser convertido para JSON automaticamente

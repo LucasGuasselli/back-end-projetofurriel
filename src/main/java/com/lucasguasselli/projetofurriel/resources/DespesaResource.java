@@ -41,11 +41,12 @@ public class DespesaResource {
 	
 	// retornando todos objetos
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<DespesaAAnularDTO>> findAll() {
+	public ResponseEntity<List<DespesaAAnularNewDTO>> findAll() {
 		List<DespesaAAnular> list = service.findAll();
+		List<DespesaAAnularNewDTO> listNewDTO = service.listToNewDTO(list);
 			// percorrendo a lista para declarar o DTO correspondente
-			List<DespesaAAnularDTO> listDTO = list.stream().map(obj -> new DespesaAAnularDTO(obj)).collect(Collectors.toList());
-				return ResponseEntity.ok().body(listDTO);	
+			//List<DespesaAAnularDTO> listDTO = list.stream().map(obj -> new DespesaAAnularDTO(obj)).collect(Collectors.toList());
+				return ResponseEntity.ok().body(listNewDTO);	
 	}
 	
 	// retornando um numero X de objetos (pages)
