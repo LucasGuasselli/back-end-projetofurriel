@@ -1,6 +1,7 @@
 package com.lucasguasselli.projetofurriel.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,6 +47,24 @@ public class MilitarResource {
 			List<Militar> list = service.findAll();
 			// percorrendo a lista para declarar o DTO correspondente
 			List<MilitarDTO> listDTO = list.stream().map(obj -> new MilitarDTO(obj)).collect(Collectors.toList());
+				return ResponseEntity.ok().body(listDTO);	
+	}
+	
+	// retornando todos militares sem auxilio transporte
+	@RequestMapping(value="/militaresSemAuxilioTransporte", method=RequestMethod.GET)
+	public ResponseEntity<List<MilitarDTO>> findMilitaresWithoutAuxilioTransporte() {
+		//pegando todos militares
+		List<Militar> list = service.findAll();
+		List<Militar> militaresSemAuxilioTransporte = new ArrayList<Militar>();
+			// adiciionando todos militares que nao possuem auxilio transporte
+			for(int i = 0; i < list.size(); i++) {
+				Militar obj = service.find(list.get(i).getPrecCP());
+				if (obj.getAuxilioTransporte() == null) {
+					militaresSemAuxilioTransporte.add(obj);
+				}
+			}				
+			// percorrendo a lista para declarar o DTO correspondente
+			List<MilitarDTO> listDTO = militaresSemAuxilioTransporte.stream().map(obj -> new MilitarDTO(obj)).collect(Collectors.toList());
 				return ResponseEntity.ok().body(listDTO);	
 	}
 			

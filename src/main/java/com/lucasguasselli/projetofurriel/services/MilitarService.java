@@ -33,7 +33,7 @@ public class MilitarService {
 		Optional<Militar> obj = militarDAO.findById(precCP);
 			return obj.orElseThrow(() -> new ObjectNotFoundException(
 					"Objeto nao encontrado! Id: " + precCP + ", Tipo: " + Militar.class.getName()));
-	}
+	}	
 
   	@Transactional
 	public Militar insert(Militar obj) {
