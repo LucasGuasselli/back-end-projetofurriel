@@ -28,7 +28,7 @@ public class DespesaService {
 	
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private DespesaDAO despesaDAO;
-	
+		
 	public DespesaAAnular find(Integer id) {
 		Optional<DespesaAAnular> obj = despesaDAO.findById(id);
 			return obj.orElseThrow(() -> new ObjectNotFoundException(
