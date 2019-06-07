@@ -19,9 +19,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
+import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
+import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.services.AuxilioTransporteService;
+import com.lucasguasselli.projetofurriel.services.MilitarService;
 
 @CrossOrigin
 @RestController
@@ -30,6 +33,8 @@ public class AuxilioTransporteResource {
 
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private AuxilioTransporteService service;
+	@Autowired
+	private MilitarService militarService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<AuxilioTransporte> find(@PathVariable Integer id) {
@@ -44,6 +49,17 @@ public class AuxilioTransporteResource {
 			// percorrendo a lista para declarar o DTO correspondente
 			List<AuxilioTransporteDTO> listDTO = list.stream().map(obj -> new AuxilioTransporteDTO(obj)).collect(Collectors.toList());
 				return ResponseEntity.ok().body(listDTO);	
+	}
+	
+	@RequestMapping(value="/searchAuxilioTransporteByPrecCP", method=RequestMethod.GET)
+	public ResponseEntity<AuxilioTransporte> findAuxilioTransporteByPrecCP(
+		// @RequestParam serve para tornar os parametros opcionais	
+		@RequestParam(value="precCP", defaultValue="0") int precCP) {
+			// encontrando o militar correspondente e atribuindo o Auxilio Transporte
+				Militar militar = militarService.searchMilitarByPrecCP(precCP);
+					AuxilioTransporte aux = militar.getAuxilioTransporte();
+			// AuxilioTransporteNewDTO auxNewDTO = service.toNewDTO(aux);
+				return ResponseEntity.ok().body(aux);	
 	}
 	
 	// retornando um numero X de objetos (pages)

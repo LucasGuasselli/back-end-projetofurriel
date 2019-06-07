@@ -20,6 +20,7 @@ import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.dto.ConducaoNewDTO;
+import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -73,6 +74,12 @@ public class AuxilioTransporteService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 			return auxilioTransporteDAO.findAll(pageRequest);
 	}
+	
+	// transformando um obj DespesaAAnular em obj DespesaAAnularNewDTO
+		public MilitarNewDTO toNewDTO(Militar obj) {
+			MilitarNewDTO militarNewDTO = new MilitarNewDTO(obj.getPrecCP(), obj.getNome(), obj.getPostoGraduacao().getId());
+				return militarNewDTO;
+		}
 	
 	public AuxilioTransporte fromDTO(AuxilioTransporteNewDTO objDTO) {
 		Militar militar = new Militar(objDTO.getMilitarPrecCP());
