@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,4 +86,16 @@ public class ConducaoService {
 		newObj.setValor(obj.getValor());
 	}
 	
+	// transformando uma lista de obj Conducao em uma lista obj ConducaoNewDTO
+		public List<ConducaoNewDTO> listToNewDTO(List<Conducao> lista) {
+			List<ConducaoNewDTO> conducoesNewDTO = new ArrayList<ConducaoNewDTO>();
+			
+			for(int i = 0; i < lista.size(); i++) {
+				conducoesNewDTO.add(new ConducaoNewDTO(
+						lista.get(i).getId(), lista.get(i).getItinerario(), lista.get(i).getNomeEmpresa(), 
+						lista.get(i).getTipoDeTransporte(), lista.get(i).getValor(), 
+						lista.get(i).getAuxilioTransporte().getId()));
+			}				
+				return conducoesNewDTO;
+		}
 }

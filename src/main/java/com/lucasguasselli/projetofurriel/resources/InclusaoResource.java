@@ -39,11 +39,12 @@ public class InclusaoResource {
 
 	// retornando todos objetos
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<InclusaoAuxilioTransporteDTO>> findAll() {
+	public ResponseEntity<List<InclusaoAuxilioTransporteNewDTO>> findAll() {
 		List<InclusaoAuxilioTransporte> list = service.findAll();
+		List<InclusaoAuxilioTransporteNewDTO> listNewDTO = service.listToNewDTO(list);
 			// percorrendo a lista para declarar o DTO correspondente
-			List<InclusaoAuxilioTransporteDTO> listDTO = list.stream().map(obj -> new InclusaoAuxilioTransporteDTO(obj)).collect(Collectors.toList());
-				return ResponseEntity.ok().body(listDTO);	
+			//List<InclusaoAuxilioTransporteDTO> listDTO = list.stream().map(obj -> new InclusaoAuxilioTransporteDTO(obj)).collect(Collectors.toList());
+				return ResponseEntity.ok().body(listNewDTO);	
 	}
 	
 	// retornando um numero X de objetos (pages)

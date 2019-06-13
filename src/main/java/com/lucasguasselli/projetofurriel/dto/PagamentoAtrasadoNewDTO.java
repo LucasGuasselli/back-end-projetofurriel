@@ -24,6 +24,18 @@ public class PagamentoAtrasadoNewDTO implements Serializable{
 	public PagamentoAtrasadoNewDTO() {
 		
 	}
+	
+	public PagamentoAtrasadoNewDTO(int id, String mesReferencia, int quantidadeDias, String motivo, double valor,
+			 int militarPrecCP, int aditamentoId) {
+		super();
+		this.id = id;
+		this.mesReferencia = mesReferencia;
+		this.quantidadeDias = quantidadeDias;
+		this.motivo = motivo;
+		this.valor = valor;
+		this.militarPrecCP = militarPrecCP;
+		this.aditamentoId = aditamentoId;
+	}
 
 	public int getId() {
 		return id;

@@ -1,6 +1,7 @@
 package com.lucasguasselli.projetofurriel.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,6 +40,19 @@ public class ConducaoResource {
 	public ResponseEntity<Conducao> find(@PathVariable Integer id) {
 			Conducao obj = service.find(id);
 				return ResponseEntity.ok().body(obj);	
+	}
+	
+	@RequestMapping(value="/findConducoesByAuxilioTransporteId/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<ConducaoNewDTO>> findConducoesByAuxilioTransporteId(@PathVariable Integer id) {
+			List<Conducao> list = service.findAll();
+			List<ConducaoNewDTO> listNewDTO = service.listToNewDTO(list);
+			List<ConducaoNewDTO> resultado = new ArrayList<ConducaoNewDTO>();
+			for(int i = 0; i < listNewDTO.size(); i++) {
+				if (listNewDTO.get(i).getAuxilioTransporteId() == id) {
+					resultado.add(listNewDTO.get(i));
+				}
+			}
+				return ResponseEntity.ok().body(resultado);	
 	}
 	
 	// retornando todos objetos

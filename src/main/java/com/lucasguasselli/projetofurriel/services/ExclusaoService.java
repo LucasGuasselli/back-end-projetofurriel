@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,6 +86,27 @@ public class ExclusaoService {
 		newObj.setData(obj.getData());
 		newObj.setValor(obj.getValor());
 		newObj.setMotivo(obj.getMotivo());
+	}
+	
+	// transformando um obj exclusaoAUxilioTransporte em obj exclusaoAuxilioTransporteNewDTO
+	public ExclusaoAuxilioTransporteNewDTO toNewDTO(ExclusaoAuxilioTransporte obj) {
+		ExclusaoAuxilioTransporteNewDTO exclusaoNewDTO = new ExclusaoAuxilioTransporteNewDTO(
+				obj.getId(), obj.getData(), obj.getValor(), obj.getMotivo(),
+				obj.getMilitar().getPrecCP(), obj.getAditamento().getId());			
+			return exclusaoNewDTO;
+	}
+	
+	// transformando um obj exclusaoAUxilioTransporte em obj exclusaoAuxilioTransporteNewDTO
+	public List<ExclusaoAuxilioTransporteNewDTO> listToNewDTO(List<ExclusaoAuxilioTransporte> lista) {
+		List<ExclusaoAuxilioTransporteNewDTO> exclusoesNewDTO = new ArrayList<ExclusaoAuxilioTransporteNewDTO>();
+		
+		for(int i = 0; i < lista.size(); i++) {
+			exclusoesNewDTO.add(new ExclusaoAuxilioTransporteNewDTO(lista.get(i).getId(),
+					lista.get(i).getData(), lista.get(i).getValor(), lista.get(i).getMotivo(),
+					lista.get(i).getMilitar().getPrecCP(), lista.get(i).getAditamento().getId()));
+			 	
+		}				
+			return exclusoesNewDTO;
 	}
 	
 }

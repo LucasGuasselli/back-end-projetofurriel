@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.ExclusaoAuxilioTransporte;
+import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.dto.ExclusaoAuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.ExclusaoAuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.services.ExclusaoService;
@@ -39,11 +41,12 @@ public class ExclusaoResource {
 	
 	// retornando todos objetos
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<ExclusaoAuxilioTransporteDTO>> findAll() {
+	public ResponseEntity<List<ExclusaoAuxilioTransporteNewDTO>> findAll() {
 		List<ExclusaoAuxilioTransporte> list = service.findAll();
+		List<ExclusaoAuxilioTransporteNewDTO> listNewDTO = service.listToNewDTO(list);
 			// percorrendo a lista para declarar o DTO correspondente
-			List<ExclusaoAuxilioTransporteDTO> listDTO = list.stream().map(obj -> new ExclusaoAuxilioTransporteDTO(obj)).collect(Collectors.toList());
-				return ResponseEntity.ok().body(listDTO);	
+			// List<ExclusaoAuxilioTransporteDTO> listDTO = list.stream().map(obj -> new ExclusaoAuxilioTransporteDTO(obj)).collect(Collectors.toList());
+				return ResponseEntity.ok().body(listNewDTO);	
 	}
 	
 	// retornando um numero X de objetos (pages)

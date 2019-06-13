@@ -16,9 +16,16 @@ public class AuxilioTransporteNewDTO implements Serializable{
 	
 	public AuxilioTransporteNewDTO() {
 		
+	}	
+	
+	public AuxilioTransporteNewDTO(int id, double valorTotalAT, double valorDiarioAT, int militarPrecCP) {
+		super();
+		this.id = id;
+		this.valorTotalAT = valorTotalAT;
+		this.valorDiarioAT = valorDiarioAT;
+		this.militarPrecCP = militarPrecCP;
 	}
-	
-	
+
 	public int getMilitarPrecCP() {
 		return militarPrecCP;
 	}

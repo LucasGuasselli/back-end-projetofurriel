@@ -18,6 +18,17 @@ public class ConducaoNewDTO implements Serializable{
 	public ConducaoNewDTO() {
 		
 	}
+	
+	public ConducaoNewDTO(int id, String itinerario, String nomeEmpresa, String tipoDeTransporte, double valor,
+			int auxilioTransporteId) {
+		super();
+		this.id = id;
+		this.itinerario = itinerario;
+		this.nomeEmpresa = nomeEmpresa;
+		this.tipoDeTransporte = tipoDeTransporte;
+		this.valor = valor;
+		this.auxilioTransporteId = auxilioTransporteId;
+	}
 
 	public int getId() {
 		return id;

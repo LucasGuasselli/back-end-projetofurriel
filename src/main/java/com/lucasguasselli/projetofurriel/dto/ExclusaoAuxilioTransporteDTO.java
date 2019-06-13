@@ -26,6 +26,7 @@ public class ExclusaoAuxilioTransporteDTO implements Serializable{
 		this.id = obj.getId();
 		this.data = obj.getData();
 		this.valor = obj.getValor();
+		this.motivo = obj.getMotivo();
 	}
 
 	public int getId() {

@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,9 +15,9 @@ import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.InclusaoDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
-import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.domain.InclusaoAuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
+import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.dto.InclusaoAuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.InclusaoAuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
@@ -84,6 +85,18 @@ public class InclusaoService {
 		newObj.setId(obj.getId());
 		newObj.setDataInicio(obj.getDataInicio());
 		newObj.setValor(obj.getValor());
+	}
+	
+	// transformando uma lista de obj InclusaoAuxilioTransporte em uma lista obj InclusaoAuxilioTransporte
+	public List<InclusaoAuxilioTransporteNewDTO> listToNewDTO(List<InclusaoAuxilioTransporte> lista) {
+		List<InclusaoAuxilioTransporteNewDTO> inclusoesNewDTO = new ArrayList<InclusaoAuxilioTransporteNewDTO>();
+		
+		for(int i = 0; i < lista.size(); i++) {
+			inclusoesNewDTO.add(new InclusaoAuxilioTransporteNewDTO(
+				lista.get(i).getId(), lista.get(i).getDataInicio(), lista.get(i).getValor(),
+				lista.get(i).getMilitar().getPrecCP(), lista.get(i).getAditamento().getId()));
+		}				
+			return inclusoesNewDTO;
 	}
 	
 }

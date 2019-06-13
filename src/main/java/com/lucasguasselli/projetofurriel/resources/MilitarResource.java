@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.Militar;
-import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
 import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.resources.utils.URL;

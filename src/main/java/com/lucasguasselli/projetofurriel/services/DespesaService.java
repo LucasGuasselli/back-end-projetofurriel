@@ -96,7 +96,7 @@ public class DespesaService {
 			return despesaNewDTO;
 	}
 	
-	// transformando um obj DespesaAAnular em obj DespesaAAnularNewDTO
+	// transformando uma lista de obj DespesaAAnular em uma lista obj DespesaAAnularNewDTO
 	public List<DespesaAAnularNewDTO> listToNewDTO(List<DespesaAAnular> lista) {
 		List<DespesaAAnularNewDTO> despesasNewDTO = new ArrayList<DespesaAAnularNewDTO>();
 		

@@ -2,7 +2,6 @@ package com.lucasguasselli.projetofurriel.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -22,7 +21,6 @@ import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
-import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.services.AuxilioTransporteService;
 import com.lucasguasselli.projetofurriel.services.MilitarService;
 
@@ -44,11 +42,10 @@ public class AuxilioTransporteResource {
 	
 	// retornando todos objetos
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<AuxilioTransporteDTO>> findAll() {
+	public ResponseEntity<List<AuxilioTransporteNewDTO>> findAll() {
 		List<AuxilioTransporte> list = service.findAll();
-			// percorrendo a lista para declarar o DTO correspondente
-			List<AuxilioTransporteDTO> listDTO = list.stream().map(obj -> new AuxilioTransporteDTO(obj)).collect(Collectors.toList());
-				return ResponseEntity.ok().body(listDTO);	
+		List<AuxilioTransporteNewDTO> listNewDTO = service.listToNewDTO(list);
+			return ResponseEntity.ok().body(listNewDTO);	
 	}
 	
 	@RequestMapping(value="/searchAuxilioTransporteByPrecCP", method=RequestMethod.GET)

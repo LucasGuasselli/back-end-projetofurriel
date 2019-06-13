@@ -2,7 +2,6 @@ package com.lucasguasselli.projetofurriel.resources;
 
 import java.net.URI;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -19,10 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
-import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.dto.DespesaAAnularDTO;
 import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
-import com.lucasguasselli.projetofurriel.dto.EnderecoDTO;
 import com.lucasguasselli.projetofurriel.services.DespesaService;
 
 @CrossOrigin

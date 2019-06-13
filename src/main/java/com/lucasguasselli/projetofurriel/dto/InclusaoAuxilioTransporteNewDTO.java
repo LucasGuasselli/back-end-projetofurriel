@@ -22,6 +22,15 @@ public class InclusaoAuxilioTransporteNewDTO implements Serializable{
 	public InclusaoAuxilioTransporteNewDTO() {
 		
 	}
+		
+	public InclusaoAuxilioTransporteNewDTO(int id, Date dataInicio, double valor, int militarPrecCP, int aditamentoId) {
+		super();
+		this.id = id;
+		this.dataInicio = dataInicio;
+		this.valor = valor;
+		this.militarPrecCP = militarPrecCP;
+		this.aditamentoId = aditamentoId;
+	}
 
 	public int getId() {
 		return id;

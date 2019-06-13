@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
-import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
@@ -110,5 +110,18 @@ public class AuxilioTransporteService {
 		double valorDiarioAT = valorTotalAT / 22;
 			newObj.setValorTotalAT(valorTotalAT);
 			newObj.setValorDiarioAT(valorDiarioAT);
+	}
+	
+	// transformando um obj AuxilioTransporte em obj AuxilioTransporteNewDTO
+	public List<AuxilioTransporteNewDTO> listToNewDTO(List<AuxilioTransporte> lista) {
+		List<AuxilioTransporteNewDTO> auxiliosNewDTO = new ArrayList<AuxilioTransporteNewDTO>();
+		
+		for(int i = 0; i < lista.size(); i++) {
+			auxiliosNewDTO.add(new AuxilioTransporteNewDTO(lista.get(i).getId(),
+				lista.get(i).getValorTotalAT(), lista.get(i).getValorDiarioAT(),
+				lista.get(i).getMilitar().getPrecCP()));
+				 	
+		}				
+			return auxiliosNewDTO;
 	}
 }

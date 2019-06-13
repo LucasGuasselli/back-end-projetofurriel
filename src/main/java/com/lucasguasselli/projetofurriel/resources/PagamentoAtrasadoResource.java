@@ -39,11 +39,10 @@ public class PagamentoAtrasadoResource {
 	
 	// retornando todos objetos
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<PagamentoAtrasadoDTO>> findAll() {
+	public ResponseEntity<List<PagamentoAtrasadoNewDTO>> findAll() {
 		List<PagamentoAtrasado> list = service.findAll();
-			// percorrendo a lista para declarar o DTO correspondente
-			List<PagamentoAtrasadoDTO> listDTO = list.stream().map(obj -> new PagamentoAtrasadoDTO(obj)).collect(Collectors.toList());
-				return ResponseEntity.ok().body(listDTO);	
+		List<PagamentoAtrasadoNewDTO> pagamentosNewDTO = service.listToNewDTO(list);
+			return ResponseEntity.ok().body(pagamentosNewDTO);	
 	}
 	
 	// retornando um numero X de objetos (pages)

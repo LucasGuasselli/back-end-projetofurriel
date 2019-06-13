@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,8 +15,10 @@ import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.PagamentoAtrasadoDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
+import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PagamentoAtrasado;
+import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.dto.PagamentoAtrasadoDTO;
 import com.lucasguasselli.projetofurriel.dto.PagamentoAtrasadoNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
@@ -87,4 +90,25 @@ public class PagamentoAtrasadoService {
 		newObj.setMotivo(obj.getMotivo());
 	}
 	
+	// transformando um obj PagamentoAtrasado em obj PagamentoAtrasadoNewDTO
+	public PagamentoAtrasadoNewDTO toNewDTO(PagamentoAtrasado obj) {
+		PagamentoAtrasadoNewDTO pagamentoNewDTO = new PagamentoAtrasadoNewDTO(
+				obj.getId(), obj.getMesReferencia(), obj.getQuantidadeDias(), obj.getMotivo(),
+				obj.getValor(),	obj.getMilitar().getPrecCP(), obj.getAditamento().getId());
+			return pagamentoNewDTO;
+	}
+		
+	// transformando uma lista de obj PagamentoAtrasado em uma lista obj PagamentoAtrasadoNewDTO
+	public List<PagamentoAtrasadoNewDTO> listToNewDTO(List<PagamentoAtrasado> lista) {
+		List<PagamentoAtrasadoNewDTO> pagamentosNewDTO = new ArrayList<PagamentoAtrasadoNewDTO>();
+		
+		for(int i = 0; i < lista.size(); i++) {
+			pagamentosNewDTO.add(new PagamentoAtrasadoNewDTO(lista.get(i).getId(),
+					lista.get(i).getMesReferencia(),lista.get(i).getQuantidadeDias(),
+					lista.get(i).getMotivo(), lista.get(i).getValor(),
+					lista.get(i).getMilitar().getPrecCP(),
+					lista.get(i).getAditamento().getId()));
+		}				
+				return pagamentosNewDTO;
+		}
 }
