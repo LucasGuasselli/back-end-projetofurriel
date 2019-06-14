@@ -19,10 +19,12 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
+import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.services.AuxilioTransporteService;
 import com.lucasguasselli.projetofurriel.services.MilitarService;
+import com.lucasguasselli.projetofurriel.services.PostoGraduacaoService;
 
 @CrossOrigin
 @RestController
@@ -33,6 +35,8 @@ public class AuxilioTransporteResource {
 	private AuxilioTransporteService service;
 	@Autowired
 	private MilitarService militarService;
+	@Autowired 
+	private PostoGraduacaoService postoGracuacaoService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<AuxilioTransporte> find(@PathVariable Integer id) {
@@ -94,7 +98,10 @@ public class AuxilioTransporteResource {
 	@RequestMapping(method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody AuxilioTransporteNewDTO objNewDTO){
 			AuxilioTransporte obj = service.fromDTO(objNewDTO);
-			obj = service.insert(obj);
+			Militar militar = militarService.find(objNewDTO.getMilitarPrecCP());
+			PostoGraduacao posto = postoGracuacaoService.find(militar.getPostoGraduacao().getId());
+				obj.setValorTotalAT(obj.getValorTotalAT() - posto.getCotaParte());
+				obj = service.insert(obj);
 		// este metodo serve para enviar o precCP para rota
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 				// created gera o codigo 201 (cadastrado com sucesso)

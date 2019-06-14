@@ -77,7 +77,7 @@ public class MilitarService {
 				return militarDAO.searchMilitarByPrecCP(precCP);
 	}
 		
-	// transformando um obj DespesaAAnular em obj DespesaAAnularNewDTO
+	// transformando um obj Militar em obj MilitarNewDTO
 	public MilitarNewDTO toNewDTO(Militar obj) {
 		MilitarNewDTO militarNewDTO = new MilitarNewDTO(obj.getPrecCP(), obj.getNome(), obj.getPostoGraduacao().getId());
 			return militarNewDTO;

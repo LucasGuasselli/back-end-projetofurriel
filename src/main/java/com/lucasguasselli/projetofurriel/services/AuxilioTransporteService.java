@@ -55,6 +55,13 @@ public class AuxilioTransporteService {
 				auxilioTransporteDAO.save(aux);		
 	}
 	
+	// atualizando valores quando uma conducao e alterada
+	public void update(Conducao conducao, ConducaoNewDTO conducaoNewDTO, Integer oldValue) {
+		AuxilioTransporte aux = find(conducaoNewDTO.getAuxilioTransporteId());
+		updateValueUpdateConcucao(aux, conducao, oldValue);
+				auxilioTransporteDAO.save(aux);		
+	}
+	
 	public void delete(Integer id) {
 		find(id);
 		try {
@@ -98,8 +105,18 @@ public class AuxilioTransporteService {
 		newObj.setValorDiarioAT(obj.getValorDiarioAT());		
 	}
 	
+	// atualiza os valores quando uma conducao e inserida
 	private void updateValueInsertConcucao(AuxilioTransporte newObj, Conducao obj) {
 		double valorTotalAT = newObj.getValorTotalAT() + (obj.getValor() * 22);
+		double valorDiarioAT = valorTotalAT / 22;
+			newObj.setValorTotalAT(valorTotalAT);
+			newObj.setValorDiarioAT(valorDiarioAT);
+	}
+	
+	// atualiza os valores quando uma conducao e alterada
+	private void updateValueUpdateConcucao(AuxilioTransporte newObj, Conducao obj, Integer oldValue) {
+		double valorTotalAT = newObj.getValorTotalAT() - (oldValue * 22);
+		valorTotalAT = valorTotalAT + (obj.getValor() * 22);
 		double valorDiarioAT = valorTotalAT / 22;
 			newObj.setValorTotalAT(valorTotalAT);
 			newObj.setValorDiarioAT(valorDiarioAT);

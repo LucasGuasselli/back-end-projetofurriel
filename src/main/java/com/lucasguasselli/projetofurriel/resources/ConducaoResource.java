@@ -86,12 +86,14 @@ public class ConducaoResource {
 	
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
 	// @Valid valida o Objeto
-    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody ConducaoDTO objDTO, @PathVariable Integer id){
+    @RequestMapping(value="/{id}/{oldValue}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody ConducaoNewDTO objNewDTO, 
+			@PathVariable Integer id, @PathVariable Integer oldValue){
 		// transformando um objeto DTO em um objeto Entity
-		Conducao obj = service.fromDTO(objDTO);
+		Conducao obj = service.fromDTO(objNewDTO);
 			obj.setId(id);
 			obj = service.update(obj);
+			auxilioTransporteService.update(obj, objNewDTO, oldValue);
 				return ResponseEntity.noContent().build();
 	}	
     
