@@ -96,7 +96,7 @@ public class ExclusaoService {
 			return exclusaoNewDTO;
 	}
 	
-	// transformando um obj exclusaoAUxilioTransporte em obj exclusaoAuxilioTransporteNewDTO
+	// transformando uma lista de obj exclusaoAuxilioTransporte em uma lista de obj exclusaoAuxilioTransporteNewDTO
 	public List<ExclusaoAuxilioTransporteNewDTO> listToNewDTO(List<ExclusaoAuxilioTransporte> lista) {
 		List<ExclusaoAuxilioTransporteNewDTO> exclusoesNewDTO = new ArrayList<ExclusaoAuxilioTransporteNewDTO>();
 		

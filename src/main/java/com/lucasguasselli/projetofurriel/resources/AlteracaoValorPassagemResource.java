@@ -39,11 +39,12 @@ public class AlteracaoValorPassagemResource {
 	
 	// retornando todos objetos
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<AlteracaoValorPassagemDTO>> findAll() {
+	public ResponseEntity<List<AlteracaoValorPassagemNewDTO>> findAll() {
 		List<AlteracaoValorPassagem> list = service.findAll();
+		List<AlteracaoValorPassagemNewDTO> listNewDTO = service.listToNewDTO(list);
 			// percorrendo a lista para declarar o DTO correspondente
-			List<AlteracaoValorPassagemDTO> listDTO = list.stream().map(obj -> new AlteracaoValorPassagemDTO(obj)).collect(Collectors.toList());
-				return ResponseEntity.ok().body(listDTO);	
+			// List<AlteracaoValorPassagemDTO> listDTO = list.stream().map(obj -> new AlteracaoValorPassagemDTO(obj)).collect(Collectors.toList());
+				return ResponseEntity.ok().body(listNewDTO);	
 	}
 	
 	// retornando um numero X de objetos (pages)

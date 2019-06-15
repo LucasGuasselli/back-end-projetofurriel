@@ -23,6 +23,17 @@ public class AlteracaoValorPassagemNewDTO implements Serializable{
 		
 	}
 
+	public AlteracaoValorPassagemNewDTO(int id, Date dataInicio, String motivo, double valor, int militarPrecCP,
+			int aditamentoId) {
+		super();
+		this.id = id;
+		this.dataInicio = dataInicio;
+		this.motivo = motivo;
+		this.valor = valor;
+		this.militarPrecCP = militarPrecCP;
+		this.aditamentoId = aditamentoId;
+	}
+
 	public int getId() {
 		return id;
 	}

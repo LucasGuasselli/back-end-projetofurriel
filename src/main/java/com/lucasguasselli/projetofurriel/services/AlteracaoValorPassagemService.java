@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +15,12 @@ import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.AlteracaoValorPassagemDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
-import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.AlteracaoValorPassagem;
+import com.lucasguasselli.projetofurriel.domain.ExclusaoAuxilioTransporte;
+import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.AlteracaoValorPassagemDTO;
 import com.lucasguasselli.projetofurriel.dto.AlteracaoValorPassagemNewDTO;
+import com.lucasguasselli.projetofurriel.dto.ExclusaoAuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -84,6 +87,19 @@ public class AlteracaoValorPassagemService {
 		newObj.setDataInicio(obj.getDataInicio());
 		newObj.setValor(obj.getValor());
 		newObj.setMotivo(obj.getMotivo());
+	}
+	
+	// transformando uma lista de obj AlteracaoValorPassagem em uma lista de obj AlteracaoValorPassagemNewDTO
+	public List<AlteracaoValorPassagemNewDTO> listToNewDTO(List<AlteracaoValorPassagem> lista) {
+		List<AlteracaoValorPassagemNewDTO> alteracoesNewDTO = new ArrayList<AlteracaoValorPassagemNewDTO>();
+		
+		for(int i = 0; i < lista.size(); i++) {
+			alteracoesNewDTO.add(new AlteracaoValorPassagemNewDTO(lista.get(i).getId(),
+				lista.get(i).getDataInicio(), lista.get(i).getMotivo(), lista.get(i).getValor(), 
+				lista.get(i).getMilitar().getPrecCP(), lista.get(i).getAditamento().getId()));
+				 	
+		}				
+			return alteracoesNewDTO;
 	}
 	
 }
