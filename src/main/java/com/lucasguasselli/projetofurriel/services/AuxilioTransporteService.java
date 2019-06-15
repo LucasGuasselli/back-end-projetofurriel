@@ -16,10 +16,12 @@ import org.springframework.stereotype.Service;
 import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
+import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.dto.ConducaoNewDTO;
+import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
@@ -128,6 +130,14 @@ public class AuxilioTransporteService {
 			newObj.setValorTotalAT(valorTotalAT);
 			newObj.setValorDiarioAT(valorDiarioAT);
 	}
+	
+	// transformando um obj AuxilioTransporte em obj AuxilioTransporteNewDTO
+		public AuxilioTransporteNewDTO toNewDTO(AuxilioTransporte obj) {
+			AuxilioTransporteNewDTO auxilioTransporteNewDTO = new AuxilioTransporteNewDTO(obj.getId(),
+				obj.getValorTotalAT(), obj.getValorDiarioAT(), obj.getMilitar().getPrecCP());
+			
+				return auxilioTransporteNewDTO;
+		}
 	
 	// transformando um obj AuxilioTransporte em obj AuxilioTransporteNewDTO
 	public List<AuxilioTransporteNewDTO> listToNewDTO(List<AuxilioTransporte> lista) {

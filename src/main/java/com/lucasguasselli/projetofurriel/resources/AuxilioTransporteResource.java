@@ -39,9 +39,10 @@ public class AuxilioTransporteResource {
 	private PostoGraduacaoService postoGracuacaoService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<AuxilioTransporte> find(@PathVariable Integer id) {
+	public ResponseEntity<AuxilioTransporteNewDTO> find(@PathVariable Integer id) {
 			AuxilioTransporte obj = service.find(id);
-				return ResponseEntity.ok().body(obj);	
+			AuxilioTransporteNewDTO objNewDTO = service.toNewDTO(obj);
+				return ResponseEntity.ok().body(objNewDTO);	
 	}
 	
 	// retornando todos objetos
