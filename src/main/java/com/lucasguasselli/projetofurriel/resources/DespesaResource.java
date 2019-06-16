@@ -1,6 +1,7 @@
 package com.lucasguasselli.projetofurriel.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -72,6 +73,20 @@ public class DespesaResource {
 			DespesaAAnular despesa = service.searchPrecCPById(id);
 			DespesaAAnularNewDTO despesaNewDTO = service.toNewDTO(despesa);
 				return ResponseEntity.ok().body(despesaNewDTO);	
+	}
+	
+	@RequestMapping(value="/searchDespesasByAditamentoId/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<DespesaAAnularNewDTO>> findDespesasByAditamentoId(@PathVariable Integer id){
+			List<DespesaAAnular> list = service.findAll();
+			List<DespesaAAnularNewDTO> listNewDTO = service.listToNewDTO(list);
+			
+			List<DespesaAAnularNewDTO> resultado = new ArrayList<DespesaAAnularNewDTO>();
+				for (int i = 0; i < listNewDTO.size(); i++) {
+					if (listNewDTO.get(i).getAditamentoId() == id ) {
+						resultado.add(listNewDTO.get(i));
+					}
+				}			
+					return ResponseEntity.ok().body(resultado);	
 	}
 	
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.

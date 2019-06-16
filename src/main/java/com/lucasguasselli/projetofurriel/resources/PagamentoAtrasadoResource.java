@@ -1,8 +1,8 @@
 package com.lucasguasselli.projetofurriel.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -43,6 +43,20 @@ public class PagamentoAtrasadoResource {
 		List<PagamentoAtrasado> list = service.findAll();
 		List<PagamentoAtrasadoNewDTO> pagamentosNewDTO = service.listToNewDTO(list);
 			return ResponseEntity.ok().body(pagamentosNewDTO);	
+	}
+	
+	@RequestMapping(value="/searchPagamentosAtrasadosByAditamentoId/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<PagamentoAtrasadoNewDTO>> findPagamentosAtrasadosByAditamentoId(@PathVariable Integer id){
+			List<PagamentoAtrasado> list = service.findAll();
+			List<PagamentoAtrasadoNewDTO> listNewDTO = service.listToNewDTO(list);
+			
+			List<PagamentoAtrasadoNewDTO> resultado = new ArrayList<PagamentoAtrasadoNewDTO>();
+				for (int i = 0; i < listNewDTO.size(); i++) {
+					if (listNewDTO.get(i).getAditamentoId() == id ) {
+						resultado.add(listNewDTO.get(i));
+					}
+				}			
+					return ResponseEntity.ok().body(resultado);	
 	}
 	
 	// retornando um numero X de objetos (pages)

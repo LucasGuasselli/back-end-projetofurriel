@@ -19,11 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.Endereco;
-import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.EnderecoDTO;
 import com.lucasguasselli.projetofurriel.dto.EnderecoNewDTO;
-import com.lucasguasselli.projetofurriel.dto.MilitarDTO;
-import com.lucasguasselli.projetofurriel.resources.utils.URL;
 import com.lucasguasselli.projetofurriel.services.EnderecoService;
 
 @CrossOrigin

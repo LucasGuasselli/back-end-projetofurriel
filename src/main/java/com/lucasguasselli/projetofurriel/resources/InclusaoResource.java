@@ -1,8 +1,8 @@
 package com.lucasguasselli.projetofurriel.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -25,7 +25,7 @@ import com.lucasguasselli.projetofurriel.services.InclusaoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/inclusoesAuxiliosTransporte")
+@RequestMapping(value="/inclusoesAuxilioTransporte")
 public class InclusaoResource {
 
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
@@ -45,6 +45,20 @@ public class InclusaoResource {
 			// percorrendo a lista para declarar o DTO correspondente
 			//List<InclusaoAuxilioTransporteDTO> listDTO = list.stream().map(obj -> new InclusaoAuxilioTransporteDTO(obj)).collect(Collectors.toList());
 				return ResponseEntity.ok().body(listNewDTO);	
+	}
+	
+	@RequestMapping(value="/searchInclusoesByAditamentoId/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<InclusaoAuxilioTransporteNewDTO>> findInclusoesByAditamentoId(@PathVariable Integer id){
+			List<InclusaoAuxilioTransporte> list = service.findAll();
+			List<InclusaoAuxilioTransporteNewDTO> listNewDTO = service.listToNewDTO(list);
+			
+			List<InclusaoAuxilioTransporteNewDTO> resultado = new ArrayList<InclusaoAuxilioTransporteNewDTO>();
+				for (int i = 0; i < listNewDTO.size(); i++) {
+					if (listNewDTO.get(i).getAditamentoId() == id ) {
+						resultado.add(listNewDTO.get(i));
+					}
+				}			
+					return ResponseEntity.ok().body(resultado);	
 	}
 	
 	// retornando um numero X de objetos (pages)

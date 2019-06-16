@@ -1,8 +1,8 @@
 package com.lucasguasselli.projetofurriel.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -18,16 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.ExclusaoAuxilioTransporte;
-import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.dto.ExclusaoAuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.ExclusaoAuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.services.ExclusaoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/exclusoesAuxiliosTransporte")
+@RequestMapping(value="/exclusoesAuxilioTransporte")
 public class ExclusaoResource {
 
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
@@ -47,6 +45,20 @@ public class ExclusaoResource {
 			// percorrendo a lista para declarar o DTO correspondente
 			// List<ExclusaoAuxilioTransporteDTO> listDTO = list.stream().map(obj -> new ExclusaoAuxilioTransporteDTO(obj)).collect(Collectors.toList());
 				return ResponseEntity.ok().body(listNewDTO);	
+	}
+	
+	@RequestMapping(value="/searchExclusoesByAditamentoId/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<ExclusaoAuxilioTransporteNewDTO>> findExclusoesByAditamentoId(@PathVariable Integer id){
+			List<ExclusaoAuxilioTransporte> list = service.findAll();
+			List<ExclusaoAuxilioTransporteNewDTO> listNewDTO = service.listToNewDTO(list);
+			
+			List<ExclusaoAuxilioTransporteNewDTO> resultado = new ArrayList<ExclusaoAuxilioTransporteNewDTO>();
+				for (int i = 0; i < listNewDTO.size(); i++) {
+					if (listNewDTO.get(i).getAditamentoId() == id ) {
+						resultado.add(listNewDTO.get(i));
+					}
+				}			
+					return ResponseEntity.ok().body(resultado);	
 	}
 	
 	// retornando um numero X de objetos (pages)

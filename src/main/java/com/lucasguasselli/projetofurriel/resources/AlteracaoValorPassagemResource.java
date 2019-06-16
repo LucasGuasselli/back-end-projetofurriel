@@ -1,8 +1,8 @@
 package com.lucasguasselli.projetofurriel.resources;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -45,6 +45,20 @@ public class AlteracaoValorPassagemResource {
 			// percorrendo a lista para declarar o DTO correspondente
 			// List<AlteracaoValorPassagemDTO> listDTO = list.stream().map(obj -> new AlteracaoValorPassagemDTO(obj)).collect(Collectors.toList());
 				return ResponseEntity.ok().body(listNewDTO);	
+	}
+	
+	@RequestMapping(value="/searchAlteracoesByAditamentoId/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<AlteracaoValorPassagemNewDTO>> findDespesasByAditamentoId(@PathVariable Integer id){
+			List<AlteracaoValorPassagem> list = service.findAll();
+			List<AlteracaoValorPassagemNewDTO> listNewDTO = service.listToNewDTO(list);
+			
+			List<AlteracaoValorPassagemNewDTO> resultado = new ArrayList<AlteracaoValorPassagemNewDTO>();
+				for (int i = 0; i < listNewDTO.size(); i++) {
+					if (listNewDTO.get(i).getAditamentoId() == id ) {
+						resultado.add(listNewDTO.get(i));
+					}
+				}			
+					return ResponseEntity.ok().body(resultado);	
 	}
 	
 	// retornando um numero X de objetos (pages)
