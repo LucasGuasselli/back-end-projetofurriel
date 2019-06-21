@@ -72,13 +72,14 @@ public class DespesaService {
 	
 	// a partir de um DTO vai ser construido e retornado um objeto DespesaAAnular
 	public DespesaAAnular fromDTO(DespesaAAnularDTO objDTO) {
-		return new DespesaAAnular(objDTO.getDataInicio(),objDTO.getDataFim(),objDTO.getQuantidadeDias(), objDTO.getMotivo());
+		return new DespesaAAnular(objDTO.getDataInicio(),objDTO.getDataFim(),objDTO.getQuantidadeDias(), objDTO.getValor(), objDTO.getMotivo());
 	}
 	
 	
 	// transformando um obj DespesaAAnularNewDTO em obj DespesaAAnular
 	public DespesaAAnular fromDTO(DespesaAAnularNewDTO objNewDTO) {
-		DespesaAAnular despesa = new DespesaAAnular(objNewDTO.getDataInicio(),objNewDTO.getDataFim(), objNewDTO.getQuantidadeDias(), objNewDTO.getMotivo());
+		DespesaAAnular despesa = new DespesaAAnular(objNewDTO.getDataInicio(),objNewDTO.getDataFim(),
+						objNewDTO.getQuantidadeDias(), objNewDTO.getValor(), objNewDTO.getMotivo());
 		Militar militar = new Militar(objNewDTO.getMilitarPrecCP());
 		Aditamento aditamento = new Aditamento(objNewDTO.getAditamentoId());
 		despesa.setMilitar(militar);

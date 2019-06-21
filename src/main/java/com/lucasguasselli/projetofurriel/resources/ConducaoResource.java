@@ -101,8 +101,10 @@ public class ConducaoResource {
  	@RequestMapping(method=RequestMethod.POST)
  	public ResponseEntity<Void> insert(@RequestBody ConducaoNewDTO objNewDTO){
  			Conducao obj = service.fromDTO(objNewDTO);
- 			auxilioTransporteService.update(obj, objNewDTO);
  			obj = service.insert(obj);
+ 				
+ 			auxilioTransporteService.update(objNewDTO);
+ 			
  		// este metodo serve para enviar o precCP para rota
  			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
  				// created gera o codigo 201 (cadastrado com sucesso)

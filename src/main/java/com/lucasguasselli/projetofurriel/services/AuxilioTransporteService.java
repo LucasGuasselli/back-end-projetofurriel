@@ -16,12 +16,11 @@ import org.springframework.stereotype.Service;
 import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
-import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
 import com.lucasguasselli.projetofurriel.domain.Militar;
+import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.dto.ConducaoNewDTO;
-import com.lucasguasselli.projetofurriel.dto.DespesaAAnularNewDTO;
 import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
@@ -32,6 +31,12 @@ public class AuxilioTransporteService {
 	
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private AuxilioTransporteDAO auxilioTransporteDAO;
+	@Autowired
+	private ConducaoService conducaoService;
+	@Autowired
+	private MilitarService militarService;
+	@Autowired
+	private PostoGraduacaoService postoService; 
 	
 	public AuxilioTransporte find(Integer id) {
 		Optional<AuxilioTransporte> obj = auxilioTransporteDAO.findById(id);
@@ -51,9 +56,24 @@ public class AuxilioTransporteService {
 	}
 	
 	// atualizando valores do auxilio transporte ao adicionar uma conducao
-	public void update(Conducao conducao, ConducaoNewDTO conducaoNewDTO) {
-		AuxilioTransporte aux = find(conducaoNewDTO.getAuxilioTransporteId());
-		updateValueInsertConcucao(aux, conducao);
+	public void update(ConducaoNewDTO conducaoNewDTO) {
+		// buscando o valor das conducoes
+		List<Conducao> list = conducaoService.findAll();
+			List<ConducaoNewDTO> listNewDTO = conducaoService.listToNewDTO(list);
+				double valorTotal = 0;
+			for(int i = 0; i < listNewDTO.size(); i++) {
+				if (listNewDTO.get(i).getAuxilioTransporteId() == conducaoNewDTO.getAuxilioTransporteId()) {
+					valorTotal += listNewDTO.get(i).getValor();
+				}
+			}
+		AuxilioTransporte aux = this.find(conducaoNewDTO.getAuxilioTransporteId());
+
+		// buscando a cota parte
+		Militar militar = militarService.find(aux.getMilitar().getPrecCP());
+			MilitarNewDTO militarNewDTO = militarService.toNewDTO(militar);
+				PostoGraduacao posto = postoService.find(militarNewDTO.getPostoGraduacaoId());
+		// atualizando valores e salvando no Banco de Dados
+		aux = updateValueInsertConcucao(aux, valorTotal, posto.getCotaParte());
 				auxilioTransporteDAO.save(aux);		
 	}
 	
@@ -108,11 +128,12 @@ public class AuxilioTransporteService {
 	}
 	
 	// atualiza os valores quando uma conducao e inserida
-	private void updateValueInsertConcucao(AuxilioTransporte newObj, Conducao obj) {
-		double valorTotalAT = newObj.getValorTotalAT() + (obj.getValor() * 22);
+	private AuxilioTransporte updateValueInsertConcucao(AuxilioTransporte aux, double valor, double cotaParte) {
+		double valorTotalAT =  ((valor * 22) - cotaParte);
 		double valorDiarioAT = valorTotalAT / 22;
-			newObj.setValorTotalAT(valorTotalAT);
-			newObj.setValorDiarioAT(valorDiarioAT);
+			aux.setValorTotalAT(valorTotalAT);
+			aux.setValorDiarioAT(valorDiarioAT);
+				return aux;
 	}
 	
 	// atualiza os valores quando uma conducao e alterada

@@ -20,9 +20,9 @@ public class Endereco implements Serializable{
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)	
 	private int id;
-	private String rua;
+	private String logradouro;
 	private String bairro;
-	private String cidade;
+	private String localidade;
 	private int numero;
 	private String complemento;
 	
@@ -43,20 +43,20 @@ public class Endereco implements Serializable{
 		this.id = id;
 	}
 		
-	public Endereco(String rua, String bairro, String cidade, int numero, String complemento) {
+	public Endereco(String logradouro, String bairro, String localidade, int numero, String complemento) {
 		super();
-		this.rua = rua;
+		this.logradouro = logradouro;
 		this.bairro = bairro;
-		this.cidade = cidade;
+		this.localidade = localidade;
 		this.numero = numero;
 		this.complemento = complemento;
 	}
 
-	public Endereco(String rua, String bairro, String cidade, int numero, String complemento, Militar militar) {
+	public Endereco(String logradouro, String bairro, String localidade, int numero, String complemento, Militar militar) {
 		super();
-		this.rua = rua;
+		this.logradouro = logradouro;
 		this.bairro = bairro;
-		this.cidade = cidade;
+		this.localidade = localidade;
 		this.numero = numero;
 		this.complemento = complemento;
 	    this.militar = militar;
@@ -76,11 +76,11 @@ public class Endereco implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getRua() {
-		return rua;
+	public String getLogradouro() {
+		return logradouro;
 	}
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 	public String getBairro() {
 		return bairro;
@@ -88,11 +88,11 @@ public class Endereco implements Serializable{
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	public String getCidade() {
-		return cidade;
+	public String getLocalidade() {
+		return localidade;
 	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 	public int getNumero() {
 		return numero;
@@ -131,7 +131,7 @@ public class Endereco implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Endereco [id=" + id + ", rua=" + rua + ", bairro=" + bairro + ", cidade=" + cidade + ", numero="
+		return "Endereco [id=" + id + ", logradouro=" + logradouro + ", bairro=" + bairro + ", localidade=" + localidade + ", numero="
 				+ numero + ", complemento=" + complemento + ", militar=" + militar + "]";
 	}
 	

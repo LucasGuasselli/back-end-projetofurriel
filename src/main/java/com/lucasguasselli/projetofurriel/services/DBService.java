@@ -103,8 +103,8 @@ public class DBService {
 		ExclusaoAuxilioTransporte excAux = new ExclusaoAuxilioTransporte(sdf.parse("05/02/2000"), 20,"", adt, lucas);
 		ExclusaoAuxilioTransporte excAux1 = new ExclusaoAuxilioTransporte(sdf.parse("05/02/2000"), 20,"", adt, lucas);
 
-		PagamentoAtrasado pgmto = new PagamentoAtrasado("Janeiro", 3, "diferenca de aumento da passagem", 20, sdf.parse("05/02/2000"));
-		PagamentoAtrasado pgmto1 = new PagamentoAtrasado("Abril", 2, "diferenca de aumento da passagem", 10, sdf.parse("05/04/2019"));
+		PagamentoAtrasado pgmto = new PagamentoAtrasado("Janeiro", 3, "diferenca de aumento da passagem", 20, sdf.parse("05/02/2000"), adt, lucas);
+		PagamentoAtrasado pgmto1 = new PagamentoAtrasado("Abril", 2, "diferenca de aumento da passagem", 10, sdf.parse("05/04/2019"), adt1, grillo);
 
 		AlteracaoValorPassagem altValPass = new AlteracaoValorPassagem(sdf.parse("05/02/2000"),"motivo", 20, adt, lucas);
 		AlteracaoValorPassagem altValPass1 = new AlteracaoValorPassagem(sdf.parse("05/12/2019"),"motivo", 5, adt1, grillo);

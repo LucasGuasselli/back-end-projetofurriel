@@ -8,9 +8,9 @@ public class EnderecoNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private int id;
-	private String rua;
+	private String logradouro;
 	private String bairro;
-	private String cidade;
+	private String localidade;
 	private int numero;
 	private String complemento;
 	
@@ -36,11 +36,11 @@ public class EnderecoNewDTO implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getRua() {
-		return rua;
+	public String getLogradouro() {
+		return logradouro;
 	}
-	public void setRua(String rua) {
-		this.rua = rua;
+	public void setLogradouro(String logradouro) {
+		this.logradouro = logradouro;
 	}
 	public String getBairro() {
 		return bairro;
@@ -48,11 +48,11 @@ public class EnderecoNewDTO implements Serializable{
 	public void setBairro(String bairro) {
 		this.bairro = bairro;
 	}
-	public String getCidade() {
-		return cidade;
+	public String getLocalidade() {
+		return localidade;
 	}
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 	public int getNumero() {
 		return numero;

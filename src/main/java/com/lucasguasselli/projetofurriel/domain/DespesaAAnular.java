@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,11 +50,12 @@ public class DespesaAAnular implements Serializable{
 		this.id = id;
 	}
 
-	public DespesaAAnular(Date dataInicio, Date dataFim, int quantidadeDias, String motivo) {
+	public DespesaAAnular(Date dataInicio, Date dataFim, int quantidadeDias, double valor, String motivo) {
 		super();
 		this.dataInicio = dataInicio;
 		this.dataFim = dataFim;
 		this.quantidadeDias = quantidadeDias;
+		this.valor = valor;
 		this.motivo = motivo;
 	}
 

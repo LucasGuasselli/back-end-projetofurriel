@@ -74,7 +74,7 @@ public class EnderecoService {
 	}
 	
 	public Endereco fromDTO(EnderecoNewDTO objDTO) {
-		Endereco Endereco = new Endereco(objDTO.getRua(),objDTO.getBairro(),objDTO.getCidade(),objDTO.getNumero(),objDTO.getComplemento());
+		Endereco Endereco = new Endereco(objDTO.getLogradouro(),objDTO.getBairro(),objDTO.getLocalidade(),objDTO.getNumero(),objDTO.getComplemento());
 		Militar militar = new Militar(objDTO.getMilitarPrecCP());
 		Endereco.setMilitar(militar);
 			return Endereco;
@@ -84,14 +84,14 @@ public class EnderecoService {
 	
 	// a partir de um DTO vai ser construido e retornado um objeto Endereco
 	public Endereco fromDTO(EnderecoDTO objDTO) {
-		return new Endereco(objDTO.getRua(), objDTO.getBairro(), objDTO.getCidade(), objDTO.getNumero(), objDTO.getComplemento());
+		return new Endereco(objDTO.getLogradouro(), objDTO.getBairro(), objDTO.getLocalidade(), objDTO.getNumero(), objDTO.getComplemento());
 	}
 		
 	private void updateData(Endereco newObj, Endereco obj) {
 		newObj.setId(obj.getId());
-		newObj.setRua(obj.getRua());
+		newObj.setLogradouro(obj.getLogradouro());
 		newObj.setBairro(obj.getBairro());
-		newObj.setCidade(obj.getCidade());
+		newObj.setLocalidade(obj.getLocalidade());
 		newObj.setNumero(obj.getNumero());
 		newObj.setComplemento(obj.getComplemento());
 	}
