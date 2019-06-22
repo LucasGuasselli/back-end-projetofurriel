@@ -10,6 +10,7 @@ public class AuxilioTransporteNewDTO implements Serializable{
 	private int id;
 	private double valorTotalAT;
 	private double valorDiarioAT;
+	private boolean exclusao;
 	
 	private int militarPrecCP;
 
@@ -18,11 +19,12 @@ public class AuxilioTransporteNewDTO implements Serializable{
 		
 	}	
 	
-	public AuxilioTransporteNewDTO(int id, double valorTotalAT, double valorDiarioAT, int militarPrecCP) {
+	public AuxilioTransporteNewDTO(int id, double valorTotalAT, double valorDiarioAT, boolean exclusao, int militarPrecCP) {
 		super();
 		this.id = id;
 		this.valorTotalAT = valorTotalAT;
 		this.valorDiarioAT = valorDiarioAT;
+		this.exclusao = exclusao;
 		this.militarPrecCP = militarPrecCP;
 	}
 
@@ -42,6 +44,14 @@ public class AuxilioTransporteNewDTO implements Serializable{
 	public void setId(int id) {
 		this.id = id;
 	}
+	public boolean isExclusao() {
+		return exclusao;
+	}
+
+	public void setExclusao(boolean exclusao) {
+		this.exclusao = exclusao;
+	}
+
 	public double getValorTotalAT() {
 		return valorTotalAT;
 	}

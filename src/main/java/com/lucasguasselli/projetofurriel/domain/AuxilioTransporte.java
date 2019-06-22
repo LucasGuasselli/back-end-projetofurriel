@@ -25,7 +25,8 @@ public class AuxilioTransporte implements Serializable{
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	private double valorTotalAT;
-	private double valorDiarioAT;	
+	private double valorDiarioAT;
+	private boolean exclusao;
 	
 	@JsonIgnore
 	@OneToOne
@@ -44,18 +45,20 @@ public class AuxilioTransporte implements Serializable{
 		this.id = id;
 	}
 	
-	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT) {
+	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao) {
 		super();
 		this.valorTotalAT = valorTotalAT;
 		this.valorDiarioAT = valorDiarioAT;
+		this.exclusao = exclusao;
 	} 
 		
-	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, Militar militar) {
+	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao, Militar militar) {
 		super();
 		this.valorTotalAT = valorTotalAT;
 		this.valorDiarioAT = valorDiarioAT;
+		this.exclusao = exclusao;
 		this.militar = militar;
-	}
+	}	
 	
 	public int getId() {
 		return id;
@@ -63,6 +66,14 @@ public class AuxilioTransporte implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public boolean isExclusao() {
+		return exclusao;
+	}
+
+	public void setExclusao(boolean exclusao) {
+		this.exclusao = exclusao;
 	}
 
 	public double getValorTotalAT() {

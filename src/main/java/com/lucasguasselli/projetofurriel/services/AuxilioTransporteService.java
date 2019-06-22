@@ -112,19 +112,21 @@ public class AuxilioTransporteService {
 	
 	public AuxilioTransporte fromDTO(AuxilioTransporteNewDTO objDTO) {
 		Militar militar = new Militar(objDTO.getMilitarPrecCP());
-		AuxilioTransporte auxilioTransporte = new AuxilioTransporte(objDTO.getValorTotalAT(),objDTO.getValorDiarioAT(), militar);
+		AuxilioTransporte auxilioTransporte = new AuxilioTransporte(objDTO.getValorTotalAT(),
+				objDTO.getValorDiarioAT(), objDTO.isExclusao(), militar);
 			return auxilioTransporte;
 	}	
 	
 	// a partir de um DTO vai ser construido e retornado um objeto AuxilioTransporte
 	public AuxilioTransporte fromDTO(AuxilioTransporteDTO objDTO) {
-		return new AuxilioTransporte(objDTO.getValorTotalAT(),objDTO.getValorDiarioAT());
+		return new AuxilioTransporte(objDTO.getValorTotalAT(),objDTO.getValorDiarioAT(), objDTO.isExclusao());
 	}
 		
 	private void updateData(AuxilioTransporte newObj, AuxilioTransporte obj) {
 		newObj.setId(obj.getId());
 		newObj.setValorTotalAT(obj.getValorTotalAT());
-		newObj.setValorDiarioAT(obj.getValorDiarioAT());		
+		newObj.setValorDiarioAT(obj.getValorDiarioAT());
+		newObj.setExclusao(obj.isExclusao());
 	}
 	
 	// atualiza os valores quando uma conducao e inserida
@@ -155,7 +157,7 @@ public class AuxilioTransporteService {
 	// transformando um obj AuxilioTransporte em obj AuxilioTransporteNewDTO
 		public AuxilioTransporteNewDTO toNewDTO(AuxilioTransporte obj) {
 			AuxilioTransporteNewDTO auxilioTransporteNewDTO = new AuxilioTransporteNewDTO(obj.getId(),
-				obj.getValorTotalAT(), obj.getValorDiarioAT(), obj.getMilitar().getPrecCP());
+				obj.getValorTotalAT(), obj.getValorDiarioAT(), obj.isExclusao(), obj.getMilitar().getPrecCP());
 			
 				return auxilioTransporteNewDTO;
 		}
@@ -167,7 +169,7 @@ public class AuxilioTransporteService {
 		for(int i = 0; i < lista.size(); i++) {
 			auxiliosNewDTO.add(new AuxilioTransporteNewDTO(lista.get(i).getId(),
 				lista.get(i).getValorTotalAT(), lista.get(i).getValorDiarioAT(),
-				lista.get(i).getMilitar().getPrecCP()));
+				lista.get(i).isExclusao(), lista.get(i).getMilitar().getPrecCP()));
 				 	
 		}				
 			return auxiliosNewDTO;

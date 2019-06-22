@@ -62,21 +62,7 @@ public class AuxilioTransporteResource {
 					AuxilioTransporte aux = militar.getAuxilioTransporte();
 			// AuxilioTransporteNewDTO auxNewDTO = service.toNewDTO(aux);
 				return ResponseEntity.ok().body(aux);	
-	}
-	
-	// retornando um numero X de objetos (pages)
-	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<AuxilioTransporteDTO>> findPage(
-		// @RequestParam serve para tornar os parametros opcionais	
-			@RequestParam(value="page", defaultValue="0") Integer page,
-			@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
-			@RequestParam(value="orderBy", defaultValue="valorTotalAT")String orderBy, 
-			@RequestParam(value="direction", defaultValue="DESC")String direction) {
-				Page<AuxilioTransporte> list = service.findPage(page,linesPerPage,orderBy, direction);
-					// percorrendo a lista para declarar o DTO correspondente
-				Page<AuxilioTransporteDTO> listDTO = list.map(obj -> new AuxilioTransporteDTO(obj));
-						return ResponseEntity.ok().body(listDTO);	
-	}
+	}	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
@@ -88,7 +74,7 @@ public class AuxilioTransporteResource {
 	// @Valid valida o Objeto
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
 	public ResponseEntity<Void> update(@Valid @RequestBody AuxilioTransporteDTO objDTO, @PathVariable Integer id){
-		// transformando um objeto DTO em um objeto Entity
+		// transformando um objeto DTO em um objeto Entity    	
 		AuxilioTransporte obj = service.fromDTO(objDTO);
 			obj.setId(id);
 			obj = service.update(obj);
@@ -107,6 +93,20 @@ public class AuxilioTransporteResource {
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 				// created gera o codigo 201 (cadastrado com sucesso)
 				return ResponseEntity.created(uri).build();
-	}			
+	}
+	
+	// retornando um numero X de objetos (pages)
+		@RequestMapping(value="/page", method=RequestMethod.GET)
+		public ResponseEntity<Page<AuxilioTransporteDTO>> findPage(
+			// @RequestParam serve para tornar os parametros opcionais	
+				@RequestParam(value="page", defaultValue="0") Integer page,
+				@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
+				@RequestParam(value="orderBy", defaultValue="valorTotalAT")String orderBy, 
+				@RequestParam(value="direction", defaultValue="DESC")String direction) {
+					Page<AuxilioTransporte> list = service.findPage(page,linesPerPage,orderBy, direction);
+						// percorrendo a lista para declarar o DTO correspondente
+					Page<AuxilioTransporteDTO> listDTO = list.map(obj -> new AuxilioTransporteDTO(obj));
+							return ResponseEntity.ok().body(listDTO);	
+		}	
 		
 }

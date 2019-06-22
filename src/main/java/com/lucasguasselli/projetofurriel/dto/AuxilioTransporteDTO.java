@@ -12,6 +12,7 @@ public class AuxilioTransporteDTO implements Serializable{
 	private int id;
 	private double valorTotalAT;
 	private double valorDiarioAT;
+	private boolean exclusao;
 	
 	public AuxilioTransporteDTO() {
 		
@@ -21,6 +22,7 @@ public class AuxilioTransporteDTO implements Serializable{
 		this.id = obj.getId();
 		this.valorTotalAT = obj.getValorTotalAT();
 		this.valorDiarioAT = obj.getValorDiarioAT();
+		this.exclusao = obj.isExclusao();
 	}
 	
 	public int getId() {
@@ -28,6 +30,12 @@ public class AuxilioTransporteDTO implements Serializable{
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public boolean isExclusao() {
+		return exclusao;
+	}
+	public void setExclusao(boolean exclusao) {
+		this.exclusao = exclusao;
 	}
 	public double getValorTotalAT() {
 		return valorTotalAT;

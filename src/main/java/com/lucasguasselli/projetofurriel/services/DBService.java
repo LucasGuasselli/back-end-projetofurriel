@@ -79,8 +79,8 @@ public class DBService {
 		grillo.setPostoGraduacao(segundoSargento);
 		// mauro.setPostoGraduacao(segundoSargento);
 			
-		AuxilioTransporte aux1 = new AuxilioTransporte(220,11,lucas);
-		AuxilioTransporte aux2 = new AuxilioTransporte(298,15,grillo);
+		AuxilioTransporte aux1 = new AuxilioTransporte(220,11, false, lucas);
+		AuxilioTransporte aux2 = new AuxilioTransporte(298,15, false, grillo);
 				
 		Conducao cond1 = new Conducao("bairro-centro","Viva-Sul", "Onibus",4.70, aux1);
 		Conducao cond2 = new Conducao("centro-bairro", "Viva-Sul", "Onibus", 4.70, aux1);

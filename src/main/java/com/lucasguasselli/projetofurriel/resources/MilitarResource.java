@@ -76,7 +76,7 @@ public class MilitarResource {
 				// adiciionando todos militares que nao possuem auxilio transporte
 				for(int i = 0; i < list.size(); i++) {
 					Militar obj = service.find(list.get(i).getPrecCP());
-					if (obj.getAuxilioTransporte() != null) {
+					if (obj.getAuxilioTransporte() != null && obj.getAuxilioTransporte().isExclusao() == false) {
 						militaresComAuxilioTransporte.add(obj);
 					}
 				}				
