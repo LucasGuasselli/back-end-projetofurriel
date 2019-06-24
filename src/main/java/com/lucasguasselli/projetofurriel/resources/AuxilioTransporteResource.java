@@ -86,6 +86,7 @@ public class AuxilioTransporteResource {
 	public ResponseEntity<Void> insert(@RequestBody AuxilioTransporteNewDTO objNewDTO){
 			AuxilioTransporte obj = service.fromDTO(objNewDTO);
 			Militar militar = militarService.find(objNewDTO.getMilitarPrecCP());
+			// salvando auxilio transporte com o valor negativo dos 6 % da cota parte
 			PostoGraduacao posto = postoGracuacaoService.find(militar.getPostoGraduacao().getId());
 				obj.setValorTotalAT(obj.getValorTotalAT() - posto.getCotaParte());
 				obj = service.insert(obj);

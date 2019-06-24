@@ -22,6 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.dto.ConducaoDTO;
 import com.lucasguasselli.projetofurriel.dto.ConducaoNewDTO;
+import com.lucasguasselli.projetofurriel.services.AlteracaoValorPassagemService;
 import com.lucasguasselli.projetofurriel.services.AuxilioTransporteService;
 import com.lucasguasselli.projetofurriel.services.ConducaoService;
 
@@ -35,6 +36,8 @@ public class ConducaoResource {
 	
 	@Autowired
 	private AuxilioTransporteService auxilioTransporteService;
+	@Autowired
+	private AlteracaoValorPassagemService alteracaoValorPassagemService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Conducao> find(@PathVariable Integer id) {
@@ -63,21 +66,7 @@ public class ConducaoResource {
 			List<ConducaoDTO> listDTO = list.stream().map(obj -> new ConducaoDTO(obj)).collect(Collectors.toList());
 				return ResponseEntity.ok().body(listDTO);	
 	}
-	
-	// retornando um numero X de objetos (pages)
-		@RequestMapping(value="/page", method=RequestMethod.GET)
-		public ResponseEntity<Page<ConducaoDTO>> findPage(
-			// @RequestParam serve para tornar os parametros opcionais	
-				@RequestParam(value="page", defaultValue="0") Integer page,
-				@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
-				@RequestParam(value="orderBy", defaultValue="valor")String orderBy, 
-				@RequestParam(value="direction", defaultValue="DESC")String direction) {
-					Page<Conducao> list = service.findPage(page,linesPerPage,orderBy, direction);
-						// percorrendo a lista para declarar o DTO correspondente
-					Page<ConducaoDTO> listDTO = list.map(obj -> new ConducaoDTO(obj));
-							return ResponseEntity.ok().body(listDTO);	
-		}
-	
+		
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
@@ -86,14 +75,16 @@ public class ConducaoResource {
 	
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
 	// @Valid valida o Objeto
-    @RequestMapping(value="/{id}/{oldValue}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody ConducaoNewDTO objNewDTO, 
-			@PathVariable Integer id, @PathVariable Integer oldValue){
+    @RequestMapping(value="/{id}", method=RequestMethod.PUT)
+	public ResponseEntity<Void> update(@Valid @RequestBody ConducaoNewDTO objNewDTO, @PathVariable Integer id){
 		// transformando um objeto DTO em um objeto Entity
 		Conducao obj = service.fromDTO(objNewDTO);
 			obj.setId(id);
 			obj = service.update(obj);
-			auxilioTransporteService.update(obj, objNewDTO, oldValue);
+			
+			auxilioTransporteService.update(objNewDTO);
+			alteracaoValorPassagemService.update(objNewDTO);
+			
 				return ResponseEntity.noContent().build();
 	}	
     
@@ -111,4 +102,18 @@ public class ConducaoResource {
  				return ResponseEntity.created(uri).build();
  	}			
   
+ // retornando um numero X de objetos (pages)
+ 	@RequestMapping(value="/page", method=RequestMethod.GET)
+ 	public ResponseEntity<Page<ConducaoDTO>> findPage(
+ 		// @RequestParam serve para tornar os parametros opcionais	
+ 			@RequestParam(value="page", defaultValue="0") Integer page,
+ 			@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
+ 			@RequestParam(value="orderBy", defaultValue="valor")String orderBy, 
+ 			@RequestParam(value="direction", defaultValue="DESC")String direction) {
+ 				Page<Conducao> list = service.findPage(page,linesPerPage,orderBy, direction);
+ 					// percorrendo a lista para declarar o DTO correspondente
+ 				Page<ConducaoDTO> listDTO = list.map(obj -> new ConducaoDTO(obj));
+ 					return ResponseEntity.ok().body(listDTO);	
+ 	}
+ 	
 }

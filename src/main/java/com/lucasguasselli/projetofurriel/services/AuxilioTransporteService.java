@@ -73,16 +73,9 @@ public class AuxilioTransporteService {
 			MilitarNewDTO militarNewDTO = militarService.toNewDTO(militar);
 				PostoGraduacao posto = postoService.find(militarNewDTO.getPostoGraduacaoId());
 		// atualizando valores e salvando no Banco de Dados
-		aux = updateValueInsertConcucao(aux, valorTotal, posto.getCotaParte());
+		aux = updateValues(aux, valorTotal, posto.getCotaParte());
 				auxilioTransporteDAO.save(aux);		
-	}
-	
-	// atualizando valores quando uma conducao e alterada
-	public void update(Conducao conducao, ConducaoNewDTO conducaoNewDTO, Integer oldValue) {
-		AuxilioTransporte aux = find(conducaoNewDTO.getAuxilioTransporteId());
-		updateValueUpdateConcucao(aux, conducao, oldValue);
-				auxilioTransporteDAO.save(aux);		
-	}
+	}			
 	
 	public void delete(Integer id) {
 		find(id);
@@ -130,29 +123,13 @@ public class AuxilioTransporteService {
 	}
 	
 	// atualiza os valores quando uma conducao e inserida
-	private AuxilioTransporte updateValueInsertConcucao(AuxilioTransporte aux, double valor, double cotaParte) {
+	private AuxilioTransporte updateValues(AuxilioTransporte aux, double valor, double cotaParte) {
 		double valorTotalAT =  ((valor * 22) - cotaParte);
 		double valorDiarioAT = valorTotalAT / 22;
 			aux.setValorTotalAT(valorTotalAT);
 			aux.setValorDiarioAT(valorDiarioAT);
 				return aux;
-	}
-	
-	// atualiza os valores quando uma conducao e alterada
-	private void updateValueUpdateConcucao(AuxilioTransporte newObj, Conducao obj, Integer oldValue) {
-		double valorTotalAT = newObj.getValorTotalAT() - (oldValue * 22);
-		valorTotalAT = valorTotalAT + (obj.getValor() * 22);
-		double valorDiarioAT = valorTotalAT / 22;
-			newObj.setValorTotalAT(valorTotalAT);
-			newObj.setValorDiarioAT(valorDiarioAT);
-	}
-	
-	private void updateValueDeleteConducao(AuxilioTransporte newObj, Conducao obj) {
-		double valorTotalAT = newObj.getValorTotalAT() - (obj.getValor() * 22);
-		double valorDiarioAT = valorTotalAT / 22;
-			newObj.setValorTotalAT(valorTotalAT);
-			newObj.setValorDiarioAT(valorDiarioAT);
-	}
+	}	
 	
 	// transformando um obj AuxilioTransporte em obj AuxilioTransporteNewDTO
 		public AuxilioTransporteNewDTO toNewDTO(AuxilioTransporte obj) {

@@ -16,11 +16,11 @@ import org.springframework.stereotype.Service;
 import com.lucasguasselli.projetofurriel.dao.AlteracaoValorPassagemDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
 import com.lucasguasselli.projetofurriel.domain.AlteracaoValorPassagem;
-import com.lucasguasselli.projetofurriel.domain.ExclusaoAuxilioTransporte;
+import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.AlteracaoValorPassagemDTO;
 import com.lucasguasselli.projetofurriel.dto.AlteracaoValorPassagemNewDTO;
-import com.lucasguasselli.projetofurriel.dto.ExclusaoAuxilioTransporteNewDTO;
+import com.lucasguasselli.projetofurriel.dto.ConducaoNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -30,6 +30,8 @@ public class AlteracaoValorPassagemService {
 	
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private AlteracaoValorPassagemDAO alteracaoValorPassagemDAO;
+	@Autowired
+	private AuxilioTransporteService auxilioTransporteService;
 	
 	public AlteracaoValorPassagem find(Integer id) {
 		Optional<AlteracaoValorPassagem> obj = alteracaoValorPassagemDAO.findById(id);
@@ -46,6 +48,15 @@ public class AlteracaoValorPassagemService {
 		AlteracaoValorPassagem newObj = find(obj.getId());
 		updateData(newObj, obj);
 			return alteracaoValorPassagemDAO.save(newObj);
+	}
+	
+	public AlteracaoValorPassagem update(ConducaoNewDTO conducaoNewDTO) {
+		AuxilioTransporte aux = auxilioTransporteService.find(conducaoNewDTO.getAuxilioTransporteId());
+		List<AlteracaoValorPassagem> list = alteracaoValorPassagemDAO.findAll();
+			AlteracaoValorPassagem newObj = list.get((list.size()-1));
+				newObj.setValor(aux.getValorTotalAT());
+		return alteracaoValorPassagemDAO.save(newObj);
+
 	}
 	
 	public void delete(Integer id) {
