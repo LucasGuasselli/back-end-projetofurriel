@@ -69,7 +69,10 @@ public class DBService {
 		PostoGraduacao primeiroTenente = new PostoGraduacao("1º Tenente", 7796.00, 467.76);
 		PostoGraduacao capitao = new PostoGraduacao("Capitão", 8517.00, 511.02);
 		PostoGraduacao major = new PostoGraduacao("Major", 10472.00, 628.32);
-
+		
+		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
+				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
+/*
 		Militar lucas = new Militar(123456789, "Lucas");
 		Militar grillo = new Militar(2456, "Grillo");
 		// Militar mauro = new Militar(258,"Mauro");
@@ -110,8 +113,7 @@ public class DBService {
 		AlteracaoValorPassagem altValPass1 = new AlteracaoValorPassagem(sdf.parse("05/12/2019"),"motivo", 5, adt1, grillo);
 	
 		// guilherme.setPostoGraduacao(cabo);
-		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
-				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
+		
 		militarDAO.saveAll(Arrays.asList(lucas, grillo));
 		auxilioTransporteDAO.saveAll(Arrays.asList(aux1, aux2));
 		conducaoDAO.saveAll(Arrays.asList(cond1, cond2));
@@ -125,6 +127,6 @@ public class DBService {
 		
 		// cabo.getMilitares().addAll(Arrays.asList(lucas));
 		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));
-	
+	*/
 	}
 }

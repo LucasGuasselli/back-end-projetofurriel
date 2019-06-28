@@ -25,6 +25,7 @@ import com.lucasguasselli.projetofurriel.dto.ConducaoNewDTO;
 import com.lucasguasselli.projetofurriel.services.AlteracaoValorPassagemService;
 import com.lucasguasselli.projetofurriel.services.AuxilioTransporteService;
 import com.lucasguasselli.projetofurriel.services.ConducaoService;
+import com.lucasguasselli.projetofurriel.services.InclusaoService;
 
 @CrossOrigin
 @RestController
@@ -38,6 +39,8 @@ public class ConducaoResource {
 	private AuxilioTransporteService auxilioTransporteService;
 	@Autowired
 	private AlteracaoValorPassagemService alteracaoValorPassagemService;
+	@Autowired
+	private InclusaoService inclusaoService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<Conducao> find(@PathVariable Integer id) {
@@ -95,6 +98,7 @@ public class ConducaoResource {
  			obj = service.insert(obj);
  				
  			auxilioTransporteService.update(objNewDTO);
+ 			// inclusaoService.update(objNewDTO);
  			
  		// este metodo serve para enviar o precCP para rota
  			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
