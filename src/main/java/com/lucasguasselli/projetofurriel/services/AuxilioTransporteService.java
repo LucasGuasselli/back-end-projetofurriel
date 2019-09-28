@@ -17,6 +17,7 @@ import com.lucasguasselli.projetofurriel.dao.AuxilioTransporteDAO;
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.domain.Militar;
+import com.lucasguasselli.projetofurriel.domain.Passagem;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
@@ -36,7 +37,9 @@ public class AuxilioTransporteService {
 	@Autowired
 	private MilitarService militarService;
 	@Autowired
-	private PostoGraduacaoService postoService; 
+	private PostoGraduacaoService postoService;
+	@Autowired
+	private PassagemService passagemService;
 	
 	public AuxilioTransporte find(Integer id) {
 		Optional<AuxilioTransporte> obj = auxilioTransporteDAO.findById(id);
@@ -75,7 +78,47 @@ public class AuxilioTransporteService {
 		// atualizando valores e salvando no Banco de Dados
 		aux = updateValues(aux, valorTotal, posto.getCotaParte());
 				auxilioTransporteDAO.save(aux);		
-	}			
+	}	
+	
+	// alterar os auxilios transportes que estao desatualizados
+	public void update(List<AuxilioTransporte> auxilios, List<Passagem> passagens) {
+		List<Conducao> conducoes = conducaoService.findAll();
+		List<ConducaoNewDTO> allConducoes = conducaoService.listToNewDTO(conducoes);
+		List<ConducaoNewDTO> conducoesAuxilioTransporte = new ArrayList<ConducaoNewDTO>();
+		
+		// percorrendo todos auxilios
+			for(int i = 0; i < auxilios.size(); i++) {
+				// se o auxilio ja estiver desatualizado pula a comparacao
+				if(auxilios.get(i).isAtualizacao() == true) {
+					// buscando as conducoes do auxilio correspondente
+					for(int k = 0; k < allConducoes.size(); k++) {
+						// armazenando as conducoes correspondentes ao auxilio
+						if (auxilios.get(i).getId() == allConducoes.get(k).getAuxilioTransporteId()) {
+							conducoesAuxilioTransporte.add(allConducoes.get(k));
+						}
+					}
+					// comparando as conducoes do auxilio transporte com as passagens
+					for(int c = 0; c < conducoesAuxilioTransporte.size(); c++) {
+						// caso uma conducao esteja desatualizada (false), o metodo nao perde tempo com as outras conducoes
+						if(auxilios.get(i).isAtualizacao() == true) {
+							for (int p = 0; p < passagens.size(); p++) {
+								// se o tipo de transporte for igual compara o valor
+								if (conducoesAuxilioTransporte.get(c).getTipoDeTransporte().equals( passagens.get(p).getTipoTransporte())) {
+									// se o valor da conducao for igual ao das passagens, nao faz nada, ELSE seta false para atualizacao
+									if (conducoesAuxilioTransporte.get(c).getValor() == passagens.get(p).getValor()) {
+										System.out.println("passagem atualizada");
+									}else {
+										auxilios.get(i).setAtualizacao(false);
+											// salvando no banco
+												auxilioTransporteDAO.save(auxilios.get(i));
+									}
+								}
+							}
+						}
+					}
+				}				
+			} // fecha for externo
+	}
 	
 	public void delete(Integer id) {
 		find(id);
@@ -106,13 +149,13 @@ public class AuxilioTransporteService {
 	public AuxilioTransporte fromDTO(AuxilioTransporteNewDTO objDTO) {
 		Militar militar = new Militar(objDTO.getMilitarPrecCP());
 		AuxilioTransporte auxilioTransporte = new AuxilioTransporte(objDTO.getValorTotalAT(),
-				objDTO.getValorDiarioAT(), objDTO.isExclusao(), militar);
+				objDTO.getValorDiarioAT(), objDTO.isExclusao(), objDTO.isAtualizacao(), militar);
 			return auxilioTransporte;
 	}	
 	
 	// a partir de um DTO vai ser construido e retornado um objeto AuxilioTransporte
 	public AuxilioTransporte fromDTO(AuxilioTransporteDTO objDTO) {
-		return new AuxilioTransporte(objDTO.getValorTotalAT(),objDTO.getValorDiarioAT(), objDTO.isExclusao());
+		return new AuxilioTransporte(objDTO.getValorTotalAT(),objDTO.getValorDiarioAT(), objDTO.isExclusao(), objDTO.isAtualizacao());
 	}
 		
 	private void updateData(AuxilioTransporte newObj, AuxilioTransporte obj) {
@@ -120,6 +163,7 @@ public class AuxilioTransporteService {
 		newObj.setValorTotalAT(obj.getValorTotalAT());
 		newObj.setValorDiarioAT(obj.getValorDiarioAT());
 		newObj.setExclusao(obj.isExclusao());
+		newObj.setAtualizacao(obj.isAtualizacao());
 	}
 	
 	// atualiza os valores quando uma conducao e inserida
@@ -134,7 +178,8 @@ public class AuxilioTransporteService {
 	// transformando um obj AuxilioTransporte em obj AuxilioTransporteNewDTO
 		public AuxilioTransporteNewDTO toNewDTO(AuxilioTransporte obj) {
 			AuxilioTransporteNewDTO auxilioTransporteNewDTO = new AuxilioTransporteNewDTO(obj.getId(),
-				obj.getValorTotalAT(), obj.getValorDiarioAT(), obj.isExclusao(), obj.getMilitar().getPrecCP());
+				obj.getValorTotalAT(), obj.getValorDiarioAT(), obj.isExclusao(),
+				obj.isAtualizacao(), obj.getMilitar().getPrecCP());
 			
 				return auxilioTransporteNewDTO;
 		}
@@ -146,7 +191,8 @@ public class AuxilioTransporteService {
 		for(int i = 0; i < lista.size(); i++) {
 			auxiliosNewDTO.add(new AuxilioTransporteNewDTO(lista.get(i).getId(),
 				lista.get(i).getValorTotalAT(), lista.get(i).getValorDiarioAT(),
-				lista.get(i).isExclusao(), lista.get(i).getMilitar().getPrecCP()));
+				lista.get(i).isExclusao(), lista.get(i).isAtualizacao(),
+				lista.get(i).getMilitar().getPrecCP()));
 				 	
 		}				
 			return auxiliosNewDTO;

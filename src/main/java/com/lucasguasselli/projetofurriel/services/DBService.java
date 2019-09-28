@@ -72,7 +72,7 @@ public class DBService {
 		
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
-/*
+
 		Militar lucas = new Militar(123456789, "Lucas");
 		Militar grillo = new Militar(2456, "Grillo");
 		// Militar mauro = new Militar(258,"Mauro");
@@ -82,8 +82,8 @@ public class DBService {
 		grillo.setPostoGraduacao(segundoSargento);
 		// mauro.setPostoGraduacao(segundoSargento);
 			
-		AuxilioTransporte aux1 = new AuxilioTransporte(220,11, false, lucas);
-		AuxilioTransporte aux2 = new AuxilioTransporte(298,15, false, grillo);
+		AuxilioTransporte aux1 = new AuxilioTransporte(220,11, false, true, lucas);
+		AuxilioTransporte aux2 = new AuxilioTransporte(298,15, false, false, grillo);
 				
 		Conducao cond1 = new Conducao("bairro-centro","Viva-Sul", "Onibus",4.70, aux1);
 		Conducao cond2 = new Conducao("centro-bairro", "Viva-Sul", "Onibus", 4.70, aux1);
@@ -124,7 +124,7 @@ public class DBService {
 		exclusaoDAO.saveAll(Arrays.asList(excAux, excAux1));
 		pagamentoAtrasadoDAO.saveAll(Arrays.asList(pgmto, pgmto1));		
 		alteracaoValorPassagemDAO.saveAll(Arrays.asList(altValPass, altValPass1));
-		
+		/*
 		// cabo.getMilitares().addAll(Arrays.asList(lucas));
 		// segundoSargento.getMilitares().addAll(Arrays.asList(grillo));
 	*/

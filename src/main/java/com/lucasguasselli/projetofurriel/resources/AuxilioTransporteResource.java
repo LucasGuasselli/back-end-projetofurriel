@@ -19,11 +19,13 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
+import com.lucasguasselli.projetofurriel.domain.Passagem;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteDTO;
 import com.lucasguasselli.projetofurriel.dto.AuxilioTransporteNewDTO;
 import com.lucasguasselli.projetofurriel.services.AuxilioTransporteService;
 import com.lucasguasselli.projetofurriel.services.MilitarService;
+import com.lucasguasselli.projetofurriel.services.PassagemService;
 import com.lucasguasselli.projetofurriel.services.PostoGraduacaoService;
 
 @CrossOrigin
@@ -37,6 +39,8 @@ public class AuxilioTransporteResource {
 	private MilitarService militarService;
 	@Autowired 
 	private PostoGraduacaoService postoGracuacaoService;
+	@Autowired
+	private PassagemService passagensService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<AuxilioTransporteNewDTO> find(@PathVariable Integer id) {
@@ -51,6 +55,17 @@ public class AuxilioTransporteResource {
 		List<AuxilioTransporte> list = service.findAll();
 		List<AuxilioTransporteNewDTO> listNewDTO = service.listToNewDTO(list);
 			return ResponseEntity.ok().body(listNewDTO);	
+	}
+	
+	// verifica quais auxilios estao desatualizados e atualiza o Banco de Dados 
+	// conforme comparacao com o preco das passagenss 
+	@RequestMapping(value="/updated", method=RequestMethod.GET)
+	public ResponseEntity<Void> UpdateAll() {
+		List<AuxilioTransporte> listAuxilios = service.findAll();
+		List<Passagem> listPassagens = passagensService.findAll();
+		
+			service.update(listAuxilios, listPassagens);
+				return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value="/searchAuxilioTransporteByPrecCP", method=RequestMethod.GET)
@@ -79,7 +94,7 @@ public class AuxilioTransporteResource {
 			obj.setId(id);
 			obj = service.update(obj);
 				return ResponseEntity.noContent().build();
-		}
+	}
 	
 	// @RequestBody faz o obj ser convertido para JSON automaticamente
 	@RequestMapping(method=RequestMethod.POST)
@@ -87,27 +102,27 @@ public class AuxilioTransporteResource {
 			AuxilioTransporte obj = service.fromDTO(objNewDTO);
 			Militar militar = militarService.find(objNewDTO.getMilitarPrecCP());
 			// salvando auxilio transporte com o valor negativo dos 6 % da cota parte
-			PostoGraduacao posto = postoGracuacaoService.find(militar.getPostoGraduacao().getId());
-				obj.setValorTotalAT(obj.getValorTotalAT() - posto.getCotaParte());
-				obj = service.insert(obj);
-		// este metodo serve para enviar o precCP para rota
-			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
-				// created gera o codigo 201 (cadastrado com sucesso)
-				return ResponseEntity.created(uri).build();
+				PostoGraduacao posto = postoGracuacaoService.find(militar.getPostoGraduacao().getId());
+					obj.setValorTotalAT(obj.getValorTotalAT() - posto.getCotaParte());
+						obj = service.insert(obj);
+			// este metodo serve para enviar o precCP para rota
+				URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+					// created gera o codigo 201 (cadastrado com sucesso)
+					return ResponseEntity.created(uri).build();
 	}
 	
 	// retornando um numero X de objetos (pages)
-		@RequestMapping(value="/page", method=RequestMethod.GET)
-		public ResponseEntity<Page<AuxilioTransporteDTO>> findPage(
-			// @RequestParam serve para tornar os parametros opcionais	
-				@RequestParam(value="page", defaultValue="0") Integer page,
-				@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
-				@RequestParam(value="orderBy", defaultValue="valorTotalAT")String orderBy, 
-				@RequestParam(value="direction", defaultValue="DESC")String direction) {
-					Page<AuxilioTransporte> list = service.findPage(page,linesPerPage,orderBy, direction);
-						// percorrendo a lista para declarar o DTO correspondente
-					Page<AuxilioTransporteDTO> listDTO = list.map(obj -> new AuxilioTransporteDTO(obj));
-							return ResponseEntity.ok().body(listDTO);	
-		}	
+	@RequestMapping(value="/page", method=RequestMethod.GET)
+	public ResponseEntity<Page<AuxilioTransporteDTO>> findPage(
+		// @RequestParam serve para tornar os parametros opcionais	
+			@RequestParam(value="page", defaultValue="0") Integer page,
+			@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
+			@RequestParam(value="orderBy", defaultValue="valorTotalAT")String orderBy, 
+			@RequestParam(value="direction", defaultValue="DESC")String direction) {
+				Page<AuxilioTransporte> list = service.findPage(page,linesPerPage,orderBy, direction);
+					// percorrendo a lista para declarar o DTO correspondente
+				Page<AuxilioTransporteDTO> listDTO = list.map(obj -> new AuxilioTransporteDTO(obj));
+						return ResponseEntity.ok().body(listDTO);	
+	}	
 		
 }

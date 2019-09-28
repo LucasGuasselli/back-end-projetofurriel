@@ -27,6 +27,7 @@ public class AuxilioTransporte implements Serializable{
 	private double valorTotalAT;
 	private double valorDiarioAT;
 	private boolean exclusao;
+	private boolean atualizacao;
 	
 	@JsonIgnore
 	@OneToOne
@@ -45,18 +46,20 @@ public class AuxilioTransporte implements Serializable{
 		this.id = id;
 	}
 	
-	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao) {
+	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao, boolean atualizacao) {
 		super();
 		this.valorTotalAT = valorTotalAT;
 		this.valorDiarioAT = valorDiarioAT;
 		this.exclusao = exclusao;
+		this.atualizacao = atualizacao;
 	} 
 		
-	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao, Militar militar) {
+	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao, boolean atualizacao, Militar militar) {
 		super();
 		this.valorTotalAT = valorTotalAT;
 		this.valorDiarioAT = valorDiarioAT;
 		this.exclusao = exclusao;
+		this.atualizacao = atualizacao;
 		this.militar = militar;
 	}	
 	
@@ -106,6 +109,14 @@ public class AuxilioTransporte implements Serializable{
 
 	public void setConducao(List<Conducao> conducao) {
 		this.conducao = conducao;
+	}
+	
+	public boolean isAtualizacao() {
+		return atualizacao;
+	}
+
+	public void setAtualizacao(boolean atualizacao) {
+		this.atualizacao = atualizacao;
 	}
 
 	@Override
