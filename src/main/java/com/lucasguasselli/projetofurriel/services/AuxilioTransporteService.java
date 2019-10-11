@@ -76,7 +76,9 @@ public class AuxilioTransporteService {
 			MilitarNewDTO militarNewDTO = militarService.toNewDTO(militar);
 				PostoGraduacao posto = postoService.find(militarNewDTO.getPostoGraduacaoId());
 		// atualizando valores e salvando no Banco de Dados
-		aux = updateValues(aux, valorTotal, posto.getCotaParte());
+			aux = updateValues(aux, valorTotal, posto.getCotaParte());
+		// considerando o auxilio como atualizado
+			aux.setAtualizacao(true);
 				auxilioTransporteDAO.save(aux);		
 	}	
 	
@@ -85,6 +87,7 @@ public class AuxilioTransporteService {
 		List<Conducao> conducoes = conducaoService.findAll();
 		List<ConducaoNewDTO> allConducoes = conducaoService.listToNewDTO(conducoes);
 		List<ConducaoNewDTO> conducoesAuxilioTransporte = new ArrayList<ConducaoNewDTO>();
+		// DIVIDIR EM DOIS METODOS, UM PARA ATUALIZAR OS QUE FORAM ATUALIZADOS E OUTRO PARA ATUALIZAR OS QUE ESTAO ERRADOS
 		
 		// percorrendo todos auxilios
 			for(int i = 0; i < auxilios.size(); i++) {
@@ -140,7 +143,6 @@ public class AuxilioTransporteService {
 			return auxilioTransporteDAO.findAll(pageRequest);
 	}
 	
-	// transformando um obj DespesaAAnular em obj DespesaAAnularNewDTO
 		public MilitarNewDTO toNewDTO(Militar obj) {
 			MilitarNewDTO militarNewDTO = new MilitarNewDTO(obj.getPrecCP(), obj.getNome(), obj.getPostoGraduacao().getId());
 				return militarNewDTO;

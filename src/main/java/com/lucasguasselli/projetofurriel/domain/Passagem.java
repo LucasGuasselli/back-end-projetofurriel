@@ -28,8 +28,9 @@ public class Passagem implements Serializable{
 		this.id = id;
 	}
 
-	public Passagem(String tipoTransporte, double valor) {
+	public Passagem(int id, String tipoTransporte, double valor) {
 		super();
+		this.id = id;
 		this.tipoTransporte = tipoTransporte;
 		this.valor = valor;
 	}

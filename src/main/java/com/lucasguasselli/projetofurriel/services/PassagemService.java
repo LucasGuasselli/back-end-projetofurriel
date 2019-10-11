@@ -35,13 +35,13 @@ public class PassagemService {
 	public Passagem insert(Passagem obj) {
 		return passagemDAO.save(obj);
 	}
-	/*
-	public Passagem update(Passagem obj) {
-		Passagem newObj = find(obj.getId());
-		updateData(newObj, obj);
+	
+	public Passagem update(Passagem newObj) {
+		// Passagem newObj = find(obj.getId());
+		
 			return passagemDAO.save(newObj);
 	}
-	
+	/*
 	private void updateData(Conducao newObj, Conducao obj) {
 		newObj.setId(obj.getId());
 		newObj.setItinerario(obj.getItinerario());
@@ -50,6 +50,7 @@ public class PassagemService {
 		newObj.setValor(obj.getValor());
 	}
 	*/
+  	
 	public void delete(Integer id) {
 		find(id);
 		try {
@@ -61,7 +62,7 @@ public class PassagemService {
 	}
 	
 	public Passagem fromDTO(PassagemNewDTO objDTO) {
-		Passagem passagem = new Passagem(objDTO.getTipoTransporte(), objDTO.getValor());
+		Passagem passagem = new Passagem(objDTO.getId(), objDTO.getTipoTransporte(), objDTO.getValor());
 			return passagem;
 	}	
 }

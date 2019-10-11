@@ -83,10 +83,12 @@ public class ConducaoResource {
 		// transformando um objeto DTO em um objeto Entity
 		Conducao obj = service.fromDTO(objNewDTO);
 			obj.setId(id);
-			obj = service.update(obj);
-			
-			auxilioTransporteService.update(objNewDTO);
-			alteracaoValorPassagemService.update(objNewDTO);
+			//atulizando primeiro a conducao
+				obj = service.update(obj);
+			// atualizando o auxilioTransporte
+				auxilioTransporteService.update(objNewDTO);
+			// atualizando o valor correto da atuazacaoAuxilioTransporte	
+				alteracaoValorPassagemService.update(objNewDTO);
 			
 				return ResponseEntity.noContent().build();
 	}	

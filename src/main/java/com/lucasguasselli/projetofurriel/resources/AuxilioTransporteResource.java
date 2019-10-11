@@ -59,7 +59,7 @@ public class AuxilioTransporteResource {
 	
 	// verifica quais auxilios estao desatualizados e atualiza o Banco de Dados 
 	// conforme comparacao com o preco das passagenss 
-	@RequestMapping(value="/updated", method=RequestMethod.GET)
+	@RequestMapping(value="/update", method=RequestMethod.GET)
 	public ResponseEntity<Void> UpdateAll() {
 		List<AuxilioTransporte> listAuxilios = service.findAll();
 		List<Passagem> listPassagens = passagensService.findAll();

@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.lucasguasselli.projetofurriel.domain.Conducao;
 import com.lucasguasselli.projetofurriel.domain.Passagem;
 import com.lucasguasselli.projetofurriel.dto.PassagemDTO;
 import com.lucasguasselli.projetofurriel.dto.PassagemNewDTO;
@@ -52,30 +55,23 @@ public class PassagemResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 			// created gera o codigo 201 (cadastrado com sucesso)
 			return ResponseEntity.created(uri).build();
-	 	}	
-	 	
-	/*
+	 }	 	
+	
 	@RequestMapping(value="/{id}", method=RequestMethod.DELETE)
 	public ResponseEntity<Void> delete(@PathVariable Integer id) {
 		service.delete(id);
 			return ResponseEntity.noContent().build();
-	}
+	}	
 	
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
 	// @Valid valida o Objeto
     @RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody ConducaoNewDTO objNewDTO, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody PassagemNewDTO objNewDTO, @PathVariable Integer id){
 		// transformando um objeto DTO em um objeto Entity
-		Conducao obj = service.fromDTO(objNewDTO);
-			obj.setId(id);
-			obj = service.update(obj);
-			
-			auxilioTransporteService.update(objNewDTO);
-			alteracaoValorPassagemService.update(objNewDTO);
-			
-				return ResponseEntity.noContent().build();
-	}	
-    
-    
- 	*/
+		 Passagem obj = service.fromDTO(objNewDTO);
+			obj.setId(id); 
+		 		obj = service.update(obj);			
+		 			return ResponseEntity.noContent().build();
+	}	   
+ 	
 }
