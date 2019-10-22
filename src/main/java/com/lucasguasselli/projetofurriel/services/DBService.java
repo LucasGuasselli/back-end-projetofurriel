@@ -94,8 +94,8 @@ public class DBService {
 		// formatando a data
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		
-		Aditamento adt = new Aditamento("Aditamento_nr_01", sdf.parse("25/12/1994"));
-		Aditamento adt1 = new Aditamento("Aditamento_nr_02", sdf.parse("06/02/1994"));
+		Aditamento adt = new Aditamento("Aditamento_nr_01", sdf.parse("25/12/1994"), "texto despesa", "texto exclusao");
+		Aditamento adt1 = new Aditamento("Aditamento_nr_02", sdf.parse("06/02/1994"), "texto despesa", "texto exclusao");
 
 		DespesaAAnular desp = new DespesaAAnular(sdf.parse("05/02/1994"),sdf.parse("06/02/1994"), 3,"viagem", adt,lucas);
 		DespesaAAnular desp1 = new DespesaAAnular(sdf.parse("05/02/2000"),sdf.parse("06/02/2000"), 1,"servico", adt,lucas);

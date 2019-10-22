@@ -6,10 +6,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -25,6 +27,8 @@ public class Aditamento implements Serializable{
 	private Integer id;
 	private String nome;
 	private Boolean assinatura = false;
+	private String despesaPeriodo;
+	private String exclusaoTexto;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date data;
@@ -52,10 +56,12 @@ public class Aditamento implements Serializable{
 		this.id = id;
 	}
 
-	public Aditamento(String nome, Date data) {
+	public Aditamento(String nome, Date data, String despesaPeriodo, String exclusaoTexto) {
 		super();
 		this.nome = nome;
 		this.data = data;
+		this.despesaPeriodo = despesaPeriodo;
+		this.exclusaoTexto = exclusaoTexto;
 	}
 
 	public Integer getId() {
@@ -90,6 +96,30 @@ public class Aditamento implements Serializable{
 		this.assinatura = assinatura;
 	}
 	
+	public String getDespesaPeriodo() {
+		return despesaPeriodo;
+	}
+
+	public void setDespesaPeriodo(String despesaPeriodo) {
+		this.despesaPeriodo = despesaPeriodo;
+	}
+
+	public String getExclusaoTexto() {
+		return exclusaoTexto;
+	}
+
+	public void setExclusaoTexto(String exclusaoTexto) {
+		this.exclusaoTexto = exclusaoTexto;
+	}
+
+	public List<AlteracaoValorPassagem> getAlteracoesValoresPassagens() {
+		return alteracoesValoresPassagens;
+	}
+
+	public void setAlteracoesValoresPassagens(List<AlteracaoValorPassagem> alteracoesValoresPassagens) {
+		this.alteracoesValoresPassagens = alteracoesValoresPassagens;
+	}
+
 	public List<DespesaAAnular> getDescontos() {
 		return descontos;
 	}

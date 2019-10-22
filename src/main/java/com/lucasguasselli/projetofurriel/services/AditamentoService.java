@@ -63,7 +63,7 @@ public class AditamentoService {
 	}
 	
 	public Aditamento fromDTO(AditamentoDTO objDTO) {
-		return new Aditamento(objDTO.getNome(),objDTO.getData());
+		return new Aditamento(objDTO.getNome(), objDTO.getData(), objDTO.getDespesaPeriodo(), objDTO.getExclusaoTexto());
 	}	
 	
 	private void updateData(Aditamento newObj, Aditamento obj) {
@@ -72,5 +72,5 @@ public class AditamentoService {
 		newObj.setData(obj.getData());
 		newObj.setAssinatura(obj.getAssinatura());
 	}
-	
+	 
 }

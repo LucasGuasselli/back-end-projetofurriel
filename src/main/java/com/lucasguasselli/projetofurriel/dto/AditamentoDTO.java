@@ -12,12 +12,13 @@ public class AditamentoDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Integer id;
-	private String nome;
-	
+	private String nome;	
+	private Boolean assinatura = false;
+	private String despesaPeriodo;
+	private String exclusaoTexto;
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date data;
-	private Boolean assinatura = false;
 	
 	public AditamentoDTO() {
 		
@@ -27,6 +28,8 @@ public class AditamentoDTO implements Serializable{
 		this.id = obj.getId();
 		this.nome = obj.getNome();
 		this.data = obj.getData();
+		this.despesaPeriodo = obj.getDespesaPeriodo();
+		this.exclusaoTexto = obj.getExclusaoTexto();
 	}
 
 	public Integer getId() {
@@ -60,6 +63,21 @@ public class AditamentoDTO implements Serializable{
 	public void setAssinatura(Boolean assinatura) {
 		this.assinatura = assinatura;
 	}
-	
+
+	public String getDespesaPeriodo() {
+		return despesaPeriodo;
+	}
+
+	public void setDespesaPeriodo(String despesaPeriodo) {
+		this.despesaPeriodo = despesaPeriodo;
+	}
+
+	public String getExclusaoTexto() {
+		return exclusaoTexto;
+	}
+
+	public void setExclusaoTexto(String exclusaoTexto) {
+		this.exclusaoTexto = exclusaoTexto;
+	}	
 	
 }
