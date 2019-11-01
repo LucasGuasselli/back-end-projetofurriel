@@ -150,14 +150,15 @@ public class AuxilioTransporteService {
 	
 	public AuxilioTransporte fromDTO(AuxilioTransporteNewDTO objDTO) {
 		Militar militar = new Militar(objDTO.getMilitarPrecCP());
-		AuxilioTransporte auxilioTransporte = new AuxilioTransporte(objDTO.getValorTotalAT(),
-				objDTO.getValorDiarioAT(), objDTO.isExclusao(), objDTO.isAtualizacao(), militar);
+		AuxilioTransporte auxilioTransporte = new AuxilioTransporte(objDTO.getValorTotalAT(), objDTO.getValorDiarioAT(),
+				objDTO.isExclusao(), objDTO.isAtualizacao(), objDTO.isEntregaSPP(), militar);
 			return auxilioTransporte;
 	}	
 	
 	// a partir de um DTO vai ser construido e retornado um objeto AuxilioTransporte
 	public AuxilioTransporte fromDTO(AuxilioTransporteDTO objDTO) {
-		return new AuxilioTransporte(objDTO.getValorTotalAT(),objDTO.getValorDiarioAT(), objDTO.isExclusao(), objDTO.isAtualizacao());
+		return new AuxilioTransporte(objDTO.getValorTotalAT(),objDTO.getValorDiarioAT(),
+				objDTO.isExclusao(), objDTO.isAtualizacao(), objDTO.isEntregaSPP());
 	}
 		
 	private void updateData(AuxilioTransporte newObj, AuxilioTransporte obj) {
@@ -166,6 +167,7 @@ public class AuxilioTransporteService {
 		newObj.setValorDiarioAT(obj.getValorDiarioAT());
 		newObj.setExclusao(obj.isExclusao());
 		newObj.setAtualizacao(obj.isAtualizacao());
+		newObj.setEntregaSPP(obj.isEntregaSPP());
 	}
 	
 	// atualiza os valores quando uma conducao e inserida
@@ -180,8 +182,8 @@ public class AuxilioTransporteService {
 	// transformando um obj AuxilioTransporte em obj AuxilioTransporteNewDTO
 		public AuxilioTransporteNewDTO toNewDTO(AuxilioTransporte obj) {
 			AuxilioTransporteNewDTO auxilioTransporteNewDTO = new AuxilioTransporteNewDTO(obj.getId(),
-				obj.getValorTotalAT(), obj.getValorDiarioAT(), obj.isExclusao(),
-				obj.isAtualizacao(), obj.getMilitar().getPrecCP());
+				obj.getValorTotalAT(), obj.getValorDiarioAT(), obj.isExclusao(), obj.isAtualizacao(),
+				obj.isEntregaSPP(), obj.getMilitar().getPrecCP());
 			
 				return auxilioTransporteNewDTO;
 		}
@@ -191,11 +193,9 @@ public class AuxilioTransporteService {
 		List<AuxilioTransporteNewDTO> auxiliosNewDTO = new ArrayList<AuxilioTransporteNewDTO>();
 		
 		for(int i = 0; i < lista.size(); i++) {
-			auxiliosNewDTO.add(new AuxilioTransporteNewDTO(lista.get(i).getId(),
-				lista.get(i).getValorTotalAT(), lista.get(i).getValorDiarioAT(),
-				lista.get(i).isExclusao(), lista.get(i).isAtualizacao(),
-				lista.get(i).getMilitar().getPrecCP()));
-				 	
+			auxiliosNewDTO.add(new AuxilioTransporteNewDTO(lista.get(i).getId(), lista.get(i).getValorTotalAT(),
+				lista.get(i).getValorDiarioAT(), lista.get(i).isExclusao(), lista.get(i).isAtualizacao(),
+				lista.get(i).isEntregaSPP(), lista.get(i).getMilitar().getPrecCP()));				 	
 		}				
 			return auxiliosNewDTO;
 	}

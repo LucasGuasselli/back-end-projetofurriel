@@ -12,6 +12,7 @@ public class AuxilioTransporteNewDTO implements Serializable{
 	private double valorDiarioAT;
 	private boolean exclusao;
 	private boolean atualizacao;
+	private boolean entregaSPP;
 	
 	private int militarPrecCP;
 
@@ -21,13 +22,14 @@ public class AuxilioTransporteNewDTO implements Serializable{
 	}	
 	
 	public AuxilioTransporteNewDTO(int id, double valorTotalAT, double valorDiarioAT,
-			boolean exclusao, boolean atualizacao, int militarPrecCP) {
+			boolean exclusao, boolean atualizacao, boolean entregaSPP, int militarPrecCP) {
 		super();
 		this.id = id;
 		this.valorTotalAT = valorTotalAT;
 		this.valorDiarioAT = valorDiarioAT;
 		this.exclusao = exclusao;
 		this.atualizacao = atualizacao;
+		this.entregaSPP = entregaSPP;
 		this.militarPrecCP = militarPrecCP;
 	}
 
@@ -35,18 +37,23 @@ public class AuxilioTransporteNewDTO implements Serializable{
 		return militarPrecCP;
 	}
 
-
 	public void setMilitarPrecCP(int militarPrecCP) {
 		this.militarPrecCP = militarPrecCP;
 	}
-
 
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
+	}	
+	public boolean isEntregaSPP() {
+		return entregaSPP;
 	}
+	public void setEntregaSPP(boolean entregaSPP) {
+		this.entregaSPP = entregaSPP;
+	}
+
 	public boolean isExclusao() {
 		return exclusao;
 	}

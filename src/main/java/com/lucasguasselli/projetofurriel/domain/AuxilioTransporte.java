@@ -28,12 +28,12 @@ public class AuxilioTransporte implements Serializable{
 	private double valorDiarioAT;
 	private boolean exclusao;
 	private boolean atualizacao;
+	private boolean entregaSPP;
 	
 	@JsonIgnore
 	@OneToOne
 	@JoinColumn(name="militar_precCP")
-	private Militar militar;
-	
+	private Militar militar;	
 	
 	@OneToMany(mappedBy="auxilioTransporte", cascade=CascadeType.ALL)
 	private List<Conducao> conducao = new ArrayList<>();
@@ -46,21 +46,23 @@ public class AuxilioTransporte implements Serializable{
 		this.id = id;
 	}
 	
-	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao, boolean atualizacao) {
+	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao, boolean atualizacao, boolean entregaSPP) {
 		super();
 		this.valorTotalAT = valorTotalAT;
 		this.valorDiarioAT = valorDiarioAT;
 		this.exclusao = exclusao;
 		this.atualizacao = atualizacao;
+		this.entregaSPP = entregaSPP;
 	} 
 		
-	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao, boolean atualizacao, Militar militar) {
+	public AuxilioTransporte(double valorTotalAT, double valorDiarioAT, boolean exclusao, boolean atualizacao, boolean entregaSPP, Militar militar) {
 		super();
 		this.valorTotalAT = valorTotalAT;
 		this.valorDiarioAT = valorDiarioAT;
 		this.exclusao = exclusao;
 		this.atualizacao = atualizacao;
 		this.militar = militar;
+		this.entregaSPP = entregaSPP;
 	}	
 	
 	public int getId() {
@@ -69,8 +71,16 @@ public class AuxilioTransporte implements Serializable{
 
 	public void setId(int id) {
 		this.id = id;
-	}
+	}	
 	
+	public boolean isEntregaSPP() {
+		return entregaSPP;
+	}
+
+	public void setEntregaSPP(boolean entregaSPP) {
+		this.entregaSPP = entregaSPP;
+	}
+
 	public boolean isExclusao() {
 		return exclusao;
 	}
