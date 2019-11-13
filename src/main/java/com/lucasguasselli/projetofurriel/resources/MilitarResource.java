@@ -68,21 +68,21 @@ public class MilitarResource {
 	}
 	
 	// retornando todos militares QUE POSSUEM auxilio transporte
-		@RequestMapping(value="/militaresComAuxilioTransporte", method=RequestMethod.GET)
-		public ResponseEntity<List<MilitarDTO>> findMilitaresWithAuxilioTransporte() {
-			//pegando todos militares
-			List<Militar> list = service.findAll();
-			List<Militar> militaresComAuxilioTransporte = new ArrayList<Militar>();
-				// adiciionando todos militares que nao possuem auxilio transporte
-				for(int i = 0; i < list.size(); i++) {
-					Militar obj = service.find(list.get(i).getPrecCP());
-					if (obj.getAuxilioTransporte() != null && obj.getAuxilioTransporte().isExclusao() == false) {
-						militaresComAuxilioTransporte.add(obj);
-					}
-				}				
-				// percorrendo a lista para declarar o DTO correspondente
-				List<MilitarDTO> listDTO = militaresComAuxilioTransporte.stream().map(obj -> new MilitarDTO(obj)).collect(Collectors.toList());
-					return ResponseEntity.ok().body(listDTO);	
+	@RequestMapping(value="/militaresComAuxilioTransporte", method=RequestMethod.GET)
+	public ResponseEntity<List<MilitarNewDTO>> findMilitaresWithAuxilioTransporte() {
+		//pegando todos militares
+		List<Militar> list = service.findAll();
+		List<MilitarNewDTO> militaresComAuxilioTransporte = new ArrayList<MilitarNewDTO>();
+			// adiciionando todos militares que nao possuem auxilio transporte
+			for(int i = 0; i < list.size(); i++) {
+				Militar obj = service.find(list.get(i).getPrecCP());
+				if (obj.getAuxilioTransporte() != null && obj.getAuxilioTransporte().isExclusao() == false) {
+					militaresComAuxilioTransporte.add(service.toNewDTO(obj));
+				}
+			}				
+			// percorrendo a lista para declarar o DTO correspondente
+			// List<MilitarDTO> listDTO = militaresComAuxilioTransporte.stream().map(obj -> new MilitarDTO(obj)).collect(Collectors.toList());
+				return ResponseEntity.ok().body(militaresComAuxilioTransporte);	
 		}
 			
 	// retornando um numero X de objetos (pages)
