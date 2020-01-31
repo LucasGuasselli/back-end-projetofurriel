@@ -109,11 +109,17 @@ public class DespesaResource {
 	 // @RequestBody faz o obj ser convertido para JSON automaticamente
 	@RequestMapping(method=RequestMethod.POST)
  	public ResponseEntity<Void> insert(@RequestBody DespesaAAnularNewDTO objNewDTO){
+		// buscando o respectivo auxilio transporte
 		Militar militar = militarService.searchMilitarByPrecCP(objNewDTO.getMilitarPrecCP());
-		AuxilioTransporte aux = militar.getAuxilioTransporte();
-		objNewDTO.setValor(aux.getValorDiarioAT() * objNewDTO.getQuantidadeDias());
+			AuxilioTransporte aux = militar.getAuxilioTransporte();
+			
+		// setando o valor do desconto
+			objNewDTO.setValor(aux.getValorDiarioAT() * objNewDTO.getQuantidadeDias());
+		
+		// transformando o Objeto e inserindo no banco
 		DespesaAAnular obj = service.fromDTO(objNewDTO);
- 		obj = service.insert(obj);
+ 			obj = service.insert(obj);
+ 			
  		// este metodo serve para enviar o precCP para rota
  			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
  				// created gera o codigo 201 (cadastrado com sucesso)

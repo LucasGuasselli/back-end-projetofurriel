@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
+import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.domain.PagamentoAtrasado;
 import com.lucasguasselli.projetofurriel.dto.PagamentoAtrasadoDTO;
 import com.lucasguasselli.projetofurriel.dto.PagamentoAtrasadoNewDTO;
+import com.lucasguasselli.projetofurriel.services.MilitarService;
 import com.lucasguasselli.projetofurriel.services.PagamentoAtrasadoService;
 
 @CrossOrigin
@@ -30,6 +33,8 @@ public class PagamentoAtrasadoResource {
 
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
 	private PagamentoAtrasadoService service;
+	@Autowired
+	private MilitarService militarService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<PagamentoAtrasado> find(@PathVariable Integer id) {
@@ -91,7 +96,7 @@ public class PagamentoAtrasadoResource {
 	}
 	
 	// @RequestBody faz o obj ser convertido para JSON automaticamente
-	@RequestMapping(method=RequestMethod.POST)
+	@RequestMapping(value="/insert", method=RequestMethod.POST)
 	public ResponseEntity<Void> insert(@RequestBody PagamentoAtrasadoNewDTO objNewDTO){
 		PagamentoAtrasado obj = service.fromDTO(objNewDTO);
 			obj = service.insert(obj);
@@ -100,4 +105,24 @@ public class PagamentoAtrasadoResource {
 				// created gera o codigo 201 (cadastrado com sucesso)
 					return ResponseEntity.created(uri).build();
 	}
+	
+	
+	// este metodo e utilizado para o Saque Atrasado dos militares recem incluidos para receber Auxilio Transporte
+		@RequestMapping(value="/insertSaqueAtrasadoInclusao", method=RequestMethod.POST)
+		public ResponseEntity<Void> insertSaqueAtrasadoInclusao(@RequestBody PagamentoAtrasadoNewDTO objNewDTO){
+			// buscando o respectivo auxilio transporte
+			Militar militar = militarService.searchMilitarByPrecCP(objNewDTO.getMilitarPrecCP());
+				AuxilioTransporte aux = militar.getAuxilioTransporte();
+			
+			// calcular o valor do auxilioTransporte
+			objNewDTO.setValor(objNewDTO.getQuantidadeDias() * aux.getValorDiarioAT());
+			
+			PagamentoAtrasado obj = service.fromDTO(objNewDTO);			
+				obj = service.insert(obj);
+				
+				// este metodo serve para enviar o precCP para rota
+				URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+					// created gera o codigo 201 (cadastrado com sucesso)
+						return ResponseEntity.created(uri).build();
+		}
 }

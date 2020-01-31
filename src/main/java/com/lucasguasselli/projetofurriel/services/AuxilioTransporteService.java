@@ -82,7 +82,7 @@ public class AuxilioTransporteService {
 				auxilioTransporteDAO.save(aux);		
 	}	
 	
-	// alterar os auxilios transportes que estao desatualizados
+	// o auxilio transporte sempre estara como ATUALIZADO ao ser cadastrado ou alterado, mas esse metodo o avalia e se estiver errado o valor ele troca para DESATUALIZADO
 	public void update(List<AuxilioTransporte> auxilios, List<Passagem> passagens) {
 		List<Conducao> conducoes = conducaoService.findAll();
 		List<ConducaoNewDTO> allConducoes = conducaoService.listToNewDTO(conducoes);
@@ -92,7 +92,7 @@ public class AuxilioTransporteService {
 		// percorrendo todos auxilios
 			for(int i = 0; i < auxilios.size(); i++) {
 				// se o auxilio ja estiver desatualizado pula a comparacao
-				if(auxilios.get(i).isAtualizacao() == true) {
+				 if(auxilios.get(i).isAtualizacao() == true) {
 					// buscando as conducoes do auxilio correspondente
 					for(int k = 0; k < allConducoes.size(); k++) {
 						// armazenando as conducoes correspondentes ao auxilio
@@ -109,7 +109,11 @@ public class AuxilioTransporteService {
 								if (conducoesAuxilioTransporte.get(c).getTipoDeTransporte().equals( passagens.get(p).getTipoTransporte())) {
 									// se o valor da conducao for igual ao das passagens, nao faz nada, ELSE seta false para atualizacao
 									if (conducoesAuxilioTransporte.get(c).getValor() == passagens.get(p).getValor()) {
+										// auxilios.get(i).setAtualizacao(true);
+										// salvando no banco
+										//	auxilioTransporteDAO.save(auxilios.get(i));										
 										System.out.println("passagem atualizada");
+										
 									}else {
 										auxilios.get(i).setAtualizacao(false);
 											// salvando no banco
