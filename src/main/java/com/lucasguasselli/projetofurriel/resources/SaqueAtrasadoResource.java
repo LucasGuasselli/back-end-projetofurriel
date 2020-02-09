@@ -20,42 +20,42 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
-import com.lucasguasselli.projetofurriel.domain.PagamentoAtrasado;
-import com.lucasguasselli.projetofurriel.dto.PagamentoAtrasadoDTO;
-import com.lucasguasselli.projetofurriel.dto.PagamentoAtrasadoNewDTO;
+import com.lucasguasselli.projetofurriel.domain.SaqueAtrasado;
+import com.lucasguasselli.projetofurriel.dto.SaqueAtrasadoDTO;
+import com.lucasguasselli.projetofurriel.dto.SaqueAtrasadoNewDTO;
 import com.lucasguasselli.projetofurriel.services.MilitarService;
-import com.lucasguasselli.projetofurriel.services.PagamentoAtrasadoService;
+import com.lucasguasselli.projetofurriel.services.SaqueAtrasadoService;
 
 @CrossOrigin
 @RestController
-@RequestMapping(value="/pagamentosAtrasados")
-public class PagamentoAtrasadoResource {
+@RequestMapping(value="/saquesAtrasados")
+public class SaqueAtrasadoResource {
 
 	@Autowired  // significa que vai ser automaticamente instanciada pelo Spring
-	private PagamentoAtrasadoService service;
+	private SaqueAtrasadoService service;
 	@Autowired
 	private MilitarService militarService;
 
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<PagamentoAtrasado> find(@PathVariable Integer id) {
-			PagamentoAtrasado obj = service.find(id);
+	public ResponseEntity<SaqueAtrasado> find(@PathVariable Integer id) {
+			SaqueAtrasado obj = service.find(id);
 				return ResponseEntity.ok().body(obj);	
 	}
 	
 	// retornando todos objetos
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<List<PagamentoAtrasadoNewDTO>> findAll() {
-		List<PagamentoAtrasado> list = service.findAll();
-		List<PagamentoAtrasadoNewDTO> pagamentosNewDTO = service.listToNewDTO(list);
+	public ResponseEntity<List<SaqueAtrasadoNewDTO>> findAll() {
+		List<SaqueAtrasado> list = service.findAll();
+		List<SaqueAtrasadoNewDTO> pagamentosNewDTO = service.listToNewDTO(list);
 			return ResponseEntity.ok().body(pagamentosNewDTO);	
 	}
 	
-	@RequestMapping(value="/searchPagamentosAtrasadosByAditamentoId/{id}", method=RequestMethod.GET)
-	public ResponseEntity<List<PagamentoAtrasadoNewDTO>> findPagamentosAtrasadosByAditamentoId(@PathVariable Integer id){
-			List<PagamentoAtrasado> list = service.findAll();
-			List<PagamentoAtrasadoNewDTO> listNewDTO = service.listToNewDTO(list);
+	@RequestMapping(value="/searchSaquesAtrasadosByAditamentoId/{id}", method=RequestMethod.GET)
+	public ResponseEntity<List<SaqueAtrasadoNewDTO>> findPagamentosAtrasadosByAditamentoId(@PathVariable Integer id){
+			List<SaqueAtrasado> list = service.findAll();
+			List<SaqueAtrasadoNewDTO> listNewDTO = service.listToNewDTO(list);
 			
-			List<PagamentoAtrasadoNewDTO> resultado = new ArrayList<PagamentoAtrasadoNewDTO>();
+			List<SaqueAtrasadoNewDTO> resultado = new ArrayList<SaqueAtrasadoNewDTO>();
 				for (int i = 0; i < listNewDTO.size(); i++) {
 					if (listNewDTO.get(i).getAditamentoId() == id ) {
 						resultado.add(listNewDTO.get(i));
@@ -66,15 +66,15 @@ public class PagamentoAtrasadoResource {
 	
 	// retornando um numero X de objetos (pages)
 	@RequestMapping(value="/page", method=RequestMethod.GET)
-	public ResponseEntity<Page<PagamentoAtrasadoDTO>> findPage(
+	public ResponseEntity<Page<SaqueAtrasadoDTO>> findPage(
 		// @RequestParam serve para tornar os parametros opcionais	
 			@RequestParam(value="page", defaultValue="0") Integer page,
 			@RequestParam(value="linesPerPage", defaultValue="24")Integer linesPerPage,
 			@RequestParam(value="orderBy", defaultValue="data")String orderBy, 
 			@RequestParam(value="direction", defaultValue="DESC")String direction) {
-				Page<PagamentoAtrasado> list = service.findPage(page,linesPerPage,orderBy, direction);
+				Page<SaqueAtrasado> list = service.findPage(page,linesPerPage,orderBy, direction);
 				// percorrendo a lista para declarar o DTO correspondente
-				Page<PagamentoAtrasadoDTO> listDTO = list.map(obj -> new PagamentoAtrasadoDTO(obj));
+				Page<SaqueAtrasadoDTO> listDTO = list.map(obj -> new SaqueAtrasadoDTO(obj));
 					return ResponseEntity.ok().body(listDTO);	
 	}
 	
@@ -87,9 +87,9 @@ public class PagamentoAtrasadoResource {
 	// @PathVariable é utilizado quando o valor da variável é passada diretamente na URL, quando o valor faz parte da url.
 	// @Valid valida o Objeto
 	@RequestMapping(value="/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Void> update(@Valid @RequestBody PagamentoAtrasadoDTO objDTO, @PathVariable Integer id){
+	public ResponseEntity<Void> update(@Valid @RequestBody SaqueAtrasadoDTO objDTO, @PathVariable Integer id){
 		// transformando um objeto DTO em um objeto Entity
-		PagamentoAtrasado obj = service.fromDTO(objDTO);
+		SaqueAtrasado obj = service.fromDTO(objDTO);
 			obj.setId(id);
 			obj = service.update(obj);
 				return ResponseEntity.noContent().build();
@@ -97,8 +97,8 @@ public class PagamentoAtrasadoResource {
 	
 	// @RequestBody faz o obj ser convertido para JSON automaticamente
 	@RequestMapping(value="/insert", method=RequestMethod.POST)
-	public ResponseEntity<Void> insert(@RequestBody PagamentoAtrasadoNewDTO objNewDTO){
-		PagamentoAtrasado obj = service.fromDTO(objNewDTO);
+	public ResponseEntity<Void> insert(@RequestBody SaqueAtrasadoNewDTO objNewDTO){
+		SaqueAtrasado obj = service.fromDTO(objNewDTO);
 			obj = service.insert(obj);
 			// este metodo serve para enviar o precCP para rota
 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
@@ -109,7 +109,7 @@ public class PagamentoAtrasadoResource {
 	
 	// este metodo e utilizado para o Saque Atrasado dos militares recem incluidos para receber Auxilio Transporte
 		@RequestMapping(value="/insertSaqueAtrasadoInclusao", method=RequestMethod.POST)
-		public ResponseEntity<Void> insertSaqueAtrasadoInclusao(@RequestBody PagamentoAtrasadoNewDTO objNewDTO){
+		public ResponseEntity<Void> insertSaqueAtrasadoInclusao(@RequestBody SaqueAtrasadoNewDTO objNewDTO){
 			// buscando o respectivo auxilio transporte
 			Militar militar = militarService.searchMilitarByPrecCP(objNewDTO.getMilitarPrecCP());
 				AuxilioTransporte aux = militar.getAuxilioTransporte();
@@ -117,7 +117,7 @@ public class PagamentoAtrasadoResource {
 			// calcular o valor do auxilioTransporte
 			objNewDTO.setValor(objNewDTO.getQuantidadeDias() * aux.getValorDiarioAT());
 			
-			PagamentoAtrasado obj = service.fromDTO(objNewDTO);			
+			SaqueAtrasado obj = service.fromDTO(objNewDTO);			
 				obj = service.insert(obj);
 				
 				// este metodo serve para enviar o precCP para rota

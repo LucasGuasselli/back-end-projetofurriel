@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class PagamentoAtrasado implements Serializable{
+public class SaqueAtrasado implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 		
@@ -40,16 +40,16 @@ public class PagamentoAtrasado implements Serializable{
 	@JoinColumn(name="militar_precCP")
 	private Militar militar;
 
-	public PagamentoAtrasado() {
+	public SaqueAtrasado() {
 		
 	}
 
-	public PagamentoAtrasado(int id) {
+	public SaqueAtrasado(int id) {
 		super();
 		this.id = id;
 	}
 
-	public PagamentoAtrasado(String mesReferencia, int quantidadeDias, String motivo, double valor, Date data) {
+	public SaqueAtrasado(String mesReferencia, int quantidadeDias, String motivo, double valor, Date data) {
 		super();
 		this.mesReferencia = mesReferencia;
 		this.quantidadeDias = quantidadeDias;
@@ -58,7 +58,7 @@ public class PagamentoAtrasado implements Serializable{
 		this.data = data;
 	}
 
-	public PagamentoAtrasado(String mesReferencia, int quantidadeDias, String motivo, double valor, Date data,
+	public SaqueAtrasado(String mesReferencia, int quantidadeDias, String motivo, double valor, Date data,
 			Aditamento aditamento, Militar militar) {
 		super();
 		this.mesReferencia = mesReferencia;
@@ -150,7 +150,7 @@ public class PagamentoAtrasado implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PagamentoAtrasado other = (PagamentoAtrasado) obj;
+		SaqueAtrasado other = (SaqueAtrasado) obj;
 		if (id != other.id)
 			return false;
 		return true;

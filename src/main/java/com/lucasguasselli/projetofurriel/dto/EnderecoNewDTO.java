@@ -2,6 +2,8 @@ package com.lucasguasselli.projetofurriel.dto;
 
 import java.io.Serializable;
 
+import com.lucasguasselli.projetofurriel.domain.Endereco;
+
 public class EnderecoNewDTO implements Serializable{
 
 	// este serialVersion abaixo se faz necessaria por causa do Serializable (padrao java)
@@ -18,6 +20,17 @@ public class EnderecoNewDTO implements Serializable{
 	
 	public EnderecoNewDTO() {
 		
+	}
+	
+	public EnderecoNewDTO(Endereco obj) {
+		this.id = obj.getId();
+		this.logradouro = obj.getLogradouro();
+		this.bairro = obj.getBairro();
+		this.localidade = obj.getLocalidade();
+		this.numero = obj.getNumero();
+		this.complemento = obj.getComplemento();
+		
+		this.militarPrecCP = obj.getMilitar().getPrecCP();
 	}
 		
 	public int getMilitarPrecCP() {

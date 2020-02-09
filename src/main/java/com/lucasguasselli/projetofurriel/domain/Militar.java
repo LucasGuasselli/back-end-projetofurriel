@@ -42,7 +42,7 @@ public class Militar {
 	private List<ExclusaoAuxilioTransporte> exclusoes = new ArrayList<>();
 	
 	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
-	private List<PagamentoAtrasado> pagamentosAtrasados = new ArrayList<>();
+	private List<SaqueAtrasado> pagamentosAtrasados = new ArrayList<>();
 	
 	@OneToMany(mappedBy="militar", cascade=CascadeType.ALL)
 	private List<AlteracaoValorPassagem> alteracoesValoresPassagens = new ArrayList<>();
@@ -133,11 +133,11 @@ public class Militar {
 		this.exclusoes = exclusoes;
 	}
 
-	public List<PagamentoAtrasado> getPagamentosAtrasados() {
+	public List<SaqueAtrasado> getPagamentosAtrasados() {
 		return pagamentosAtrasados;
 	}
 
-	public void setPagamentosAtrasados(List<PagamentoAtrasado> pagamentosAtrasados) {
+	public void setPagamentosAtrasados(List<SaqueAtrasado> pagamentosAtrasados) {
 		this.pagamentosAtrasados = pagamentosAtrasados;
 	}
 

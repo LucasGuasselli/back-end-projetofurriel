@@ -4,8 +4,9 @@ import java.io.Serializable;
 import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.lucasguasselli.projetofurriel.domain.SaqueAtrasado;
 
-public class PagamentoAtrasadoNewDTO implements Serializable{
+public class SaqueAtrasadoDTO implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
@@ -17,24 +18,18 @@ public class PagamentoAtrasadoNewDTO implements Serializable{
 	
 	@JsonFormat(pattern="dd/MM/yyyy")
 	private Date data;
-	
-	private int militarPrecCP;
-	private int aditamentoId;
-	
-	public PagamentoAtrasadoNewDTO() {
+
+	public SaqueAtrasadoDTO() {
 		
 	}
 	
-	public PagamentoAtrasadoNewDTO(int id, String mesReferencia, int quantidadeDias, String motivo, double valor,
-			 int militarPrecCP, int aditamentoId) {
-		super();
-		this.id = id;
-		this.mesReferencia = mesReferencia;
-		this.quantidadeDias = quantidadeDias;
-		this.motivo = motivo;
-		this.valor = valor;
-		this.militarPrecCP = militarPrecCP;
-		this.aditamentoId = aditamentoId;
+	public SaqueAtrasadoDTO(SaqueAtrasado obj) {
+		this.id = obj.getId();
+		this.mesReferencia = obj.getMesReferencia();
+		this.quantidadeDias = obj.getQuantidadeDias();
+		this.motivo = obj.getMotivo();
+		this.valor = obj.getValor();
+		this.data = obj.getData();
 	}
 
 	public int getId() {
@@ -84,21 +79,5 @@ public class PagamentoAtrasadoNewDTO implements Serializable{
 	public void setData(Date data) {
 		this.data = data;
 	}
-
-	public int getMilitarPrecCP() {
-		return militarPrecCP;
-	}
-
-	public void setMilitarPrecCP(int militarPrecCP) {
-		this.militarPrecCP = militarPrecCP;
-	}
-
-	public int getAditamentoId() {
-		return aditamentoId;
-	}
-
-	public void setAditamentoId(int aditamentoId) {
-		this.aditamentoId = aditamentoId;
-	}
-	
+		
 }

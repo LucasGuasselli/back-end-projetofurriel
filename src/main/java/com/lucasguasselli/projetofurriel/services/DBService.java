@@ -16,7 +16,7 @@ import com.lucasguasselli.projetofurriel.dao.EnderecoDAO;
 import com.lucasguasselli.projetofurriel.dao.ExclusaoDAO;
 import com.lucasguasselli.projetofurriel.dao.InclusaoDAO;
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
-import com.lucasguasselli.projetofurriel.dao.PagamentoAtrasadoDAO;
+import com.lucasguasselli.projetofurriel.dao.SaqueAtrasadoDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
 import com.lucasguasselli.projetofurriel.domain.Aditamento;
 import com.lucasguasselli.projetofurriel.domain.AlteracaoValorPassagem;
@@ -27,7 +27,7 @@ import com.lucasguasselli.projetofurriel.domain.Endereco;
 import com.lucasguasselli.projetofurriel.domain.ExclusaoAuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.InclusaoAuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
-import com.lucasguasselli.projetofurriel.domain.PagamentoAtrasado;
+import com.lucasguasselli.projetofurriel.domain.SaqueAtrasado;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
 
 @Service
@@ -52,7 +52,7 @@ public class DBService {
 	@Autowired
 	private ExclusaoDAO exclusaoDAO;
 	@Autowired
-	private PagamentoAtrasadoDAO pagamentoAtrasadoDAO;
+	private SaqueAtrasadoDAO pagamentoAtrasadoDAO;
 	@Autowired
 	private AlteracaoValorPassagemDAO alteracaoValorPassagemDAO;
 	

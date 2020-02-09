@@ -43,7 +43,7 @@ public class Aditamento implements Serializable{
 	private List<ExclusaoAuxilioTransporte> exclusoes = new ArrayList<>();
 	
 	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
-	private List<PagamentoAtrasado> pagamentosAtrasados = new ArrayList<>();
+	private List<SaqueAtrasado> pagamentosAtrasados = new ArrayList<>();
 	
 	@OneToMany(mappedBy="aditamento", cascade=CascadeType.ALL)
 	private List<AlteracaoValorPassagem> alteracoesValoresPassagens = new ArrayList<>();
@@ -144,11 +144,11 @@ public class Aditamento implements Serializable{
 		this.exclusoes = exclusoes;
 	}
 
-	public List<PagamentoAtrasado> getPagamentosAtrasados() {
+	public List<SaqueAtrasado> getPagamentosAtrasados() {
 		return pagamentosAtrasados;
 	}
 
-	public void setPagamentosAtrasados(List<PagamentoAtrasado> pagamentosAtrasados) {
+	public void setPagamentosAtrasados(List<SaqueAtrasado> pagamentosAtrasados) {
 		this.pagamentosAtrasados = pagamentosAtrasados;
 	}
 

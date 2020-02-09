@@ -1,5 +1,6 @@
 package com.lucasguasselli.projetofurriel.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,9 +15,12 @@ import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.EnderecoDAO;
 import com.lucasguasselli.projetofurriel.domain.Endereco;
+import com.lucasguasselli.projetofurriel.domain.InclusaoAuxilioTransporte;
 import com.lucasguasselli.projetofurriel.domain.Militar;
 import com.lucasguasselli.projetofurriel.dto.EnderecoDTO;
 import com.lucasguasselli.projetofurriel.dto.EnderecoNewDTO;
+import com.lucasguasselli.projetofurriel.dto.InclusaoAuxilioTransporteNewDTO;
+import com.lucasguasselli.projetofurriel.dto.MilitarNewDTO;
 import com.lucasguasselli.projetofurriel.services.exceptions.DataIntegrityException;
 import com.lucasguasselli.projetofurriel.services.exceptions.ObjectNotFoundException;
 
@@ -85,6 +89,22 @@ public class EnderecoService {
 	// a partir de um DTO vai ser construido e retornado um objeto Endereco
 	public Endereco fromDTO(EnderecoDTO objDTO) {
 		return new Endereco(objDTO.getLogradouro(), objDTO.getBairro(), objDTO.getLocalidade(), objDTO.getNumero(), objDTO.getComplemento());
+	}
+	
+	// transformando um obj Endereco em obj EnderecoNewDTO
+	public EnderecoNewDTO toNewDTO(Endereco obj) {
+		EnderecoNewDTO militarNewDTO = new EnderecoNewDTO(obj);
+			return militarNewDTO;
+	}
+	
+	// transformando uma lista de obj Endereco em uma lista obj EnderecoNewDTO
+	public List<EnderecoNewDTO> listToNewDTO(List<Endereco> list) {
+		List<EnderecoNewDTO> enderecosNewDTO = new ArrayList<EnderecoNewDTO>();
+		
+		for(int i = 0; i < list.size(); i++) {
+			enderecosNewDTO.add(new EnderecoNewDTO(list.get(i)));
+		}				
+			return enderecosNewDTO;
 	}
 		
 	private void updateData(Endereco newObj, Endereco obj) {

@@ -49,11 +49,12 @@ public class EnderecoResource {
 	
 	// retornando todos objetos
 			@RequestMapping(method=RequestMethod.GET)
-			public ResponseEntity<List<EnderecoDTO>> findAll() {
+			public ResponseEntity<List<EnderecoNewDTO>> findAll() {
 					List<Endereco> list = service.findAll();
+					List<EnderecoNewDTO> listNewDTO = service.listToNewDTO(list);
 					// percorrendo a lista para declarar o DTO correspondente
-					List<EnderecoDTO> listDTO = list.stream().map(obj -> new EnderecoDTO(obj)).collect(Collectors.toList());
-						return ResponseEntity.ok().body(listDTO);	
+				//	List<EnderecoNewDTO> listNewDTO = list.stream().map(obj -> new EnderecoNewDTO(obj)).collect(Collectors.toList());
+						return ResponseEntity.ok().body(listNewDTO);	
 			}
 			
 	// retornando um numero X de objetos (pages)
