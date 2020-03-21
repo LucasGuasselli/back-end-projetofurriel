@@ -53,10 +53,10 @@ public class AlteracaoValorPassagemService {
 	public AlteracaoValorPassagem update(ConducaoNewDTO conducaoNewDTO) {
 		AuxilioTransporte aux = auxilioTransporteService.find(conducaoNewDTO.getAuxilioTransporteId());
 		List<AlteracaoValorPassagem> list = alteracaoValorPassagemDAO.findAll();
+		// buscando a ultima atualizacao de auxilio cadastrada
 			AlteracaoValorPassagem newObj = list.get((list.size()-1));
 				newObj.setValor(aux.getValorTotalAT());
-		return alteracaoValorPassagemDAO.save(newObj);
-
+					return alteracaoValorPassagemDAO.save(newObj);
 	}
 	
 	public void delete(Integer id) {

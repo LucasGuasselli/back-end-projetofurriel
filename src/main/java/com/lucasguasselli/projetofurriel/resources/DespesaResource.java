@@ -105,6 +105,17 @@ public class DespesaResource {
 				return ResponseEntity.noContent().build();
 	}
 			
+	@RequestMapping(value="/despesaAtualizacaoAuxilio", method=RequestMethod.POST)
+ 	public ResponseEntity<Void> insertDespesaAtualizacaoAuxilio(@RequestBody DespesaAAnularNewDTO objNewDTO){
+		// transformando o Objeto e inserindo no banco
+		DespesaAAnular obj = service.fromDTO(objNewDTO);
+ 			obj = service.insert(obj);
+ 			
+ 		// este metodo serve para enviar o precCP para rota
+ 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+ 				// created gera o codigo 201 (cadastrado com sucesso)
+ 				return ResponseEntity.created(uri).build();
+	 }
 	
 	 // @RequestBody faz o obj ser convertido para JSON automaticamente
 	@RequestMapping(method=RequestMethod.POST)
@@ -125,4 +136,5 @@ public class DespesaResource {
  				// created gera o codigo 201 (cadastrado com sucesso)
  				return ResponseEntity.created(uri).build();
 	 }	
+		
 }

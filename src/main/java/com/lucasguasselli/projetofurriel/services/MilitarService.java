@@ -45,11 +45,11 @@ public class MilitarService {
 	}
 	
 	public void delete(Integer precCP) {
-		find(precCP);
+			find(precCP);
 		try {
 			militarDAO.deleteById(precCP);
 		}catch (DataIntegrityViolationException e) {
-			throw new DataIntegrityException("Não é possivel excluir um Militar que possui auxilio transporte");
+			throw new DataIntegrityException(e.getMessage());
 		}
 	}
 	

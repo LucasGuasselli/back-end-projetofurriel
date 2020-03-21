@@ -88,26 +88,36 @@ public class ConducaoResource {
 			// atualizando o auxilioTransporte
 				auxilioTransporteService.update(objNewDTO);
 			// atualizando o valor correto da atuazacaoAuxilioTransporte	
-				alteracaoValorPassagemService.update(objNewDTO);
-			
-				return ResponseEntity.noContent().build();
+				alteracaoValorPassagemService.update(objNewDTO);			
+					return ResponseEntity.noContent().build();
 	}	
     
     // @RequestBody faz o obj ser convertido para JSON automaticamente
  	@RequestMapping(method=RequestMethod.POST)
  	public ResponseEntity<Void> insert(@RequestBody ConducaoNewDTO objNewDTO){
- 			Conducao obj = service.fromDTO(objNewDTO);
- 			obj = service.insert(obj);
- 				
- 			auxilioTransporteService.update(objNewDTO);
- 			// inclusaoService.update(objNewDTO);
- 			
+ 		Conducao obj = service.fromDTO(objNewDTO);
+ 			obj = service.insert(obj); 				
  		// este metodo serve para enviar o precCP para rota
  			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
  				// created gera o codigo 201 (cadastrado com sucesso)
  				return ResponseEntity.created(uri).build();
  	}			
   
+ 	 // @RequestBody faz o obj ser convertido para JSON automaticamente
+ 	@RequestMapping(value="/insertNewConducao", method=RequestMethod.POST)
+ 	public ResponseEntity<Void> insertNewConducao(@RequestBody ConducaoNewDTO objNewDTO){
+ 		Conducao obj = service.fromDTO(objNewDTO);
+ 			obj = service.insert(obj);
+ 		// atualizando o auxilioTransporte
+			auxilioTransporteService.update(objNewDTO);
+		// atualizando o valor correto da atuazacaoAuxilioTransporte	
+			alteracaoValorPassagemService.update(objNewDTO);			
+			// este metodo serve para enviar o precCP para rota
+ 			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+ 				// created gera o codigo 201 (cadastrado com sucesso)
+ 				return ResponseEntity.created(uri).build();
+ 	}
+ 	
  // retornando um numero X de objetos (pages)
  	@RequestMapping(value="/page", method=RequestMethod.GET)
  	public ResponseEntity<Page<ConducaoDTO>> findPage(
