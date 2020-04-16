@@ -92,17 +92,22 @@ public class ConducaoResource {
 					return ResponseEntity.noContent().build();
 	}	
     
+    // USADA PARA CADASTRO AUX TRANSP
     // @RequestBody faz o obj ser convertido para JSON automaticamente
  	@RequestMapping(method=RequestMethod.POST)
  	public ResponseEntity<Void> insert(@RequestBody ConducaoNewDTO objNewDTO){
  		Conducao obj = service.fromDTO(objNewDTO);
- 			obj = service.insert(obj); 				
+ 			obj = service.insert(obj);
+ 			
+ 		// atualizando o auxilioTransporte
+ 					auxilioTransporteService.update(objNewDTO);
  		// este metodo serve para enviar o precCP para rota
  			URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
  				// created gera o codigo 201 (cadastrado com sucesso)
  				return ResponseEntity.created(uri).build();
  	}			
   
+ 	// USADA PARA ATUALIZACAO AUX TRANSP
  	 // @RequestBody faz o obj ser convertido para JSON automaticamente
  	@RequestMapping(value="/insertNewConducao", method=RequestMethod.POST)
  	public ResponseEntity<Void> insertNewConducao(@RequestBody ConducaoNewDTO objNewDTO){
