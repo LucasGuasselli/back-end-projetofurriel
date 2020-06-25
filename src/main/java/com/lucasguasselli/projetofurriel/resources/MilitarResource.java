@@ -100,7 +100,7 @@ public class MilitarResource {
 	}
 	
 	
-	@RequestMapping(value="/searchMilitaresByName", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarMilitaresPorNome", method=RequestMethod.GET)
 	public ResponseEntity<Page<MilitarDTO>> findMilitarByName(
 		// @RequestParam serve para tornar os parametros opcionais	
 		@RequestParam(value="nome", defaultValue="0") String nome,
@@ -118,7 +118,7 @@ public class MilitarResource {
 			
 	}
 	
-	@RequestMapping(value="/searchMilitarByPrecCP", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarMilitarPorPrecCP", method=RequestMethod.GET)
 	public ResponseEntity<MilitarNewDTO> findMilitarByPrecCP(
 		// @RequestParam serve para tornar os parametros opcionais	
 		@RequestParam(value="precCP", defaultValue="0") int precCP) {

@@ -38,7 +38,7 @@ public class EnderecoResource {
 	}
 	
 	
-	@RequestMapping(value="/searchEnderecoByPrecCP", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarEnderecoPorPrecCP", method=RequestMethod.GET)
 	public ResponseEntity<EnderecoDTO> findEnderecoByPrecCP(
 		// @RequestParam serve para tornar os parametros opcionais	
 		@RequestParam(value="precCP", defaultValue="0") int precCP ){

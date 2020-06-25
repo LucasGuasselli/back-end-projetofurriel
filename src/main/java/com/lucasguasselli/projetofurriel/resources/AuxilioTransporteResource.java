@@ -59,7 +59,7 @@ public class AuxilioTransporteResource {
 	
 	// verifica quais auxilios estao desatualizados e atualiza o Banco de Dados 
 	// conforme comparacao com o preco das passagenss 
-	@RequestMapping(value="/update", method=RequestMethod.GET)
+	@RequestMapping(value="/atualizarTodos", method=RequestMethod.GET)
 	public ResponseEntity<Void> UpdateAll() {
 		List<AuxilioTransporte> listAuxilios = service.findAll();
 		List<Passagem> listPassagens = passagensService.findAll();
@@ -68,7 +68,7 @@ public class AuxilioTransporteResource {
 				return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value="/searchAuxilioTransporteByPrecCP", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarAuxilioTransportePorPrecCP", method=RequestMethod.GET)
 	public ResponseEntity<AuxilioTransporte> findAuxilioTransporteByPrecCP(
 		// @RequestParam serve para tornar os parametros opcionais	
 		@RequestParam(value="precCP", defaultValue="0") int precCP) {

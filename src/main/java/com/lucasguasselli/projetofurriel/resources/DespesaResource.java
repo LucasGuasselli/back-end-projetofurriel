@@ -72,7 +72,7 @@ public class DespesaResource {
 			return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value="/searchPrecCPById", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarPrecCPPorId", method=RequestMethod.GET)
 	public ResponseEntity<DespesaAAnularNewDTO> findPrecCPById(
 		@RequestParam(value="id", defaultValue="0") int id ){
 			DespesaAAnular despesa = service.searchPrecCPById(id);
@@ -80,7 +80,7 @@ public class DespesaResource {
 				return ResponseEntity.ok().body(despesaNewDTO);	
 	}
 	
-	@RequestMapping(value="/searchDespesasByAditamentoId/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarDespesasPorAditamentoId/{id}", method=RequestMethod.GET)
 	public ResponseEntity<List<DespesaAAnularNewDTO>> findDespesasByAditamentoId(@PathVariable Integer id){
 			List<DespesaAAnular> list = service.findAll();
 			List<DespesaAAnularNewDTO> listNewDTO = service.listToNewDTO(list);

@@ -47,7 +47,7 @@ public class AlteracaoValorPassagemResource {
 				return ResponseEntity.ok().body(listNewDTO);	
 	}
 	
-	@RequestMapping(value="/searchAlteracoesByAditamentoId/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarAlteracoesPorAditamentoId/{id}", method=RequestMethod.GET)
 	public ResponseEntity<List<AlteracaoValorPassagemNewDTO>> findDespesasByAditamentoId(@PathVariable Integer id){
 			List<AlteracaoValorPassagem> list = service.findAll();
 			List<AlteracaoValorPassagemNewDTO> listNewDTO = service.listToNewDTO(list);

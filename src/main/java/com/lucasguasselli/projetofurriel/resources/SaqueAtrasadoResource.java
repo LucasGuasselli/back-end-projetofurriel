@@ -50,7 +50,7 @@ public class SaqueAtrasadoResource {
 			return ResponseEntity.ok().body(pagamentosNewDTO);	
 	}
 	
-	@RequestMapping(value="/searchSaquesAtrasadosByAditamentoId/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarSaquesAtrasadosPorAditamentoId/{id}", method=RequestMethod.GET)
 	public ResponseEntity<List<SaqueAtrasadoNewDTO>> findPagamentosAtrasadosByAditamentoId(@PathVariable Integer id){
 			List<SaqueAtrasado> list = service.findAll();
 			List<SaqueAtrasadoNewDTO> listNewDTO = service.listToNewDTO(list);
@@ -108,7 +108,7 @@ public class SaqueAtrasadoResource {
 	
 	
 	// este metodo e utilizado para o Saque Atrasado dos militares recem incluidos para receber Auxilio Transporte
-		@RequestMapping(value="/insertSaqueAtrasadoInclusao", method=RequestMethod.POST)
+		@RequestMapping(value="/inserirSaqueAtrasadoInclusao", method=RequestMethod.POST)
 		public ResponseEntity<Void> insertSaqueAtrasadoInclusao(@RequestBody SaqueAtrasadoNewDTO objNewDTO){
 			// buscando o respectivo auxilio transporte
 			Militar militar = militarService.searchMilitarByPrecCP(objNewDTO.getMilitarPrecCP());

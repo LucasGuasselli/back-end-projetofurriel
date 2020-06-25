@@ -48,7 +48,7 @@ public class ConducaoResource {
 				return ResponseEntity.ok().body(obj);	
 	}
 	
-	@RequestMapping(value="/findConducoesByAuxilioTransporteId/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarConducoesPorAuxilioTransporteId/{id}", method=RequestMethod.GET)
 	public ResponseEntity<List<ConducaoNewDTO>> findConducoesByAuxilioTransporteId(@PathVariable Integer id) {
 			List<Conducao> list = service.findAll();
 			List<ConducaoNewDTO> listNewDTO = service.listToNewDTO(list);
@@ -109,7 +109,7 @@ public class ConducaoResource {
   
  	// USADA PARA ATUALIZACAO AUX TRANSP
  	 // @RequestBody faz o obj ser convertido para JSON automaticamente
- 	@RequestMapping(value="/insertNewConducao", method=RequestMethod.POST)
+ 	@RequestMapping(value="/inserirNovaConducao", method=RequestMethod.POST)
  	public ResponseEntity<Void> insertNewConducao(@RequestBody ConducaoNewDTO objNewDTO){
  		Conducao obj = service.fromDTO(objNewDTO);
  			obj = service.insert(obj);

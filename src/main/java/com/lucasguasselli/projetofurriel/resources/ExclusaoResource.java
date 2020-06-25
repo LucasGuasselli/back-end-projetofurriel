@@ -47,7 +47,7 @@ public class ExclusaoResource {
 				return ResponseEntity.ok().body(listNewDTO);	
 	}
 	
-	@RequestMapping(value="/searchExclusoesByAditamentoId/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/procurarExclusoesPorAditamentoId/{id}", method=RequestMethod.GET)
 	public ResponseEntity<List<ExclusaoAuxilioTransporteNewDTO>> findExclusoesByAditamentoId(@PathVariable Integer id){
 			List<ExclusaoAuxilioTransporte> list = service.findAll();
 			List<ExclusaoAuxilioTransporteNewDTO> listNewDTO = service.listToNewDTO(list);
