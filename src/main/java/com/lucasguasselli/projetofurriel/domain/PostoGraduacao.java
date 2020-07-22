@@ -28,6 +28,9 @@ public class PostoGraduacao implements Serializable{
 	@OneToMany(mappedBy="postoGraduacao", cascade=CascadeType.ALL)
 	private List<Militar> militares = new ArrayList<>();
 	
+	@OneToMany(mappedBy="postoGraduacao", cascade=CascadeType.ALL)
+	private List<Usuario> usuarios = new ArrayList<>();
+	
 	public PostoGraduacao() {
 		
 	}
@@ -52,6 +55,14 @@ public class PostoGraduacao implements Serializable{
 		this.cotaParte = cotaParte;
 	}
 
+	public List<Usuario> getUsuarios() {
+		return usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
 	public List<Militar> getMilitares() {
 		return militares;
 	}
@@ -59,7 +70,7 @@ public class PostoGraduacao implements Serializable{
 	public void setMilitares(List<Militar> militares) {
 		this.militares = militares;
 	}
-
+	
 	public int getId() {
 		return id;
 	}

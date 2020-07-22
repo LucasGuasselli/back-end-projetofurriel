@@ -1,7 +1,6 @@
 package com.lucasguasselli.projetofurriel.services;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,19 +15,12 @@ import com.lucasguasselli.projetofurriel.dao.EnderecoDAO;
 import com.lucasguasselli.projetofurriel.dao.ExclusaoDAO;
 import com.lucasguasselli.projetofurriel.dao.InclusaoDAO;
 import com.lucasguasselli.projetofurriel.dao.MilitarDAO;
-import com.lucasguasselli.projetofurriel.dao.SaqueAtrasadoDAO;
 import com.lucasguasselli.projetofurriel.dao.PostoGraduacaoDAO;
-import com.lucasguasselli.projetofurriel.domain.Aditamento;
-import com.lucasguasselli.projetofurriel.domain.AlteracaoValorPassagem;
-import com.lucasguasselli.projetofurriel.domain.AuxilioTransporte;
-import com.lucasguasselli.projetofurriel.domain.Conducao;
-import com.lucasguasselli.projetofurriel.domain.DespesaAAnular;
-import com.lucasguasselli.projetofurriel.domain.Endereco;
-import com.lucasguasselli.projetofurriel.domain.ExclusaoAuxilioTransporte;
-import com.lucasguasselli.projetofurriel.domain.InclusaoAuxilioTransporte;
+import com.lucasguasselli.projetofurriel.dao.SaqueAtrasadoDAO;
+import com.lucasguasselli.projetofurriel.dao.UsuarioDAO;
 import com.lucasguasselli.projetofurriel.domain.Militar;
-import com.lucasguasselli.projetofurriel.domain.SaqueAtrasado;
 import com.lucasguasselli.projetofurriel.domain.PostoGraduacao;
+import com.lucasguasselli.projetofurriel.domain.Usuario;
 
 @Service
 public class DBService {
@@ -55,6 +47,8 @@ public class DBService {
 	private SaqueAtrasadoDAO pagamentoAtrasadoDAO;
 	@Autowired
 	private AlteracaoValorPassagemDAO alteracaoValorPassagemDAO;
+	@Autowired
+	private UsuarioDAO usuarioDAO;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		PostoGraduacao soldadoEV = new PostoGraduacao("SoldadoEV", 854.00, 37.576);
@@ -72,14 +66,19 @@ public class DBService {
 		
 		postoGradDAO.saveAll(Arrays.asList(soldadoEV, soldadoEP, cabo, terceiroSargento, segundoSargento,
 				primeiroSargento, subtenente, aspirante, segundoTenente, primeiroTenente, capitao, major));
-/*
+
 		Militar lucas = new Militar(123456789, "Lucas");
 		Militar grillo = new Militar(2456, "Grillo");
-		// Militar mauro = new Militar(258,"Mauro");
-		// Militar guilherme = new Militar(147,"Guilherme");
+		Usuario furriel = new Usuario("Felipe GRILLO", "grillo@cms.eb.mil.br", "857.452.333.96", "123");
 		
 		lucas.setPostoGraduacao(cabo);
 		grillo.setPostoGraduacao(segundoSargento);
+		furriel.setPostoGraduacao(segundoSargento);
+/*
+		// Militar mauro = new Militar(258,"Mauro");
+		// Militar guilherme = new Militar(147,"Guilherme");
+		
+		
 		// mauro.setPostoGraduacao(segundoSargento);
 			
 		AuxilioTransporte aux1 = new AuxilioTransporte(220,11, false, true, false, lucas);
@@ -114,7 +113,12 @@ public class DBService {
 	
 		// guilherme.setPostoGraduacao(cabo);
 		
+ */
+
 		militarDAO.saveAll(Arrays.asList(lucas, grillo));
+		usuarioDAO.saveAll(Arrays.asList(furriel));
+		
+/*
 		auxilioTransporteDAO.saveAll(Arrays.asList(aux1, aux2));
 		conducaoDAO.saveAll(Arrays.asList(cond1, cond2));
 		enderecoDAO.saveAll(Arrays.asList(end, end2));
