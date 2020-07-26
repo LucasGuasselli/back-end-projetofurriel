@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.lucasguasselli.projetofurriel.dao.AditamentoDAO;
@@ -49,6 +50,8 @@ public class DBService {
 	private AlteracaoValorPassagemDAO alteracaoValorPassagemDAO;
 	@Autowired
 	private UsuarioDAO usuarioDAO;
+	@Autowired
+	private BCryptPasswordEncoder pe;
 	
 	public void instantiateTestDatabase() throws ParseException {
 		PostoGraduacao soldadoEV = new PostoGraduacao("SoldadoEV", 854.00, 37.576);
@@ -69,7 +72,7 @@ public class DBService {
 
 		Militar lucas = new Militar(123456789, "Lucas");
 		Militar grillo = new Militar(2456, "Grillo");
-		Usuario furriel = new Usuario("Felipe GRILLO", "grillo@cms.eb.mil.br", "857.452.333.96", "123");
+		Usuario furriel = new Usuario("Felipe GRILLO", "grillo@cms.eb.mil.br", "857.452.333.96", pe.encode("123"));
 		
 		lucas.setPostoGraduacao(cabo);
 		grillo.setPostoGraduacao(segundoSargento);

@@ -3,8 +3,7 @@ package com.lucasguasselli.projetofurriel.dto;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.validation.constraints.NotEmpty;
 
 public class UsuarioNewDTO implements Serializable{
 
@@ -18,7 +17,7 @@ public class UsuarioNewDTO implements Serializable{
 	private String cpf;
 	// private int tipo;
 	
-	@JsonIgnore
+	@NotEmpty(message="Preenchimento obrigatório")
 	private String senha;
 	
 	private int postoGraduacaoId;
